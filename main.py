@@ -2,7 +2,7 @@ import sys
 # import main_window
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QWidget
-from PyQt5 import QtCore, Qt
+from PyQt5 import QtCore
 import PyQt5.QtGui
 from qtpy import QtGui
 

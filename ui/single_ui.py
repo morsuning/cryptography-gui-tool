@@ -1,3 +1,4 @@
+from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QToolBox, QTabWidget
 from PyQt5.QtCore import QObject, pyqtSlot
 
@@ -10,4 +11,5 @@ class SingleMode(QToolBox):
         self.setup_ui()
 
     def setup_ui(self):
+        """单机加密模式，包含一个QToolBox"""
         pass
