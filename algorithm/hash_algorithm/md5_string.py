@@ -12,8 +12,8 @@ def md5(string):
     C = 0x98badcfe
     D = 0x10325476
     bintext=encode(plaintext)
-    #print(encode(plaintext))
-    #print(encode(plaintext).__len__())
+    #print(encrypt(plaintext))
+    #print(encrypt(plaintext).__len__())
     t=bintext.__len__()%512
     #print(t)
     houzhui=bin(bintext.__len__())[2:].zfill(64)

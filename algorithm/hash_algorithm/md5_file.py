@@ -14,8 +14,8 @@ def md5(filename):
     D = 0x10325476
     bintext=plaintext
     #print(bintext)
-    #print(encode(plaintext))
-    #print(encode(plaintext).__len__())
+    #print(encrypt(plaintext))
+    #print(encrypt(plaintext).__len__())
     t=bintext.__len__()%512
     #print(t)
     houzhui=bin(bintext.__len__())[2:].zfill(64)

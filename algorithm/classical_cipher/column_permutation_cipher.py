@@ -12,7 +12,6 @@ class ColumnPermutationCipher:
         while len(msg) % len(key) != 0:
             msg += ' '
         chunks = []
-        # lenBlock = len(msg) // len(key)
         for i in range(0, len(key)):
             chunks.append(msg[i:len(msg):len(key)])
         return chunks

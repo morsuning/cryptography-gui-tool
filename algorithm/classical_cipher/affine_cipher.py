@@ -10,7 +10,7 @@ import string
 plaintext_ = string.ascii_lowercase
 ciphertext_ = string.ascii_uppercase
 
-def affineCipher(x,a=7,b = 3):
+def affine_encrypt(x,a=7,b = 3):
 #其中参数x为明文，a和b为秘钥
     pass
     result = ''
@@ -21,7 +21,8 @@ def affineCipher(x,a=7,b = 3):
         elif i.islower():
             result = result + chr((a * (ord(i) - 97) + b)%26 + 97)
     return result
-def affinejiemi(x):
+
+def affine_decrypt(x):
     result = ''
     # 建立字母和数字对照表为A:0,B:1
     for i in x:
@@ -32,8 +33,9 @@ def affinejiemi(x):
     return result
 
 
+def main():
+    print("affineCipher加密hot，密文为：",affine_encrypt("HOT"))
+    print("affineCipher解密AXG，明文为：",affine_decrypt("AXG"))
 
-#测试
 if __name__ == "__main__":
-    print("affineCipher加密hot，密文为：",affineCipher("HOT"))
-    print("affineCipher解密AXG，明文为：",affinejiemi("AXG"))
+    main()

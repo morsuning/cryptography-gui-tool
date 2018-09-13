@@ -60,13 +60,21 @@ def decode(cip,key):
         flag=''.join(pla[i:i + len(cip_res)])
         #f.write("明文：" + ''.join(pla[i:i + len(cip_res)]))
         if temp == key_res[j]:
-            print(flag)
+            break
         #f.write('\n')
         j = j + 1
 
+    return flag
 
-pla = input("请输入需要加密的字符串：")
-key = input("请输入秘钥：")
-print(encode(pla,key))
-cip = input("请输入需要解密的密文：")
-decode(cip,key)
+def main():
+    # 只能有英文
+    pla = input("请输入需要加密的字符串：")
+    key = input("请输入秘钥：")
+    # 密钥只能有5位，英文
+    print(encode(pla, key))
+    cip = input("请输入需要解密的密文：")
+    print(decode(cip, key))
+
+
+if __name__ == '__main__':
+    main()

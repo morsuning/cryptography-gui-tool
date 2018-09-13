@@ -687,33 +687,46 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.dual.setObjectName("dual")
         self.switch_sd.addWidget(self.dual)
         main_window.setCentralWidget(self.centralwidget)
+
+        # 初始化状态栏
         self.statusbar = QtWidgets.QStatusBar(main_window)
         self.statusbar.setObjectName("statusbar")
         main_window.setStatusBar(self.statusbar)
 
-        self.input_key.setEchoMode(QLineEdit.Password)
-        # QToolbox下拉菜单
-        self.ie_key_tool_button.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
-        self.ie_menu = QMenu()
-
-        self.ie_menu.addAction("1", self.import_1)
-        self.ie_menu.addAction("2", self.import_1)
-        self.ie_key_tool_button.setMenu(self.ie_menu)
-
+        # 面板初始可见性设置
         self.base_frame.setVisible(True)
         self.cipher_with_key_frame.setVisible(False)
         self.switch_mode_with_key_tabwidget.setVisible(False)
         self.switch_mode_without_key_tabwidget.setVisible(False)
         self.md5_frame.setVisible(False)
 
-        # 输入密码+带文件加密
+        # 初始化正则表达式：仅能输入大小写字母和数字
+        self.regx = QRegExp("[a-zA-Z0-9]+$")
+        self.regx_2 = QRegExp("[0-9]+$")
+        self.regx_3 = QRegExp("[a-zA-Z]+$")
+        self.regx_4 = QRegExp("[0-9 ]+$")
+
+        # 古典密码部件设置
+        self.input_key.setEchoMode(QLineEdit.Password)
+        self.classical_validator_1 = QRegExpValidator(self.regx, self.input_key)
+        self.classical_validator_2 = QRegExpValidator(self.regx_2, self.input_key)
+        self.classical_validator_3 = QRegExpValidator(self.regx_3, self.input_key)
+        self.classical_validator_4 = QRegExpValidator(self.regx_4, self.input_key)
+
+        # QToolbox下拉菜单
+        self.ie_key_tool_button.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
+        self.ie_menu = QMenu()
+        self.ie_menu.addAction("1", self.import_1)
+        self.ie_menu.addAction("2", self.import_1)
+        self.ie_key_tool_button.setMenu(self.ie_menu)
+
+        # 流密码+分组密码部件设置
         self.input_key_2.setEchoMode(QLineEdit.Password)
-        regx = QRegExp("[a-zA-Z0-9]+$")
-        validator = QRegExpValidator(regx, self.input_key_2)
-        self.input_key_2.setValidator(validator)
+        self.stream_and_block_validator_1 = QRegExpValidator(self.regx, self.input_key_2)
+        self.input_key_2.setValidator(self.stream_and_block_validator_1)
+
 
         self.retranslateUi(main_window)
-
         QtCore.QMetaObject.connectSlotsByName(main_window)
 
     def retranslateUi(self, MainWindow):

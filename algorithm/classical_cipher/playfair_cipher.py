@@ -130,7 +130,6 @@ if __name__ == '__main__':
     while (user_input != 'D' and user_input != 'E'):  # 输入合法性检测
         print("输入有误!请重新输入:")
         user_input = input()
-
     print('请输入密钥，密钥由英文字母组成:')
     key = input()
 
