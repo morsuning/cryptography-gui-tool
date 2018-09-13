@@ -49,7 +49,7 @@
        <enum>QFrame::Sunken</enum>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="gudianmima">
        <property name="geometry">
@@ -93,12 +93,21 @@
               <property name="text">
                <string>凯撒密码</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
               <property name="default">
                <bool>true</bool>
               </property>
               <property name="flat">
                <bool>true</bool>
               </property>
+              <attribute name="buttonGroup">
+               <string notr="true">button_group</string>
+              </attribute>
              </widget>
             </item>
             <item>
@@ -106,9 +115,15 @@
               <property name="text">
                <string>关键字密码</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
               <property name="flat">
                <bool>true</bool>
               </property>
+              <attribute name="buttonGroup">
+               <string notr="true">button_group</string>
+              </attribute>
              </widget>
             </item>
             <item>
@@ -116,9 +131,15 @@
               <property name="text">
                <string>仿射密码</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
               <property name="flat">
                <bool>true</bool>
               </property>
+              <attribute name="buttonGroup">
+               <string notr="true">button_group</string>
+              </attribute>
              </widget>
             </item>
             <item>
@@ -126,9 +147,15 @@
               <property name="text">
                <string>多边密码</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
               <property name="flat">
                <bool>true</bool>
               </property>
+              <attribute name="buttonGroup">
+               <string notr="true">button_group</string>
+              </attribute>
              </widget>
             </item>
            </layout>
@@ -151,12 +178,18 @@
               <property name="text">
                <string>维吉尼亚密码</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
               <property name="default">
                <bool>true</bool>
               </property>
               <property name="flat">
                <bool>true</bool>
               </property>
+              <attribute name="buttonGroup">
+               <string notr="true">button_group</string>
+              </attribute>
              </widget>
             </item>
             <item>
@@ -164,9 +197,15 @@
               <property name="text">
                <string>Autokey密文</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
               <property name="flat">
                <bool>true</bool>
               </property>
+              <attribute name="buttonGroup">
+               <string notr="true">button_group</string>
+              </attribute>
              </widget>
             </item>
             <item>
@@ -174,9 +213,15 @@
               <property name="text">
                <string>Autokey明文</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
               <property name="flat">
                <bool>true</bool>
               </property>
+              <attribute name="buttonGroup">
+               <string notr="true">button_group</string>
+              </attribute>
              </widget>
             </item>
            </layout>
@@ -199,12 +244,18 @@
               <property name="text">
                <string>波雷费密码</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
               <property name="default">
                <bool>true</bool>
               </property>
               <property name="flat">
                <bool>true</bool>
               </property>
+              <attribute name="buttonGroup">
+               <string notr="true">button_group</string>
+              </attribute>
              </widget>
             </item>
            </layout>
@@ -227,12 +278,18 @@
               <property name="text">
                <string>置换密码</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
               <property name="default">
                <bool>true</bool>
               </property>
               <property name="flat">
                <bool>true</bool>
               </property>
+              <attribute name="buttonGroup">
+               <string notr="true">button_group</string>
+              </attribute>
              </widget>
             </item>
             <item>
@@ -240,9 +297,15 @@
               <property name="text">
                <string>列置换密码</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
               <property name="flat">
                <bool>true</bool>
               </property>
+              <attribute name="buttonGroup">
+               <string notr="true">button_group</string>
+              </attribute>
              </widget>
             </item>
             <item>
@@ -250,9 +313,15 @@
               <property name="text">
                <string>双重置换密码</string>
               </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
               <property name="flat">
                <bool>true</bool>
               </property>
+              <attribute name="buttonGroup">
+               <string notr="true">button_group</string>
+              </attribute>
              </widget>
             </item>
            </layout>
@@ -279,6 +348,9 @@
           <property name="text">
            <string>RC4</string>
           </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
           <property name="autoDefault">
            <bool>false</bool>
           </property>
@@ -288,6 +360,9 @@
           <property name="flat">
            <bool>true</bool>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">button_group</string>
+          </attribute>
          </widget>
         </item>
         <item>
@@ -295,12 +370,18 @@
           <property name="text">
            <string>CA</string>
           </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
           <property name="default">
            <bool>false</bool>
           </property>
           <property name="flat">
            <bool>true</bool>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">button_group</string>
+          </attribute>
          </widget>
         </item>
        </layout>
@@ -323,12 +404,18 @@
           <property name="text">
            <string>DES</string>
           </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
           <property name="default">
            <bool>true</bool>
           </property>
           <property name="flat">
            <bool>true</bool>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">button_group</string>
+          </attribute>
          </widget>
         </item>
         <item>
@@ -336,9 +423,15 @@
           <property name="text">
            <string>AES</string>
           </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
           <property name="flat">
            <bool>true</bool>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">button_group</string>
+          </attribute>
          </widget>
         </item>
        </layout>
@@ -361,9 +454,15 @@
           <property name="text">
            <string>RSA</string>
           </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
           <property name="flat">
            <bool>true</bool>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">button_group</string>
+          </attribute>
          </widget>
         </item>
         <item>
@@ -371,9 +470,15 @@
           <property name="text">
            <string>ECC</string>
           </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
           <property name="flat">
            <bool>true</bool>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">button_group</string>
+          </attribute>
          </widget>
         </item>
        </layout>
@@ -396,9 +501,15 @@
           <property name="text">
            <string>MD5</string>
           </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
           <property name="flat">
            <bool>true</bool>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">button_group</string>
+          </attribute>
          </widget>
         </item>
        </layout>
@@ -2191,4 +2302,7 @@
    </hints>
   </connection>
  </connections>
+ <buttongroups>
+  <buttongroup name="button_group"/>
+ </buttongroups>
 </ui>

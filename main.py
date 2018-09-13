@@ -36,6 +36,6 @@ if __name__ == '__main__':
     MainWindow = mainwindow()
     # QMainWindow = main_window.Ui_MainWindow()
     # ui = main_window.Ui_MainWindow()
-    # ui.setupUi(MainWindow)
+    # ui.setup_ui(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())

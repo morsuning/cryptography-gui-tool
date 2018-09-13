@@ -185,8 +185,6 @@ class MD5():
                 bintext=bintext+'0'
 
         sectext=bintext+houzhui#最终的明文
-        #print(sectext)
-        #print(sectext.__len__())
         x=sectext.__len__()/512
         M=[[[0] * 1 for _ in range(16) ] for _ in range(int(x))]
         M[0][0][0]=1
@@ -196,9 +194,7 @@ class MD5():
                 for k in range(1):
                     x=sectext[i*512+j*32:i*512+j*32+32]
                     y=x[24:32]+x[16:24]+x[8:16]+x[0:8]
-                    #print(hex(int(y,2)))
                     M[i][j][k]=int(y,2)
-            #print(M)#初始化完成
         def F(x,y,z):
             return (x&y)|((~x)&z)
         def G(x,y,z):
@@ -210,17 +206,13 @@ class MD5():
         def yiwei(x,z):
             x=x&0xffffffff
             y= bin(x).replace('0b', '')
-            #print(y)
             tt=y.__len__()
-            #print(tt)
             if tt<32:
                 y=y.zfill(32)
-                #print(y)
                 t = y[z:] + y[:z]
                 return int(t, 2)
             else:
                 x=y[tt-32:]
-                #print(x)
                 t=x[z:]+x[:z]
                 return int(t,2)
         def FF(a,b,c,d,M,s,t):

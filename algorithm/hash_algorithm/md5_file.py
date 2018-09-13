@@ -1,24 +1,26 @@
 #!/usr/bin/env python3
 
-def md5(string):
-    def encode(s):
-        return ''.join([bin(ord(c)).replace('0b', '').zfill(8) for c in s])
-    def decode(s):
-        return ''.join([chr(i) for i in [int(b, 2) for b in s.split(' ')]])
-    plaintext=string
-    #链接变量
+def md5(filename):
+    
+    f1 = open(filename, "rb")
+    p = f1.read()
+    x = p.__len__()
+    plaintext = ''
+    for i in range(x):
+        plaintext = plaintext + bin(p[i])[2:].zfill(8)
     A = 0x67452301
     B = 0xefcdab89
     C = 0x98badcfe
     D = 0x10325476
-    bintext=encode(plaintext)
+    bintext=plaintext
+    #print(bintext)
     #print(encode(plaintext))
     #print(encode(plaintext).__len__())
     t=bintext.__len__()%512
     #print(t)
     houzhui=bin(bintext.__len__())[2:].zfill(64)
     #print(houzhui)
-    if t<448:#补齐
+    if t<448:#����
         bintext=bintext+'1'
         for i in range(447-t):
             bintext=bintext+'0'
@@ -27,9 +29,9 @@ def md5(string):
         for i in range(959-t):
             bintext=bintext+'0'
 
-    sectext=bintext+houzhui#最终的明文
+    sectext=bintext+houzhui#���յ�����
     #print(sectext)
-    #print(sectext.__len__())
+    # print(sectext.__len__())
     x=sectext.__len__()/512
     M=[[[0] * 1 for _ in range(16) ] for _ in range(int(x))]
     M[0][0][0]=1
@@ -41,7 +43,7 @@ def md5(string):
                 y=x[24:32]+x[16:24]+x[8:16]+x[0:8]
                 #print(hex(int(y,2)))
                 M[i][j][k]=int(y,2)
-        #print(M)#初始化完成
+        #print(M)#��ʼ�����
     def F(x,y,z):
         return (x&y)|((~x)&z)
     def G(x,y,z):
@@ -84,7 +86,7 @@ def md5(string):
         b=B
         c=C
         d=D
-        #第一轮循环
+        #��һ��ѭ��
         a=FF(a, b, c, d, M[i][0][0], 7, 0xd76aa478)
         d=FF(d, a, b, c, M[i][1][0], 12, 0xe8c7b756)
         c=FF(c, d, a, b, M[i][2][0], 17, 0x242070db)
@@ -101,7 +103,7 @@ def md5(string):
         d=FF(d, a, b, c, M[i][13][0], 12, 0xfd987193)
         c=FF(c, d, a, b, M[i][14][0], 17, 0xa679438e)
         b=FF(b, c, d, a, M[i][15][0], 22, 0x49b40821)
-        #第二轮循环
+        #�ڶ���ѭ��
         a=GG(a, b, c, d, M[i][1][0], 5, 0xf61e2562)
         d=GG(d, a, b, c, M[i][6][0], 9, 0xc040b340)
         c=GG(c, d, a, b, M[i][11][0], 14, 0x265e5a51)
@@ -118,7 +120,7 @@ def md5(string):
         d=GG(d, a, b, c, M[i][2][0], 9, 0xfcefa3f8)
         c=GG(c, d, a, b, M[i][7][0], 14, 0x676f02d9)
         b=GG(b, c, d, a, M[i][12][0], 20, 0x8d2a4c8a)
-        #第三轮循环
+        #������ѭ��
         a=HH(a, b, c, d, M[i][5][0], 4, 0xfffa3942)
         d=HH(d, a, b, c, M[i][8][0], 11, 0x8771f681)
         c=HH(c, d, a, b, M[i][11][0], 16, 0x6d9d6122)
@@ -136,7 +138,7 @@ def md5(string):
         c=HH(c, d, a, b, M[i][15][0], 16, 0x1fa27cf8)
         b=HH(b, c, d, a, M[i][2][0], 23, 0xc4ac5665)
 
-         #第四轮循环
+         #������ѭ��
         a=II(a, b, c, d, M[i][0][0], 6, 0xf4292244)
         d=II(d, a, b, c, M[i][7][0], 10, 0x432aff97)
         c=II(c, d, a, b, M[i][14][0], 15, 0xab9423a7)
@@ -162,13 +164,10 @@ def md5(string):
         c=(hex(C)[2:])[6:8]+(hex(C)[2:])[4:6]+(hex(C)[2:])[2:4]+(hex(C)[2:])[0:2]
         b=(hex(B)[2:])[6:8]+(hex(B)[2:])[4:6]+(hex(B)[2:])[2:4]+(hex(B)[2:])[0:2]
         a=(hex(A)[2:])[6:8]+(hex(A)[2:])[4:6]+(hex(A)[2:])[2:4]+(hex(A)[2:])[0:2]
-        #print(a+b+c+d)
+
     return a+b+c+d
 
-#测试
-xxxx=md5('128778877')
-print(xxxx)
-
-
-
-
+if __name__ == '__main__':
+    #测试
+    x=md5('C:/Users/56366/Desktop/信息安全工程实践3/upload.png')
+    print(x)
