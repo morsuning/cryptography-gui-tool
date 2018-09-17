@@ -134,7 +134,6 @@ if __name__ == '__main__':
     key = input()
 
     Create_Matrix(key)  # 建立密码表
-
     if user_input == 'D':  # 加密
         print('请输入明文:')
         plaintext = input()

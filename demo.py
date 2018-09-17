@@ -184,7 +184,7 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.AES = QtWidgets.QPushButton(self.fenzumima)
         self.AES.setCheckable(True)
         self.AES.setFlat(True)
-        self.AES.setObjectName("AES")
+        self.AES.setObjectName("aes")
         self.button_group.addButton(self.AES)
         self.verticalLayout_2.addWidget(self.AES)
         self.cipher_switch_toolbox.addItem(self.fenzumima, "")
@@ -705,6 +705,7 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.regx_2 = QRegExp("[0-9]+$")
         self.regx_3 = QRegExp("[a-zA-Z]+$")
         self.regx_4 = QRegExp("[0-9 ]+$")
+        self.regx_5 = QRegExp("[a-zA-Z ]+$")
 
         # 古典密码部件设置
         self.input_key.setEchoMode(QLineEdit.Password)
@@ -712,8 +713,8 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.classical_validator_2 = QRegExpValidator(self.regx_2, self.input_key)
         self.classical_validator_3 = QRegExpValidator(self.regx_3, self.input_key)
         self.classical_validator_4 = QRegExpValidator(self.regx_4, self.input_key)
-        self.block_validator_1 = QRegExpValidator(self.regx, self.input_key_2)
-        self.block_validator_2 = QRegExpValidator(self.regx, self.input_key_3)
+        self.classical_validator_5 = QRegExpValidator(self.regx_5, self.input_key)
+
 
         # QToolbox下拉菜单
         self.ie_key_tool_button.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
@@ -724,8 +725,12 @@ class UiMainWindow(QtWidgets.QMainWindow):
 
         # 流密码+分组密码部件设置
         self.input_key_2.setEchoMode(QLineEdit.Password)
-        self.stream_and_block_validator_1 = QRegExpValidator(self.regx, self.input_key_2)
-        self.input_key_2.setValidator(self.stream_and_block_validator_1)
+        self.input_key_3.setEchoMode(QLineEdit.Password)
+        self.block_validator_1 = QRegExpValidator(self.regx, self.input_key_2)
+        self.block_validator_2 = QRegExpValidator(self.regx, self.input_key_3)
+        self.block_validator_3 = QRegExpValidator(self.regx_2, self.input_key_2)
+        self.block_validator_4 = QRegExpValidator(self.regx_2, self.input_key_3)
+        # 公钥密码部件设置
 
 
         self.retranslateUi(main_window)

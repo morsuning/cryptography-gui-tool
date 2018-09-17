@@ -19,7 +19,6 @@ class RC4():
 		return S
 
 	def PRGA(self, S):
-		# Psudo Random Generation Algorithm
 		i = 0
 		j = 0
 		K = []
@@ -47,7 +46,6 @@ class RC4():
 	def encrypt(self, key, plaintext):
 		plaintext = [ord(c) for c in plaintext]
 		return self.encrypt_logic(key, plaintext)
-
 
 	def decrypt(self, key, ciphertext):
 		ciphertext = codecs.decode(ciphertext, 'hex_codec')

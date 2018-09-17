@@ -3,16 +3,16 @@ keyword --all done
 affine  --杨晨
 Multilateral --all done
 vigenere --all done
-Autokey密 --暂缺
+Autokey密 --done
 Autokey明 --all done
 playfair --杨晨
 permutation --all done
 column permutation --all done
-双重置换 --陈星辰
+双重置换 --done
 RC4 --改
 CA --郭明磊
-DES --done 导入出 文件
-AES --done  导入出 文件
+DES --done
+AES --done
 RSA --done
 ECC --done
 MD5 --all done
