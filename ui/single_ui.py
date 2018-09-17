@@ -1,6 +1,4 @@
-from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtWidgets import QToolBox, QTabWidget
-from PyQt5.QtCore import QObject, pyqtSlot
+from PyQt5.QtWidgets import QToolBox
 
 
 # 单机模式主要只有左侧的QToolBox，右侧界面由QToolBox的选项负责弹出，仅需在此.py文件中初始化

@@ -1,6 +1,4 @@
 import sys
-
-import demo
 import event
 from PyQt5.QtWidgets import QApplication, QMainWindow
 

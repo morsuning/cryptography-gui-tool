@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import QSignalMapper, QObject, Qt
@@ -11,6 +12,8 @@ from algorithm.block_cipher import des_cipher
 from algorithm.block_cipher.aes import aes_string, aes_file
 from algorithm.stream_cipher import rc4_cipher
 from algorithm.stream_cipher.ca import ca_string, ca_file
+from algorithm.public_cipher.rsa import rsa
+from algorithm.public_cipher.ecc import ecc
 
 from demo import UiMainWindow
 
@@ -23,9 +26,12 @@ class Event(UiMainWindow, QObject):
         self.md5_file_name = ""
         self.import_plaintext_button_file_name = ""
         self.export_ciphertext_button_file_name = ""
+        self.rsa_public_key_file_name = ""
 
+        # 自定义信号范例
         self._window_switch_signal = QtCore.pyqtSignal(str)
         self.button_mapper = QSignalMapper(self)
+
         self.show_base_frame = True
         self.is_show_widgets = True
         self.default_page_set()
@@ -58,7 +64,7 @@ class Event(UiMainWindow, QObject):
         self.button_mapper.setMapping(self.MD5, 17)
 
     def setup_connect(self):
-
+        # 连接的另一种写法
         # self.connect(self.button_mapper, self.SIGNAL("mapped(int)"), self.show_widgets)
         # self.connect(self.kaisa, self.SIGNAL("clicked()"), self.button_mapper, self.SLOT("map()"))
 
@@ -94,8 +100,8 @@ class Event(UiMainWindow, QObject):
         self.decrypt_button_6.clicked.connect(self.default_clicked)
         self.encrypt_button_7.clicked.connect(self.default_clicked)
         self.decrypt_button_7.clicked.connect(self.default_clicked)
-        self.generate_keypair_button.connect(self.default_clicked)
-        self.generate_keypair_button_2.connect(self.default_clicked)
+        self.generate_keypair_button.clicked.connect(self.default_clicked)
+        self.generate_keypair_button_2.clicked.connect(self.default_clicked)
 
         # MD5
         self.import_file_toolbox.clicked.connect(self.import_file_toolbox_clicked)
@@ -619,6 +625,82 @@ class Event(UiMainWindow, QObject):
     def ca_decrypt_file_button_clicked(self):
         pass
 
+    def rsa_generate_keypair_button_clicked(self):
+        # private key: d
+        # public key: e n
+        e, n, d = rsa.RSA()
+        self.show_keypair_text.setText(str(d))
+        self.show_keypair_text_2.setText(str(d))
+        self.rsa_public_key_file_name = "rsa_public_key_" + os.urandom(10).hex()
+        try:
+            f = open(self.rsa_public_key_file_name, 'w')
+            f.writelines([str(e)+'\n', str(n)+'\n'])
+            self.statusbar.showMessage(
+                "成功生成RSA公钥和私钥，公钥已保存至" + self.rsa_public_key_file_name, 5000)
+        except Exception:
+            self.statusbar.showMessage(
+                "打开或写入" + self.rsa_public_key_file_name + "文件失败", 5000)
+        finally:
+            f.close()
+
+    def rsa_encrypt_string_button_clicked(self):
+        if not self.plain_text_edit_4.toPlainText():
+            return
+        else:
+            try:
+                f = open(self.rsa_public_key_file_name, 'r')
+                e = f.readline()
+                n = f.readline()
+                self.cipher_text_edit_4.setPlainText(
+                    rsa.encrypt(int(e), int(n), self.plain_text_edit_4.toPlainText())
+                )
+                self.statusbar.showMessage("加密成功", 2000)
+            except (IOError, Exception):
+                if IOError:
+                    self.statusbar.showMessage(
+                        "打开或写入" + self.rsa_public_key_file_name + "文件失败", 5000)
+                self.statusbar.showMessage("加密时出错", 5000)
+            finally:
+                f.close()
+
+    def rsa_decrypt_string_button_clicked(self):
+        if not self.cipher_text_edit_4.toPlainText():
+            return
+        else:
+            try:
+                f = open(self.rsa_public_key_file_name, 'r')
+                e = f.readline()
+                n = f.readline()
+                d = self.show_keypair_text.toPlainText()
+                self.plain_text_edit_4.setPlainText(
+                    rsa.decrypt(int(d), int(n), self.cipher_text_edit_4.toPlainText())
+                )
+                self.statusbar.showMessage("解密成功", 2000)
+            except Exception:
+                self.statusbar.showMessage("解密时出错", 5000)
+            finally:
+                f.close()
+
+    def rsa_encrypt_file_button_clicked(self):
+        pass
+
+    def rsa_decrypt_file_button_clicked(self):
+        pass
+
+    def ecc_generate_keypair_button_clicked(self):
+        pass
+
+    def ecc_encrypt_string_button_clicked(self):
+        pass
+
+    def ecc_decrypt_string_button_clicked(self):
+        pass
+
+    def ecc_encrypt_file_button_clicked(self):
+        pass
+
+    def ecc_decrypt_file_button_clicked(self):
+        pass
     # 决定显示4个窗口中的哪一个，并改变相应控件，需在此更新部分连接
     def show_widgets(self, button):
         print(button)
@@ -633,7 +715,7 @@ class Event(UiMainWindow, QObject):
             self.switch_mode_without_key_tabwidget.setVisible(self.is_show_widgets)
             self.show_base_frame = not self.show_base_frame
             self.is_show_widgets = not self.is_show_widgets
-            # RSA
+            # RSA TODO 已知问题：解密时会丢掉第一个字符
             if button == 15:
                 self.generate_keypair_button.clicked.disconnect()
                 self.generate_keypair_button_2.clicked.disconnect()

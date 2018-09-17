@@ -2,8 +2,8 @@
 # from Crypto.PublicKey import ECC
 import collections
 import random
-import func
-import sm3
+from algorithm.public_cipher.ecc import func
+from algorithm.public_cipher.ecc import sm3
 
 # TODO 支持多种曲线
 # TODO 可以以PEM格式导入和导出密钥

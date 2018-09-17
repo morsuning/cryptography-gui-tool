@@ -1,10 +1,7 @@
-import math
-from functools import reduce  #用于合并字符
 from os import urandom  # 系统随机的字符
 import binascii  # 二进制和ASCII之间转换
-import struct
 
-flag=False
+flag = False
 # ===========================================
 def Mod_1(x, n):
     '''取模负1的算法:计算x2= x^-1 (mod n)的值，
@@ -140,7 +137,7 @@ def RSA():
     return e,n,d
 
 # ===================================================
-def encode_message(e,n,message):
+def encrypt(e, n, message):
     temp=''
     #message = input("输入需要加密的密文")
     # 从标准输入输出流接收数据，数字化再加解密
@@ -156,7 +153,7 @@ def encode_message(e,n,message):
     #print(temp)
     return temp
 
-def decode_message(d,n,ciphertext):
+def decrypt(d, n, ciphertext):
     message = []
     plaintext = []
     temp=''
@@ -210,15 +207,17 @@ def decode_file(d,n,encode_file):
 
 
 def main():
-    e,n,d=RSA()
-    print(e,n,d)
-    #public key e,n
-    #privete key d,n
-    #encode_file(e,n,file_name)
-    ciphertext=encode_message(e, n, "aasadas")
-    print(ciphertext)
-    print(decode_message(d, n, ciphertext))
-    #decode_file(d,n,decode_file())
+    e, n, d = RSA()
+    print(e)
+    print(n)
+    print(d)
+    # public key e,n
+    # private key d
+    # encode_file(e,n,file_name)
+    cipher_text = encrypt(e, n, "我让个")
+    print(cipher_text)
+    print(decrypt(d, n, cipher_text))
+    # decode_file(d,n,decode_file())
 
 
 if __name__ == '__main__':

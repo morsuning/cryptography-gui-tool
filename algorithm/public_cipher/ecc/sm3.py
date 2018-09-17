@@ -1,6 +1,6 @@
 import binascii
 from math import ceil
-from func import rotl, bytes_to_list
+from algorithm.public_cipher.ecc.func import rotl
 
 IV = [
     1937774191, 1226093241, 388252375, 3666478592,
