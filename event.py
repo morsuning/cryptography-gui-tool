@@ -3,10 +3,13 @@ from copy import copy
 from PyQt5 import QtCore
 from PyQt5.QtCore import QSignalMapper, QObject, Qt
 from PyQt5.QtWidgets import QFileDialog, QLineEdit
-from PyQt5 import QtWidgets
 from algorithm.hash_algorithm import md5_file, md5_string
 from algorithm.classical_cipher import caesar_cipher, keyword_cipher, \
-    affine_cipher, multilateral_cipher, vigenere_cipher, permutation_cipher, column_permutation_cipher
+    affine_cipher, multilateral_cipher, vigenere_cipher, permutation_cipher, \
+    column_permutation_cipher, autokey_plaintext_cipher
+from algorithm.block_cipher import des_cipher
+from algorithm.block_cipher.AES import aes_string, aes_file
+from algorithm.stream_cipher import rc4_cipher
 
 from demo import UiMainWindow
 
@@ -84,6 +87,8 @@ class Event(UiMainWindow, QObject):
         self.decrypt_button.clicked.connect(self.default_clicked)
         self.encrypt_button_2.clicked.connect(self.default_clicked)
         self.decrypt_button_2.clicked.connect(self.default_clicked)
+        self.encrypt_button_3.clicked.connect(self.default_clicked)
+        self.decrypt_button_3.clicked.connect(self.default_clicked)
         self.encrypt_button_6.clicked.connect(self.default_clicked)
         self.decrypt_button_6.clicked.connect(self.default_clicked)
         self.encrypt_button_7.clicked.connect(self.default_clicked)
@@ -241,9 +246,8 @@ class Event(UiMainWindow, QObject):
             if not self.input_key.text():
                 self.statusbar.showMessage("请输入密钥", 5000)
             else:
-                # TODO
-                # multilateral_cipher.encode()
-                # self.cipher_text_edit.setPlainText(keyword_cipher_text)
+                self.cipher_text_edit.setPlainText(
+                    multilateral_cipher.encrypt(self.plain_text_edit.toPlainText(), self.input_key.text()))
                 self.statusbar.showMessage("加密成功", 2000)
 
     def vigenere_encrypt_button_clicked(self):
@@ -257,7 +261,18 @@ class Event(UiMainWindow, QObject):
                     vigenere_cipher.encrypt(self.plain_text_edit.toPlainText(), self.input_key.text()))
                 self.statusbar.showMessage("加密成功", 2000)
 
-    # TODO 两个Autokey
+    # TODO Autokeymi
+
+    def autokey_plaintext_encrypt_button_clicked(self):
+        if not self.plain_text_edit.toPlainText():
+            return
+        else:
+            if not self.input_key.text():
+                self.statusbar.showMessage("请输入密钥", 5000)
+            else:
+                self.cipher_text_edit.setPlainText(
+                    autokey_plaintext_cipher.encrypt(self.plain_text_edit.toPlainText(), self.input_key.text()))
+                self.statusbar.showMessage("加密成功", 2000)
 
     # TODO
     def playfair_encrypt_button_clicked(self):
@@ -320,7 +335,17 @@ class Event(UiMainWindow, QObject):
         pass
 
     def multilateral_decrypt_button_clicked(self):
-        pass
+        if not self.cipher_text_edit.toPlainText():
+            return
+        else:
+            if not self.input_key.text():
+                self.statusbar.showMessage("请输入密钥", 5000)
+            else:
+                # TODO try...catch...finally
+                self.plain_text_edit.setPlainText(
+                    multilateral_cipher.decrypt(self.cipher_text_edit.toPlainText(),
+                                            self.input_key.text()))
+                self.statusbar.showMessage("解密成功", 2000)
 
     def vigenere_decrypt_button_clicked(self):
         if not self.cipher_text_edit.toPlainText():
@@ -335,6 +360,17 @@ class Event(UiMainWindow, QObject):
                 self.statusbar.showMessage("解密成功", 2000)
 
     # TODO 两个Autokey
+    def autokey_plaintext_decrypt_button_clicked(self):
+        if not self.cipher_text_edit.toPlainText():
+            return
+        else:
+            if not self.input_key.text():
+                self.statusbar.showMessage("请输入密钥", 5000)
+            else:
+                self.plain_text_edit.setPlainText(
+                    autokey_plaintext_cipher.decrypt(self.cipher_text_edit.toPlainText(), self.input_key.text())
+                )
+                self.statusbar.showMessage("解密成功", 2000)
 
     def playfair_decrypt_button_clicked(self):
         pass
@@ -367,53 +403,127 @@ class Event(UiMainWindow, QObject):
 
     # TODO 双重置换
 
-    def rc4_encrypt_button_str_clicked(self):
+    def des_encrypt_string_button_clicked(self):
+        if not self.plain_text_edit_2.toPlainText():
+            return
+        else:
+            if not self.input_key_2.text():
+                self.statusbar.showMessage("请输入密钥", 5000)
+            else:
+                if len(self.input_key_2.text()) != 8:
+                    self.statusbar.showMessage("请输入8位密钥", 5000)
+                else:
+                    cipher = des_cipher.DESCipher()
+                    cipher.new(self.input_key_2.text())
+                    self.cipher_text_edit_2.setPlainText(
+                        cipher.encrypt_string(self.plain_text_edit_2.toPlainText())
+                        )
+                    self.statusbar.showMessage("加密成功", 2000)
+
+    def des_encrypt_file_button_clicked(self):
         pass
 
-    def ca_encrypt_button_str_clicked(self):
+    def aes_encrypt_string_button_clicked(self):
+        if not self.plain_text_edit_2.toPlainText():
+            return
+        else:
+            if not self.input_key_2.text():
+                self.statusbar.showMessage("请输入密钥", 5000)
+            else:
+                if len(self.input_key_2.text()) != 8:
+                    self.statusbar.showMessage("请输入8位密钥", 5000)
+                else:
+                    self.cipher_text_edit_2.setPlainText(
+                        aes_string.encrypt(self.plain_text_edit_2.toPlainText(), self.input_key_2.text())
+                        )
+                    self.statusbar.showMessage("加密成功", 2000)
+
+    def aes_encrypt_file_button_clicked(self):
         pass
 
-    def des_encrypt_button_str_clicked(self):
+    def rc4_encrypt_string_button_clicked(self):
+        if not self.plain_text_edit_2.toPlainText():
+            return
+        else:
+            if not self.input_key_2.text():
+                self.statusbar.showMessage("请输入密钥", 5000)
+            else:
+                if len(self.input_key_2.text()) != 8:
+                    self.statusbar.showMessage("请输入8位密钥", 5000)
+                else:
+                    cipher = rc4_cipher.RC4()
+                    self.cipher_text_edit_2.setPlainText(
+                        cipher.encrypt(self.input_key_2.text(), self.plain_text_edit_2.toPlainText())
+                        )
+                    self.statusbar.showMessage("加密成功", 2000)
+
+    def rc4_encrypt_file_button_clicked(self):
         pass
 
-    def aes_encrypt_button_str_clicked(self):
+    def ca_encrypt_string_button_clicked(self):
         pass
 
-    def rc4_decrypt_button_str_clicked(self):
+    def ca_encrypt_file_button_clicked(self):
         pass
 
-    def ca_decrypt_button_str_clicked(self):
+    def des_decrypt_string_button_clicked(self):
+        if not self.cipher_text_edit_2.toPlainText():
+            return
+        else:
+            if not self.input_key_2.text():
+                self.statusbar.showMessage("请输入密钥", 5000)
+            else:
+                if len(self.input_key_2.text()) != 8:
+                    self.statusbar.showMessage("请输入8位密钥", 5000)
+                else:
+                    cipher = des_cipher.DESCipher()
+                    cipher.new(self.input_key_2.text())
+                    self.plain_text_edit_2.setPlainText(
+                        cipher.decrypt_string(self.cipher_text_edit_2.toPlainText())
+                        )
+                    self.statusbar.showMessage("解密成功", 2000)
+
+    def aes_decrypt_string_button_clicked(self):
+        if not self.cipher_text_edit_2.toPlainText():
+            return
+        else:
+            if not self.input_key_2.text():
+                self.statusbar.showMessage("请输入密钥", 5000)
+            else:
+                if len(self.input_key_2.text()) != 8:
+                    self.statusbar.showMessage("请输入8位密钥", 5000)
+                else:
+                    self.plain_text_edit_2.setPlainText(
+                        aes_string.decrypt(self.cipher_text_edit_2.toPlainText(), self.input_key_2.text())
+                        )
+                    self.statusbar.showMessage("解密成功", 2000)
+
+    def rc4_decrypt_string_button_clicked(self):
+        if not self.cipher_text_edit_2.toPlainText():
+            return
+        else:
+            if not self.input_key_2.text():
+                self.statusbar.showMessage("请输入密钥", 5000)
+            else:
+                cipher = rc4_cipher.RC4()
+                self.plain_text_edit_2.setPlainText(
+                    cipher.decrypt()
+                    )
+                self.statusbar.showMessage("解密成功", 2000)
+
+    def ca_decrypt_string_button_clicked(self):
         pass
 
-    def des_decrypt_button_str_clicked(self):
+    def des_decrypt_file_button_clicked(self):
         pass
 
-    def aes_decrypt_button_str_clicked(self):
+    def aes_decrypt_file_button_clicked(self):
         pass
 
-
-    def rc4_encrypt_button_file_clicked(self):
+    def rc4_decrypt_file_button_clicked(self):
         pass
 
-    def ca_encrypt_button_file_clicked(self):
-        pass
-
-    def des_encrypt_button_file_clicked(self):
-        pass
-
-    def aes_encrypt_button_file_clicked(self):
-        pass
-
-    def rc4_decrypt_button_file_clicked(self):
-        pass
-
-    def ca_decrypt_button_file_clicked(self):
-        pass
-
-    def des_decrypt_button_file_clicked(self):
-        pass
-
-    def aes_decrypt_button_file_clicked(self):
+    def ca_decrypt_file_button_clicked(self):
         pass
 
     # 决定显示4个窗口中的哪一个，并改变相应控件，需在此更新部分连接
@@ -447,47 +557,62 @@ class Event(UiMainWindow, QObject):
             if button == 11:
                 self.encrypt_button_2.clicked.disconnect()
                 self.decrypt_button_2.clicked.disconnect()
-                self.encrypt_button_7.clicked.disconnect()
-                self.decrypt_button_7.clicked.disconnect()
-                self.encrypt_button_2.clicked.connect(self.rc4_encrypt_button_str_clicked)
-                self.encrypt_button_2.clicked.connect(self.rc4_decrypt_button_str_clicked)
+                self.encrypt_button_3.clicked.disconnect()
+                self.decrypt_button_3.clicked.disconnect()
+                self.encrypt_button_2.clicked.connect(self.rc4_encrypt_string_button_clicked)
+                self.decrypt_button_2.clicked.connect(self.rc4_decrypt_string_button_clicked)
+                self.encrypt_button_3.clicked.connect(self.rc4_encrypt_file_button_clicked)
+                self.decrypt_button_3.clicked.connect(self.rc4_decrypt_file_button_clicked)
                 self.current_cipher_label.setText("RC4")
                 self.what_algorithm.setText("RC4")
             # CA
             elif button == 12:
                 self.encrypt_button_2.clicked.disconnect()
                 self.decrypt_button_2.clicked.disconnect()
-                self.encrypt_button_7.clicked.disconnect()
-                self.decrypt_button_7.clicked.disconnect()
-                self.encrypt_button_2.clicked.connect(self.ca_encrypt_button_clicked)
-                self.encrypt_button_2.clicked.connect(self.ca_decrypt_button_clicked)
+                self.encrypt_button_3.clicked.disconnect()
+                self.decrypt_button_3.clicked.disconnect()
+                self.encrypt_button_2.clicked.connect(self.ca_encrypt_string_button_clicked)
+                self.decrypt_button_2.clicked.connect(self.ca_decrypt_string_button_clicked)
+                self.encrypt_button_3.clicked.connect(self.ca_encrypt_file_button_clicked)
+                self.decrypt_button_3.clicked.connect(self.ca_decrypt_file_button_clicked)
                 self.current_cipher_label.setText("CA")
                 self.what_algorithm.setText("CA")
-            # DES
+            # DES --done
             elif button == 13:
                 self.encrypt_button_2.clicked.disconnect()
                 self.decrypt_button_2.clicked.disconnect()
-                self.encrypt_button_7.clicked.disconnect()
-                self.decrypt_button_7.clicked.disconnect()
-                self.encrypt_button_2.clicked.connect(self.des_encrypt_button_clicked)
-                self.encrypt_button_2.clicked.connect(self.des_decrypt_button_clicked)
+                self.encrypt_button_3.clicked.disconnect()
+                self.decrypt_button_3.clicked.disconnect()
+                self.encrypt_button_2.clicked.connect(self.des_encrypt_string_button_clicked)
+                self.decrypt_button_2.clicked.connect(self.des_decrypt_string_button_clicked)
+                self.encrypt_button_3.clicked.connect(self.des_encrypt_file_button_clicked)
+                self.decrypt_button_3.clicked.connect(self.des_decrypt_file_button_clicked)
                 self.current_cipher_label.setText("DES")
                 self.what_algorithm.setText("DES")
                 self.input_key_2.setMaxLength(8)
                 self.input_key_2.setPlaceholderText("8个字符，仅限大小写字母、数字的组合")
-            # AES
+                self.input_key_3.setMaxLength(8)
+                self.input_key_3.setPlaceholderText("8个字符，仅限大小写字母、数字的组合")
+                self.input_key_2.setValidator(self.block_validator_1)
+                self.input_key_3.setValidator(self.block_validator_2)
+            # AES  --done
             elif button == 14:
                 self.encrypt_button_2.clicked.disconnect()
                 self.decrypt_button_2.clicked.disconnect()
-                self.encrypt_button_7.clicked.disconnect()
-                self.decrypt_button_7.clicked.disconnect()
-                self.encrypt_button_2.clicked.connect(self.aes_encrypt_button_clicked)
-                self.encrypt_button_2.clicked.connect(self.aes_decrypt_button_clicked)
-
+                self.encrypt_button_3.clicked.disconnect()
+                self.decrypt_button_3.clicked.disconnect()
+                self.encrypt_button_2.clicked.connect(self.aes_encrypt_string_button_clicked)
+                self.decrypt_button_2.clicked.connect(self.aes_decrypt_string_button_clicked)
+                self.encrypt_button_3.clicked.connect(self.aes_encrypt_file_button_clicked)
+                self.decrypt_button_3.clicked.connect(self.aes_decrypt_file_button_clicked)
                 self.current_cipher_label.setText("AES")
                 self.what_algorithm.setText("AES")
                 self.input_key_2.setMaxLength(8)
                 self.input_key_2.setPlaceholderText("8个字符，仅限大小写字母、数字的组合")
+                self.input_key_3.setMaxLength(8)
+                self.input_key_3.setPlaceholderText("8个字符，仅限大小写字母、数字的组合")
+                self.input_key_2.setValidator(self.block_validator_1)
+                self.input_key_3.setValidator(self.block_validator_2)
         # 古典密码
         else:
             self.cipher_with_key_frame.setVisible(self.is_show_widgets)
@@ -545,7 +670,9 @@ class Event(UiMainWindow, QObject):
                 self.plain_text_edit.setPlainText("")
                 self.cipher_text_edit.setPlainText("")
                 self.label.setText("多边密码")
-                self.input_key.setPlaceholderText("请输入a和b，以一个" "(空格)分隔")
+                self.input_key.setMaxLength(5)
+                self.input_key.setPlaceholderText("请输入密钥，仅限5位英文大小写字母")
+                self.input_key.setValidator(self.classical_validator_3)
             # 维吉尼亚
             elif button == 4:
                 self.encrypt_button.clicked.disconnect()
@@ -573,13 +700,14 @@ class Event(UiMainWindow, QObject):
             elif button == 6:
                 self.encrypt_button.clicked.disconnect()
                 self.decrypt_button.clicked.disconnect()
-                self.encrypt_button.clicked.connect(self.default_clicked)
-                self.decrypt_button.clicked.connect(self.default_clicked)
+                self.encrypt_button.clicked.connect(self.autokey_plaintext_encrypt_button_clicked)
+                self.decrypt_button.clicked.connect(self.autokey_plaintext_decrypt_button_clicked)
                 self.input_key.setText("")
                 self.plain_text_edit.setPlainText("")
                 self.cipher_text_edit.setPlainText("")
-                # TODO
                 self.label.setText("Autokey明")
+                self.input_key.setPlaceholderText("请输入密钥，只能为大小写英文字母")
+                self.input_key.setValidator(self.classical_validator_3)
             # 波雷费
             elif button == 7:
                 self.encrypt_button.clicked.disconnect()

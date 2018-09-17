@@ -712,6 +712,8 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.classical_validator_2 = QRegExpValidator(self.regx_2, self.input_key)
         self.classical_validator_3 = QRegExpValidator(self.regx_3, self.input_key)
         self.classical_validator_4 = QRegExpValidator(self.regx_4, self.input_key)
+        self.block_validator_1 = QRegExpValidator(self.regx, self.input_key_2)
+        self.block_validator_2 = QRegExpValidator(self.regx, self.input_key_3)
 
         # QToolbox下拉菜单
         self.ie_key_tool_button.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)

@@ -1,6 +1,9 @@
 import collections
 
-def encode(pla,key):
+
+def encrypt(pla, key):
+    pla = pla.lower()
+    key = key.lower()
     cip = []
     # 定义好矩阵
     table = [['', key[0], key[1], key[2], key[3], key[4]], [key[0], 'a', 'b', 'c', 'd', 'e'],
@@ -18,9 +21,12 @@ def encode(pla,key):
     cipertext=''.join(cip)
     return cipertext
 
-def decode(cip,key):
+
+def decrypt(cip, key):
     # 将密文拆分，两个两个一组存放
-    temp=key
+    cip = cip.lower()
+    key = key.lower()
+    temp = key
     cip_res = []
     for i in range(0, len(cip), 2):
         cip_res.append(cip[i:i + 2])
@@ -66,14 +72,15 @@ def decode(cip,key):
 
     return flag
 
+
 def main():
     # 只能有英文
     pla = input("请输入需要加密的字符串：")
     key = input("请输入秘钥：")
     # 密钥只能有5位，英文
-    print(encode(pla, key))
+    print(encrypt(pla, key))
     cip = input("请输入需要解密的密文：")
-    print(decode(cip, key))
+    print(decrypt(cip, key))
 
 
 if __name__ == '__main__':

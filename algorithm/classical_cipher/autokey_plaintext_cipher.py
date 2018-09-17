@@ -1,3 +1,5 @@
+
+
 def encrypt(plainText, key):
     alphabet = [chr(65 + x) for x in range(26)]
     cipherTable = []

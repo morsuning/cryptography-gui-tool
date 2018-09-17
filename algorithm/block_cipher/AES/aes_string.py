@@ -279,7 +279,7 @@ def HexToInt(string):
         s[i]=int(string[2*i:2*i+2],16)
     return s
 
-def encryption(plainText,skey):
+def encrypt(plainText, skey):
     cText=""
     key = StringToListN(skey)
     number = int(len(plainText) / 16)
@@ -291,7 +291,7 @@ def encryption(plainText,skey):
         cText = cText + a.AesEncrypt()
     return cText
 
-def decryption(cText,skey):
+def decrypt(cText, skey):
     mText = ""
     if (len(cText) % 32 != 0):
         print("密文位数错误！")

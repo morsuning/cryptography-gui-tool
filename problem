@@ -1,18 +1,18 @@
-caesar --done
-keyword --done
+caesar --all done
+keyword --all done
 affine  --杨晨
-Multilateral --done
-vigenere --done
+Multilateral --all done
+vigenere --all done
 Autokey密 --暂缺
-Autokey明 --done
+Autokey明 --all done
 playfair --杨晨
-permutation --done
-column permutation --done
+permutation --all done
+column permutation --all done
 双重置换 --陈星辰
 RC4 --改
 CA --郭明磊
-DES --done
-AES --done
+DES --done 导入出 文件
+AES --done  导入出 文件
 RSA --done
 ECC --done
-MD5 --done
+MD5 --all done
