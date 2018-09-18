@@ -1,5 +1,5 @@
 cell="00010100"
-def encryption(filename,rule,newfilename):
+def encrypt(filename, rule, newfilename):
     if (rule < 0 or rule > 255):
         return "rule超过范围"
     rule = bin(rule)[2:].zfill(8)
@@ -26,7 +26,7 @@ def encryption(filename,rule,newfilename):
     f2 = open(newfilename, "wb")
     f2.write(bytes(result))
     f2.close()
-def decryption(filename,rule,newfilename):
+def decrypt(filename, rule, newfilename):
     if (rule < 0 or rule > 255):
         return "rule超过范围"
     rule = bin(rule)[2:].zfill(8)

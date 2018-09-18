@@ -26,6 +26,7 @@ class UiMainWindow(QtWidgets.QMainWindow):
     def setup_ui(self, main_window):
         main_window.setObjectName("MainWindow")
         main_window.resize(812, 600)
+        main_window.setFixedSize(main_window.width(), main_window.height());
         self.centralwidget = QtWidgets.QWidget(main_window)
         self.centralwidget.setObjectName("centralwidget")
         self.switch_sd = QtWidgets.QStackedWidget(self.centralwidget)
@@ -719,8 +720,8 @@ class UiMainWindow(QtWidgets.QMainWindow):
         # QToolbox下拉菜单
         self.ie_key_tool_button.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
         self.ie_menu = QMenu()
-        self.ie_menu.addAction("1", self.import_1)
-        self.ie_menu.addAction("2", self.import_1)
+        self.ie_menu.addAction("导入", self.import_1)
+        self.ie_menu.addAction("导出", self.import_1)
         self.ie_key_tool_button.setMenu(self.ie_menu)
 
         # 流密码+分组密码部件设置

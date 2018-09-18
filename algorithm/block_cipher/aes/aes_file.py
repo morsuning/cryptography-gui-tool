@@ -270,7 +270,7 @@ def HexToInt(string):
         s[i]=int(string[2*i:2*i+2],16)
     return s
 
-def encryption(filename,skey,newfilename):
+def encrypt(filename, skey, newfilename):
     f1=open(filename,"rb")
     data=f1.read()
     f1.close()
@@ -287,7 +287,7 @@ def encryption(filename,skey,newfilename):
         a = AESE(blk, key, 10)
         f2.write(bytes(a.AesEncrypt()))
     f2.close()
-def decryption(filename,skey,newfilename):
+def decrypt(filename, skey, newfilename):
     f1 = open(filename, "rb")
     data = f1.read()
     key = StringToListN(skey)

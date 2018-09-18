@@ -52,9 +52,7 @@ class RC4():
 		res = self.encrypt_logic(key, ciphertext)
 		return codecs.decode(res, 'hex_codec').decode('utf-8')
 
-	def encrypt_file(self, file_plain, file_ciphered, file_key):
-		with open(file_key, 'r') as myfile:
-			key = myfile.readline()
+	def encrypt_file(self, file_plain, file_ciphered, key):
 		with open(file_plain, 'r') as myfile:
 			lines = myfile.readlines()
 		with open(file_ciphered, 'w') as myfile:
@@ -63,9 +61,7 @@ class RC4():
 				ciphertext = self.encrypt_logic(key, plaintext)
 				myfile.write(ciphertext + '\n')
 
-	def decrypt_file(self, file_plain, file_ciphered, file_key):
-		with open(file_key, 'r') as myfile:
-			key = myfile.readline()
+	def decrypt_file(self, file_plain, file_ciphered, key):
 		with open(file_ciphered, 'r') as myfile:
 			lines = myfile.readlines()
 		with open(file_plain, 'w') as myfile:
@@ -85,10 +81,10 @@ def main():
 	print('加密后的密文:', ciphertext)
 	print('重新解密得到的明文:', rc_instance.decrypt(key, ciphertext))
 	print('从明文.txt开始加密')
-	rc_instance.encrypt_file('明文.txt', '密文.txt', '加密密钥.txt')
+	rc_instance.encrypt_file('明文.txt', '密文.txt', key)
 	print('密文.txt生成成功')
 	print('从密文.txt开始解密')
-	rc_instance.decrypt_file('明文.txt', '密文.txt', '加密密钥.txt')
+	rc_instance.decrypt_file('明文.txt', '密文.txt', key)
 	print('明文.txt生成成功')
 
 
