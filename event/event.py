@@ -999,7 +999,6 @@ class Event(UiMainWindow, QObject):
                 if f:
                     f.close()
 
-    # TODO 未实现 RSA文件加密
     def rsa_encrypt_file_button_clicked(self):
         if not self.import_file_path_edit_3.text():
             self.statusbar.showMessage("请选择要加密的文件！", 5000)
