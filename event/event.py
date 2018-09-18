@@ -16,14 +16,14 @@ from algorithm.stream_cipher.ca import ca_string, ca_file
 from algorithm.public_cipher.rsa import rsa
 from algorithm.public_cipher.ecc import ecc
 
-from demo import UiMainWindow
+from ui.demo import UiMainWindow
 
 
 class Event(UiMainWindow, QObject):
 
     def __init__(self, main_window):
         super().__init__(main_window)
-
+        self.about.setText("算法：\n陈星辰 郭明磊\n杨晨 杨雨铮\n薛晨阳\n界面：\n薛晨阳\n美化：\n杨晨")
         self.md5_file_name = ""
         self.import_plaintext_button_file_name = ""
         self.export_ciphertext_button_file_name = ""
@@ -302,7 +302,7 @@ class Event(UiMainWindow, QObject):
                 if not self.cipher_text_edit.toPlainText():
                     self.statusbar.showMessage("没有密文可以被写入", 5000)
                 else:
-                    # TODO 解决非ascii字符问题
+                    # TODO 导入导出明文密文 解决非ascii字符问题
                     f.write("\n" + self.cipher_text_edit.toPlainText())
                     self.statusbar.showMessage(
                         "已成功将密文写入" + self.export_ciphertext_button_file_name, 2000)
@@ -376,6 +376,7 @@ class Event(UiMainWindow, QObject):
                     vigenere_cipher.encrypt(self.plain_text_edit.toPlainText(), self.input_key.text()))
                 self.statusbar.showMessage("加密成功", 2000)
 
+    # TODO autokey ciphertext 密钥必须比明文长
     def autokey_ciphertext_encrypt_button_clicked(self):
         if not self.plain_text_edit.toPlainText():
             return
@@ -430,9 +431,9 @@ class Event(UiMainWindow, QObject):
             if not self.input_key.text():
                 self.statusbar.showMessage("请输入密钥", 5000)
             else:
-                cipher = column_permutation_cipher.ColumnPermutationCipher()
                 self.cipher_text_edit.setPlainText(
-                    cipher.encrypt(self.plain_text_edit.toPlainText(), self.input_key.text())
+                    column_permutation_cipher.encrypt(self.plain_text_edit.toPlainText().replace(" ", ""),
+                                                      self.input_key.text())
                     )
                 self.statusbar.showMessage("加密成功", 2000)
 
@@ -491,7 +492,7 @@ class Event(UiMainWindow, QObject):
                         index = self.input_key.text().index(i)
                 a = self.input_key.text()[:index]
                 b = self.input_key.text()[index+1:]
-                # TODO 密码内部缺陷，a,b不能为模26余0的数
+                # TODO affine cipher 密码内部缺陷，a,b不能为模26余0的数
                 self.plain_text_edit.setPlainText(
                     affine_cipher.decrypt(self.cipher_text_edit.toPlainText(), a, b))
                 self.statusbar.showMessage("解密成功", 2000)
@@ -503,10 +504,13 @@ class Event(UiMainWindow, QObject):
             if not self.input_key.text():
                 self.statusbar.showMessage("请输入密钥", 5000)
             else:
-                # TODO try...catch...finally multilateral算法缺陷 ！！无法解密
-                self.plain_text_edit.setPlainText(
-                    multilateral_cipher.decrypt(self.cipher_text_edit.toPlainText(),
-                                            self.input_key.text()))
+                # TODO multilateral算法缺陷 ！！无法解密 多边密码
+                try:
+                    self.plain_text_edit.setPlainText(
+                        multilateral_cipher.decrypt(self.cipher_text_edit.toPlainText(),
+                                                self.input_key.text()))
+                except Exception:
+                    self.statusbar.showMessage("解密失败", 5000)
                 self.statusbar.showMessage("解密成功", 2000)
 
     def vigenere_decrypt_button_clicked(self):
@@ -570,7 +574,6 @@ class Event(UiMainWindow, QObject):
                 )
                 self.statusbar.showMessage("解密成功", 2000)
 
-    # TODO 算法错误 列置换
     def column_permutation_decrypt_button_clicked(self):
         if not self.cipher_text_edit.toPlainText():
             return
@@ -578,9 +581,8 @@ class Event(UiMainWindow, QObject):
             if not self.input_key.text():
                 self.statusbar.showMessage("请输入密钥", 5000)
             else:
-                cipher = column_permutation_cipher.ColumnPermutationCipher()
                 self.plain_text_edit.setPlainText(
-                    cipher.decrypt(self.cipher_text_edit.toPlainText(), self.input_key.text())
+                    column_permutation_cipher.decrypt(self.cipher_text_edit.toPlainText(), self.input_key.text())
                 )
                 self.statusbar.showMessage("解密成功", 2000)
 
@@ -606,7 +608,7 @@ class Event(UiMainWindow, QObject):
             return
         else:
             if not self.input_key_2.text():
-                self.statusbar.showMessage("请输入密钥", 5000)
+                self.statusbar.showMessage("请输入正确的密钥", 5000)
             else:
                 if len(self.input_key_2.text()) != 8:
                     self.statusbar.showMessage("请输入8位密钥", 5000)
@@ -626,29 +628,32 @@ class Event(UiMainWindow, QObject):
             if not self.input_key_3.text():
                 self.statusbar.showMessage("请输入密钥", 5000)
             else:
-                cipher = des_cipher.DESCipher()
-                cipher.new(self.input_key_3.text())
-                if not self.save_path_label.text():
-                    try:
-                        default_encrypted_file_save_path = self.import_file_path_edit.text() + ".encrypted"
-                        self.save_path_label.setText(default_encrypted_file_save_path)
-                        cipher.encrypt_file(self.import_file_path_edit.text(), default_encrypted_file_save_path)
-                        self.statusbar.showMessage("加密成功，文件默认保存至" + default_encrypted_file_save_path, 5000)
-                    except Exception:
-                        self.statusbar.showMessage("加密失败")
+                if len(self.input_key_3.text()) != 8:
+                    self.statusbar.showMessage("请输入8位密钥", 5000)
                 else:
-                    try:
-                        cipher.encrypt_file(self.import_file_path_edit.text(), self.save_path_label.text())
-                        self.statusbar.showMessage("加密成功，文件已保存至" + self.save_path_label.text(), 5000)
-                    except Exception:
-                        self.statusbar.showMessage("加密失败")
+                    cipher = des_cipher.DESCipher()
+                    cipher.new(self.input_key_3.text())
+                    if not self.save_path_label.text():
+                        try:
+                            default_encrypted_file_save_path = self.import_file_path_edit.text() + ".encrypted"
+                            self.save_path_label.setText(default_encrypted_file_save_path)
+                            cipher.encrypt_file(self.import_file_path_edit.text(), default_encrypted_file_save_path)
+                            self.statusbar.showMessage("加密成功，文件默认保存至" + default_encrypted_file_save_path, 5000)
+                        except Exception:
+                            self.statusbar.showMessage("加密失败")
+                    else:
+                        try:
+                            cipher.encrypt_file(self.import_file_path_edit.text(), self.save_path_label.text())
+                            self.statusbar.showMessage("加密成功，文件已保存至" + self.save_path_label.text(), 5000)
+                        except Exception:
+                            self.statusbar.showMessage("加密失败")
 
     def aes_encrypt_string_button_clicked(self):
         if not self.plain_text_edit_2.toPlainText():
             return
         else:
             if not self.input_key_2.text():
-                self.statusbar.showMessage("请输入密钥", 5000)
+                self.statusbar.showMessage("请输入正确的密钥", 5000)
             else:
                 if len(self.input_key_2.text()) != 8:
                     self.statusbar.showMessage("请输入8位密钥", 5000)
@@ -666,22 +671,25 @@ class Event(UiMainWindow, QObject):
             if not self.input_key_3.text():
                 self.statusbar.showMessage("请输入密钥", 5000)
             else:
-                if not self.save_path_label.text():
-                    try:
-                        default_encrypted_file_save_path = self.import_file_path_edit.text() + ".encrypted"
-                        self.save_path_label.setText(default_encrypted_file_save_path)
-                        aes_file.encrypt(self.import_file_path_edit.text(),
-                                         self.input_key_3.text(), default_encrypted_file_save_path)
-                        self.statusbar.showMessage("加密成功，文件默认保存至" + default_encrypted_file_save_path, 5000)
-                    except Exception:
-                        self.statusbar.showMessage("加密失败")
+                if len(self.input_key_2.text()) != 8:
+                    self.statusbar.showMessage("请输入8位密钥", 5000)
                 else:
-                    try:
-                        aes_file.encrypt(self.import_file_path_edit.text(),
-                                         self.input_key_3.text(), self.save_path_label.text())
-                        self.statusbar.showMessage("加密成功，文件已保存至" + self.save_path_label.text(), 5000)
-                    except Exception:
-                        self.statusbar.showMessage("加密失败")
+                    if not self.save_path_label.text():
+                        try:
+                            default_encrypted_file_save_path = self.import_file_path_edit.text() + ".encrypted"
+                            self.save_path_label.setText(default_encrypted_file_save_path)
+                            aes_file.encrypt(self.import_file_path_edit.text(),
+                                             self.input_key_3.text(), default_encrypted_file_save_path)
+                            self.statusbar.showMessage("加密成功，文件默认保存至" + default_encrypted_file_save_path, 5000)
+                        except Exception:
+                            self.statusbar.showMessage("加密失败")
+                    else:
+                        try:
+                            aes_file.encrypt(self.import_file_path_edit.text(),
+                                             self.input_key_3.text(), self.save_path_label.text())
+                            self.statusbar.showMessage("加密成功，文件已保存至" + self.save_path_label.text(), 5000)
+                        except Exception:
+                            self.statusbar.showMessage("加密失败")
 
     def rc4_encrypt_string_button_clicked(self):
         if not self.plain_text_edit_2.toPlainText():
@@ -822,7 +830,6 @@ class Event(UiMainWindow, QObject):
                         )
                     self.statusbar.showMessage("解密成功", 2000)
 
-    # TODO DES文件 解密错误
     def des_decrypt_file_button_clicked(self):
         if not self.lineEdit_3.text():
             self.statusbar.showMessage("请选择要解密的文件！", 5000)
@@ -831,22 +838,26 @@ class Event(UiMainWindow, QObject):
             if not self.input_key_3.text():
                 self.statusbar.showMessage("请输入密钥", 5000)
             else:
-                cipher = des_cipher.DESCipher()
-                cipher.new(self.input_key_3.text())
-                if not self.lineEdit_4.text():
-                    try:
-                        default_decrypted_file_save_path = self.lineEdit_3.text() + ".decrypted"
-                        self.lineEdit_4.setText(default_decrypted_file_save_path)
-                        cipher.decrypt_file(self.lineEdit_3.text(), default_decrypted_file_save_path)
-                        self.statusbar.showMessage("解密成功，文件默认保存至" + default_decrypted_file_save_path, 5000)
-                    except Exception:
-                        self.statusbar.showMessage("解密失败")
+                if len(self.input_key_3.text()) != 8:
+                    self.statusbar.showMessage("请输入8位密钥", 5000)
                 else:
-                    try:
-                        cipher.decrypt_file(self.lineEdit_3.text(), self.lineEdit_4.text())
-                        self.statusbar.showMessage("解密成功，文件已保存至" + self.lineEdit_4.text(), 5000)
-                    except Exception:
-                        self.statusbar.showMessage("解密失败")
+                    cipher = des_cipher.DESCipher()
+                    print(self.input_key_3.text())
+                    cipher.new(self.input_key_3.text())
+                    if not self.lineEdit_4.text():
+                        try:
+                            default_decrypted_file_save_path = self.lineEdit_3.text() + ".decrypted"
+                            self.lineEdit_4.setText(default_decrypted_file_save_path)
+                            cipher.decrypt_file(self.lineEdit_3.text(), default_decrypted_file_save_path)
+                            self.statusbar.showMessage("解密成功，文件默认保存至" + default_decrypted_file_save_path, 5000)
+                        except Exception:
+                            self.statusbar.showMessage("解密失败")
+                    else:
+                        try:
+                            cipher.decrypt_file(self.lineEdit_3.text(), self.lineEdit_4.text())
+                            self.statusbar.showMessage("解密成功，文件已保存至" + self.lineEdit_4.text(), 5000)
+                        except Exception:
+                            self.statusbar.showMessage("解密失败")
 
     def aes_decrypt_file_button_clicked(self):
         if not self.lineEdit_3.text():
@@ -988,12 +999,13 @@ class Event(UiMainWindow, QObject):
                 if f:
                     f.close()
 
+    # TODO 未实现 RSA文件加密
     def rsa_encrypt_file_button_clicked(self):
         if not self.import_file_path_edit_3.text():
             self.statusbar.showMessage("请选择要加密的文件！", 5000)
             return
         else:
-            if not self.show_keypair_text_2.text():
+            if not self.show_keypair_text_2.toPlainText():
                 self.statusbar.showMessage("请先生成密钥对", 5000)
             else:
                 if not self.save_path_label_3.text():
@@ -1005,7 +1017,8 @@ class Event(UiMainWindow, QObject):
                             f = open(self.rsa_public_key_file_name, 'r')
                             e = f.readline()
                             n = f.readline()
-                            rsa.encode_file(int(e), int(n), default_encrypted_file_save_path)
+                            rsa.encode_file(int(e), int(n),
+                                            self.import_file_path_edit_3.text(), default_encrypted_file_save_path)
                         except (IOError, Exception):
                             if IOError:
                                 self.statusbar.showMessage(
@@ -1024,7 +1037,8 @@ class Event(UiMainWindow, QObject):
                             f = open(self.rsa_public_key_file_name, 'r')
                             e = f.readline()
                             n = f.readline()
-                            rsa.encode_file(int(e), int(n), self.save_path_label_3.text())
+                            rsa.encode_file(int(e), int(n),
+                                            self.import_file_path_edit_3.text(), self.save_path_label_3.text())
                         except (IOError, Exception):
                             if IOError:
                                 self.statusbar.showMessage(
@@ -1042,7 +1056,7 @@ class Event(UiMainWindow, QObject):
             self.statusbar.showMessage("请选择要解密的文件！", 5000)
             return
         else:
-            if not self.show_keypair_text_2.text():
+            if not self.show_keypair_text_2.toPlainText():
                 self.statusbar.showMessage("请先生成密钥对", 5000)
             else:
                 if not self.lineEdit_8.text():
@@ -1055,12 +1069,12 @@ class Event(UiMainWindow, QObject):
                             f = open(self.rsa_public_key_file_name, 'r')
                             e = f.readline()
                             n = f.readline()
-                            rsa.decode_file(int(d), int(n), default_decrypted_file_save_path)
+                            rsa.decode_file(int(d), int(n), self.lineEdit_7.text(), default_decrypted_file_save_path)
                         except (IOError, Exception):
                             if IOError:
                                 self.statusbar.showMessage(
                                     "打开或写入" + self.rsa_public_key_file_name + "文件失败", 5000)
-                            self.statusbar.showMessage("加密时出错", 5000)
+                            self.statusbar.showMessage("解密时出错", 5000)
                         finally:
                             if f:
                                 f.close()
@@ -1075,12 +1089,12 @@ class Event(UiMainWindow, QObject):
                             f = open(self.rsa_public_key_file_name, 'r')
                             e = f.readline()
                             n = f.readline()
-                            rsa.decode_file(int(d), int(n), self.lineEdit_8.text())
+                            rsa.decode_file(int(d), int(n), self.lineEdit_7.text(), self.lineEdit_8.text())
                         except (IOError, Exception):
                             if IOError:
                                 self.statusbar.showMessage(
                                     "打开或写入" + self.rsa_public_key_file_name + "文件失败", 5000)
-                            self.statusbar.showMessage("加密时出错", 5000)
+                            self.statusbar.showMessage("解密时出错", 5000)
                         finally:
                             if f:
                                 f.close()
@@ -1158,26 +1172,134 @@ class Event(UiMainWindow, QObject):
                     f.close()
 
     def ecc_encrypt_file_button_clicked(self):
-        pass
+        if not self.import_file_path_edit_3.text():
+            self.statusbar.showMessage("请选择要加密的文件！", 5000)
+            return
+        else:
+            if not self.show_keypair_text_2.toPlainText():
+                self.statusbar.showMessage("请先生成密钥对", 5000)
+            else:
+                if not self.save_path_label_3.text():
+                    try:
+                        default_encrypted_file_save_path = self.import_file_path_edit_3.text() + ".encrypted"
+                        self.save_path_label_3.setText(default_encrypted_file_save_path)
+                        f = None
+                        cipher = ecc.EccCipher()
+                        try:
+                            f = open(self.ecc_public_key_file_name, 'r')
+                            x = f.readline()
+                            y = f.readline()
+                            with open(self.import_file_path_edit_3.text(), 'rb') as import_file:
+                                cipher_text = cipher.encrypt(import_file.read())
+                            with open(default_encrypted_file_save_path, 'wb') as save_file:
+                                save_file.write(cipher_text)
+                        except (IOError, Exception):
+                            if IOError:
+                                self.statusbar.showMessage(
+                                    "打开或写入" + self.ecc_public_key_file_name + "文件失败", 5000)
+                            self.statusbar.showMessage("加密时出错", 5000)
+                        finally:
+                            if f:
+                                f.close()
+                        self.statusbar.showMessage("加密成功，文件默认保存至" + default_encrypted_file_save_path, 5000)
+                    except Exception:
+                        self.statusbar.showMessage("加密失败")
+                else:
+                    try:
+                        f = None
+                        cipher = ecc.EccCipher()
+                        try:
+                            f = open(self.ecc_public_key_file_name, 'r')
+                            x = f.readline()
+                            y = f.readline()
+                            with open(self.import_file_path_edit_3.text(), 'rb') as import_file:
+                                cipher_text = cipher.encrypt(import_file.read())
+                            with open(self.save_path_label_3.text(), 'wb') as save_file:
+                                save_file.write(cipher_text)
+                        except (IOError, Exception):
+                            if IOError:
+                                self.statusbar.showMessage(
+                                    "打开或写入" + self.rsa_public_key_file_name + "文件失败", 5000)
+                            self.statusbar.showMessage("加密时出错", 5000)
+                        finally:
+                            if f:
+                                f.close()
+                        self.statusbar.showMessage("加密成功，文件已保存至" + self.save_path_label_3.text(), 5000)
+                    except Exception:
+                        self.statusbar.showMessage("加密失败")
 
     def ecc_decrypt_file_button_clicked(self):
-        pass
+        if not self.lineEdit_7.text():
+            self.statusbar.showMessage("请选择要解密的文件！", 5000)
+            return
+        else:
+            if not self.show_keypair_text_2.toPlainText():
+                self.statusbar.showMessage("请先生成密钥对", 5000)
+            else:
+                if not self.lineEdit_8.text():
+                    try:
+                        default_decrypted_file_save_path = self.lineEdit_7.text() + ".decrypted"
+                        self.lineEdit_8.setText(default_decrypted_file_save_path)
+                        d = self.show_keypair_text_2.toPlainText()
+                        f = None
+                        cipher = ecc.EccCipher()
+                        try:
+                            f = open(self.ecc_public_key_file_name, 'r')
+                            x = f.readline()
+                            y = f.readline()
+                            with open(self.lineEdit_7.text(), 'rb') as import_file:
+                                plaintext = cipher.decrypt(import_file.read())
+                            with open(default_decrypted_file_save_path, 'wb') as save_file:
+                                save_file.write(plaintext)
+                        except (IOError, Exception):
+                            if IOError:
+                                self.statusbar.showMessage(
+                                    "打开或写入" + self.ecc_public_key_file_name + "文件失败", 5000)
+                            self.statusbar.showMessage("解密时出错", 5000)
+                        finally:
+                            if f:
+                                f.close()
+                        self.statusbar.showMessage("解密成功，文件默认保存至" + default_decrypted_file_save_path, 5000)
+                    except Exception:
+                        self.statusbar.showMessage("解密失败")
+                else:
+                    try:
+                        d = self.show_keypair_text_2.toPlainText()
+                        f = None
+                        cipher = ecc.EccCipher()
+                        try:
+                            f = open(self.ecc_public_key_file_name, 'r')
+                            x = f.readline()
+                            y = f.readline()
+                            with open(self.lineEdit_7.text(), 'rb') as import_file:
+                                plaintext = cipher.decrypt(import_file.read())
+                            with open(self.lineEdit_8.text(), 'wb') as save_file:
+                                save_file.write(plaintext)
+                        except (IOError, Exception):
+                            if IOError:
+                                self.statusbar.showMessage(
+                                    "打开或写入" + self.ecc_public_key_file_name + "文件失败", 5000)
+                            self.statusbar.showMessage("解密时出错", 5000)
+                        finally:
+                            if f:
+                                f.close()
+                        self.statusbar.showMessage("解密成功，文件已保存至" + self.lineEdit_8.text(), 5000)
+                    except Exception:
+                        self.statusbar.showMessage("解密失败")
 
     # 决定显示4个窗口中的哪一个，并改变相应控件，需在此更新部分连接
     def show_widgets(self, button):
-        print(button)
         self.base_frame.setVisible(not self.is_show_widgets)
         # MD5 --done
         if button == 17:
             self.md5_frame.setVisible(self.is_show_widgets)
             self.show_base_frame = not self.show_base_frame
             self.is_show_widgets = not self.is_show_widgets
-
         elif button == 15 or button == 16:
             self.switch_mode_without_key_tabwidget.setVisible(self.is_show_widgets)
             self.show_base_frame = not self.show_base_frame
             self.is_show_widgets = not self.is_show_widgets
-            # RSA --done TODO 已知问题：解密时会丢掉第一个字符
+            # RSA --done TODO 已知问题：RSA 字符串解密时会丢掉第一个字符
             if button == 15:
                 self.generate_keypair_button.clicked.disconnect()
                 self.generate_keypair_button_2.clicked.disconnect()

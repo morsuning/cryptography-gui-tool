@@ -378,20 +378,20 @@ class DESCipher():
         self.plain = self.decryption(self.str2bin(cipher_text), self.Key)
         return self.plain
 
-    def encrypt_file(self, file_name):
-        with open("./" + file_name, 'rb') as r:
+    def encrypt_file(self, file_name, save):
+        with open(file_name, 'rb') as r:
             Plaintext = self.PKCS7Padding(str(r.read()))
             encrypt = self.encryption(self.str2bin(Plaintext), self.Key)
-        self.encrypted_file_name = "./" + file_name + ".encrypted"
-        with open(self.encrypted_file_name, 'wb') as w:
-            w.write(encrypt.encode("utf-8"))
+        self.encrypted_file_name = file_name + ".encrypted"
+        with open(save, 'wb') as w:
+            w.write(encrypt.encode('utf-8'))
         return self.encrypted_file_name
 
-    def decrypt_file(self, file_name):
-        with open("./"+file_name, 'r') as r:
-            decry = self.decryption(self.str2bin(r.read()), self.Key)
-        self.decrypt_file_name = "./"+file_name + ".decrypted"
-        with open(self.decrypt_file_name, 'w') as w:
+    def decrypt_file(self, file_name, save):
+        with open(file_name, 'rb') as r:
+            decry = self.decryption(self.str2bin(r.read().decode('utf-8')), self.Key)
+        self.decrypt_file_name = file_name + ".decrypted"
+        with open(save, 'w') as w:
             w.write(decry.strip("b'"))
         return self.decrypt_file_name
 

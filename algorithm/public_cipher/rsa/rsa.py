@@ -169,7 +169,7 @@ def decrypt(d, n, ciphertext):
     temp=temp[1:]
     return temp
 
-def encode_file(e,n,file_name):
+def encode_file(e,n,file_name, encrypted_file_name):
     encrpt_file = 'encrpt'
     #file_name = input("输入当前路径的文件")
     # 文件后缀名检测
@@ -179,21 +179,22 @@ def encode_file(e,n,file_name):
     plaintext = []
     ciphertext = []
     with open(file_name, 'rb') as origin_file:
+        # TODO Wrong Here
         for x in origin_file.read():
             # print(int(x))
             message.append(int(x))
     for x in message:
-        # print(x)
-        ciphertext.append(pow(x, e, n))
+        print(x)
+        ciphertext.append(pow(int(x), e, n))
     # 写入加密文件
-    f = open(encrpt_file+'.'+file_name.split('.')[1], 'w')
+    f = open(encrypted_file_name, 'w')
     for x in ciphertext:
         f.write(str(x) + '\r')
     f.close()
-
     return encrpt_file+'.'+file_name.split('.')[1]
 
-def decode_file(d,n,encode_file):
+
+def decode_file(d, n, encode_file, decrypt_file_name=''):
     plaintext=[]
     decrpt_file = 'decrpt'
     # 文件后缀名检测
@@ -201,7 +202,7 @@ def decode_file(d,n,encode_file):
     with open(encode_file) as f:
         for x in f.readlines():
             plaintext.append(pow(int(x), d, n))
-    f = open(decrpt_file + '.' + decrpt_file_name, 'wb')
+    f = open(decrypt_file_name, 'wb')
     f.write(bytes(plaintext))
     f.close()
 

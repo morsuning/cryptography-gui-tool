@@ -1,5 +1,5 @@
 import sys
-import event
+from event import event
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 if __name__ == '__main__':

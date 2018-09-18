@@ -7,9 +7,9 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QObject, Qt, QRegExp
-from PyQt5.QtGui import QIcon, QValidator, QRegExpValidator
-from PyQt5.QtWidgets import QLineEdit, QMenu, QAction
+from PyQt5.QtCore import QRegExp
+from PyQt5.QtGui import QRegExpValidator
+from PyQt5.QtWidgets import QLineEdit, QMenu
 
 from assets.python import qss_reader
 
@@ -18,9 +18,9 @@ class UiMainWindow(QtWidgets.QMainWindow):
 
     def __init__(self, main_window):
         super().__init__()
-        # style_file = './assets/qss/darkstyle.qss'
-        # self.qss_style = qss_reader.QssReader.read_qss(style_file)
-        # main_window.setStyleSheet(self.qss_style)
+        style_file = './assets/qss/darkstyle.qss'
+        self.qss_style = qss_reader.QssReader.read_qss(style_file)
+        main_window.setStyleSheet(self.qss_style)
         self.setup_ui(main_window)
 
     def setup_ui(self, main_window):
@@ -739,7 +739,7 @@ class UiMainWindow(QtWidgets.QMainWindow):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "单机加解密"))
         self.kaisa.setText(_translate("MainWindow", "凯撒密码"))
         self.guanjianzi.setText(_translate("MainWindow", "关键字密码"))
         self.fangshe.setText(_translate("MainWindow", "仿射密码"))
