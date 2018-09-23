@@ -215,7 +215,7 @@ def main():
     # public key e,n
     # private key d
     # encode_file(e,n,file_name)
-    cipher_text = encrypt(e, n, "我让个")
+    cipher_text = encrypt(e, n, "845532543254354")
     print(cipher_text)
     print(decrypt(d, n, cipher_text))
     # decode_file(d,n,decode_file())

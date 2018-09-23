@@ -78,5 +78,5 @@
       <textMaps />
     </LinkMapSettings>
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6 (Anaconda3)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6 (anaconda3)" project-jdk-type="Python SDK" />
 </project>

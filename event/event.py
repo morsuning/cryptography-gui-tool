@@ -490,9 +490,9 @@ class Event(UiMainWindow, QObject):
                 for i in self.input_key.text():
                     if i == " ":
                         index = self.input_key.text().index(i)
-                a = self.input_key.text()[:index]
-                b = self.input_key.text()[index+1:]
-                # TODO affine cipher 密码内部缺陷，a,b不能为模26余0的数
+                a = int(self.input_key.text()[:index])
+                b = int(self.input_key.text()[index+1:])
+                # TODO affine cipher 密码内部缺陷，a,b不能为模26余0的数 及偶数？
                 self.plain_text_edit.setPlainText(
                     affine_cipher.decrypt(self.cipher_text_edit.toPlainText(), a, b))
                 self.statusbar.showMessage("解密成功", 2000)
@@ -504,14 +504,13 @@ class Event(UiMainWindow, QObject):
             if not self.input_key.text():
                 self.statusbar.showMessage("请输入密钥", 5000)
             else:
-                # TODO multilateral算法缺陷 ！！无法解密 多边密码
                 try:
                     self.plain_text_edit.setPlainText(
-                        multilateral_cipher.decrypt(self.cipher_text_edit.toPlainText(),
-                                                self.input_key.text()))
+                        multilateral_cipher.decrypt(self.cipher_text_edit.toPlainText(), self.input_key.text())
+                    )
+                    self.statusbar.showMessage("解密成功", 2000)
                 except Exception:
                     self.statusbar.showMessage("解密失败", 5000)
-                self.statusbar.showMessage("解密成功", 2000)
 
     def vigenere_decrypt_button_clicked(self):
         if not self.cipher_text_edit.toPlainText():
@@ -1477,6 +1476,7 @@ class Event(UiMainWindow, QObject):
                 # 输入框提示
                 self.input_key.setPlaceholderText("请输入偏移位数，仅限数字，不能超过26")
                 # 输入限制，正则表达式在主界面定义
+                self.input_key.setMaxLength(65535)
                 self.input_key.setValidator(self.classical_validator_2)
             # 关键字 --done
             elif button == 1:
@@ -1489,6 +1489,7 @@ class Event(UiMainWindow, QObject):
                 self.cipher_text_edit.setPlainText("")
                 self.label.setText("关键字密码")
                 self.input_key.setPlaceholderText("请输入关键字，只能为大小写字母")
+                self.input_key.setMaxLength(65535)
                 self.input_key.setValidator(self.classical_validator_3)
             # 仿射 --done
             elif button == 2:
@@ -1501,6 +1502,7 @@ class Event(UiMainWindow, QObject):
                 self.cipher_text_edit.setPlainText("")
                 self.label.setText("仿射密码")
                 self.input_key.setPlaceholderText("请输入a和b(仅限数字)，以一个" "(空格)分隔")
+                self.input_key.setMaxLength(65535)
                 self.input_key.setValidator(self.classical_validator_4)
             # 多边 --done
             elif button == 3:
@@ -1512,8 +1514,8 @@ class Event(UiMainWindow, QObject):
                 self.plain_text_edit.setPlainText("")
                 self.cipher_text_edit.setPlainText("")
                 self.label.setText("多边密码")
-                self.input_key.setMaxLength(5)
                 self.input_key.setPlaceholderText("请输入密钥，仅限5位大小写字母")
+                self.input_key.setMaxLength(5)
                 self.input_key.setValidator(self.classical_validator_3)
             # 维吉尼亚 --done
             elif button == 4:
@@ -1526,6 +1528,7 @@ class Event(UiMainWindow, QObject):
                 self.cipher_text_edit.setPlainText("")
                 self.label.setText("维吉尼亚")
                 self.input_key.setPlaceholderText("请输入密钥，只能为大小写字母")
+                self.input_key.setMaxLength(65535)
                 self.input_key.setValidator(self.classical_validator_3)
             # Autokey密 --done
             elif button == 5:
@@ -1538,6 +1541,7 @@ class Event(UiMainWindow, QObject):
                 self.cipher_text_edit.setPlainText("")
                 self.label.setText("Autokey密")
                 self.input_key.setPlaceholderText("请输入密钥，只能为大小写字母")
+                self.input_key.setMaxLength(65535)
                 self.input_key.setValidator(self.classical_validator_3)
             # Autokey明 --done
             elif button == 6:
@@ -1550,6 +1554,7 @@ class Event(UiMainWindow, QObject):
                 self.cipher_text_edit.setPlainText("")
                 self.label.setText("Autokey明")
                 self.input_key.setPlaceholderText("请输入密钥，只能为大小写字母")
+                self.input_key.setMaxLength(65535)
                 self.input_key.setValidator(self.classical_validator_3)
             # 波雷费 --done
             elif button == 7:
@@ -1562,6 +1567,7 @@ class Event(UiMainWindow, QObject):
                 self.cipher_text_edit.setPlainText("")
                 self.label.setText("波雷费密码")
                 self.input_key.setPlaceholderText("请输入密钥，只能为大小写字母")
+                self.input_key.setMaxLength(65535)
                 self.input_key.setValidator(self.classical_validator_3)
             # 置换 --done
             elif button == 8:
@@ -1574,6 +1580,7 @@ class Event(UiMainWindow, QObject):
                 self.cipher_text_edit.setPlainText("")
                 self.label.setText("置换密码")
                 self.input_key.setPlaceholderText("请输入密钥，只能为数字")
+                self.input_key.setMaxLength(65535)
                 self.input_key.setValidator(self.classical_validator_2)
             # 列置换 --done
             elif button == 9:
@@ -1586,6 +1593,7 @@ class Event(UiMainWindow, QObject):
                 self.cipher_text_edit.setPlainText("")
                 self.label.setText("列置换密码")
                 self.input_key.setPlaceholderText("请输入密钥，只能为大小写字母")
+                self.input_key.setMaxLength(65535)
                 self.input_key.setValidator(self.classical_validator_3)
             # 双重置换 --done
             elif button == 10:
@@ -1598,4 +1606,5 @@ class Event(UiMainWindow, QObject):
                 self.cipher_text_edit.setPlainText("")
                 self.label.setText("双重置换")
                 self.input_key.setPlaceholderText("请输入a和b(仅限大小写字母)，以一个" "(空格)分隔")
+                self.input_key.setMaxLength(65535)
                 self.input_key.setValidator(self.classical_validator_5)
