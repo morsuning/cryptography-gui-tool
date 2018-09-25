@@ -26,7 +26,10 @@ class UiMainWindow(QtWidgets.QMainWindow):
     def setup_ui(self, main_window):
         main_window.setObjectName("MainWindow")
         main_window.resize(812, 600)
-        main_window.setFixedSize(main_window.width(), main_window.height());
+        main_window.setFixedSize(main_window.width(), main_window.height())
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("PentestBox.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        main_window.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(main_window)
         self.centralwidget.setObjectName("centralwidget")
         self.switch_sd = QtWidgets.QStackedWidget(self.centralwidget)
@@ -716,13 +719,34 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.classical_validator_4 = QRegExpValidator(self.regx_4, self.input_key)
         self.classical_validator_5 = QRegExpValidator(self.regx_5, self.input_key)
 
-
         # QToolbox下拉菜单
+        self.ie_menu_1 = QMenu()
+        self.ie_menu_1.addAction("导入", self.import_1)
+        self.ie_menu_1.addAction("导出", self.export_1)
+        self.ie_menu_2 = QMenu()
+        self.ie_menu_2.addAction("导入", self.import_2)
+        self.ie_menu_2.addAction("导出", self.export_2)
+        self.ie_menu_3 = QMenu()
+        self.ie_menu_3.addAction("导入", self.import_3)
+        self.ie_menu_3.addAction("导出", self.export_3)
+        self.ie_menu_4 = QMenu()
+        self.ie_menu_4.addAction("导入公私钥", self.import_4)
+        self.ie_menu_4.addAction("导出私钥", self.export_4)
+
         self.ie_key_tool_button.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
-        self.ie_menu = QMenu()
-        self.ie_menu.addAction("导入", self.import_1)
-        self.ie_menu.addAction("导出", self.import_1)
-        self.ie_key_tool_button.setMenu(self.ie_menu)
+        self.ie_key_tool_button.setMenu(self.ie_menu_1)
+
+        self.ie_key_tool_button_2.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
+        self.ie_key_tool_button_2.setMenu(self.ie_menu_2)
+
+        self.ie_key_tool_button_3.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
+        self.ie_key_tool_button_3.setMenu(self.ie_menu_3)
+
+        self.export_keypair_toolButton.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
+        self.export_keypair_toolButton.setMenu(self.ie_menu_4)
+
+        self.export_keypair_toolButton_2.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
+        self.export_keypair_toolButton_2.setMenu(self.ie_menu_4)
 
         # 流密码+分组密码部件设置
         self.input_key_2.setEchoMode(QLineEdit.Password)
@@ -839,6 +863,3 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.md5_label.setText(_translate("MainWindow", "MD5："))
         self.shuruzifuchuan_label.setText(_translate("MainWindow", "输入字符串："))
         self.pushButton.setText(_translate("MainWindow", "生成MD5"))
-
-    def import_1(self):
-        pass

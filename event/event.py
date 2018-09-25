@@ -313,6 +313,179 @@ class Event(UiMainWindow, QObject):
                 if f:
                     f.close()
 
+    def import_1(self):
+        self.import_key_button_file_name, import_plaintext_button_file_type = QFileDialog. \
+            getOpenFileName(self, "请选择要导入的文件", '', )
+        if not self.import_key_button_file_name:
+            return
+        else:
+            f = None
+            try:
+                f = open(self.import_key_button_file_name, "r")
+                self.statusbar.showMessage(
+                    "已成功从" + self.import_key_button_file_name + "导入文件", 2000)
+                self.input_key.setText(f.read())
+            except (UnicodeDecodeError, IOError):
+                self.statusbar.showMessage(
+                    "打开文件" + self.import_key_button_file_name + "失败，可能不是文本文件或非“UTF-8”编码", 5000)
+            finally:
+                if f:
+                    f.close()
+
+    def export_1(self):
+        self.export_key_button_file_name, export_plaintext_button_file_type = QFileDialog. \
+            getOpenFileName(self, "导出至", '', )
+        if not self.export_key_button_file_name:
+            return
+        else:
+            f = None
+            try:
+                f = open(self.export_key_button_file_name, "a")
+                if not self.input_key.text():
+                    self.statusbar.showMessage("没有密钥可以被写入", 5000)
+                else:
+                    # TODO 导入导出明文密文 解决非ascii字符问题
+                    f.write(self.input_key.text())
+                    self.statusbar.showMessage(
+                        "已成功将密钥写入" + self.export_key_button_file_name, 2000)
+            except Exception:
+                self.statusbar.showMessage(
+                    "打开或写入" + self.export_key_button_file_name + "文件失败", 5000)
+            finally:
+                if f:
+                    f.close()
+
+    def import_2(self):
+        self.import_key_button_file_name, import_plaintext_button_file_type = QFileDialog. \
+            getOpenFileName(self, "请选择要导入的文件", '', )
+        if not self.import_key_button_file_name:
+            return
+        else:
+            f = None
+            try:
+                f = open(self.import_key_button_file_name, "r")
+                self.statusbar.showMessage(
+                    "已成功从" + self.import_key_button_file_name + "导入文件", 2000)
+                self.input_key_2.setText(f.read())
+            except (UnicodeDecodeError, IOError):
+                self.statusbar.showMessage(
+                    "打开文件" + self.import_key_button_file_name + "失败，可能不是文本文件或非“UTF-8”编码", 5000)
+            finally:
+                if f:
+                    f.close()
+
+    def export_2(self):
+        self.export_key_button_file_name, export_plaintext_button_file_type = QFileDialog. \
+            getOpenFileName(self, "导出至", '', )
+        if not self.export_key_button_file_name:
+            return
+        else:
+            f = None
+            try:
+                f = open(self.export_key_button_file_name, "a")
+                if not self.input_key_2.text():
+                    self.statusbar.showMessage("没有密钥可以被写入", 5000)
+                else:
+                    # TODO 导入导出明文密文 解决非ascii字符问题
+                    f.write(self.input_key_2.text())
+                    self.statusbar.showMessage(
+                        "已成功将密钥写入" + self.export_key_button_file_name, 2000)
+            except Exception:
+                self.statusbar.showMessage(
+                    "打开或写入" + self.export_key_button_file_name + "文件失败", 5000)
+            finally:
+                if f:
+                    f.close()
+
+    def import_3(self):
+        self.import_key_button_file_name, import_plaintext_button_file_type = QFileDialog. \
+            getOpenFileName(self, "请选择要导入的文件", '', )
+        if not self.import_key_button_file_name:
+            return
+        else:
+            f = None
+            try:
+                f = open(self.import_key_button_file_name, "r")
+                self.statusbar.showMessage(
+                    "已成功从" + self.import_key_button_file_name + "导入文件", 2000)
+                self.input_key_3.setText(f.read())
+            except (UnicodeDecodeError, IOError):
+                self.statusbar.showMessage(
+                    "打开文件" + self.import_key_button_file_name + "失败，可能不是文本文件或非“UTF-8”编码", 5000)
+            finally:
+                if f:
+                    f.close()
+
+    def export_3(self):
+        self.export_key_button_file_name, export_plaintext_button_file_type = QFileDialog. \
+            getOpenFileName(self, "导出至", '', )
+        if not self.export_key_button_file_name:
+            return
+        else:
+            f = None
+            try:
+                f = open(self.export_key_button_file_name, "a")
+                if not self.input_key_3.text():
+                    self.statusbar.showMessage("没有密钥可以被写入", 5000)
+                else:
+                    # TODO 导入导出明文密文 解决非ascii字符问题
+                    f.write(self.input_key_3.text())
+                    self.statusbar.showMessage(
+                        "已成功将密钥写入" + self.export_key_button_file_name, 2000)
+            except Exception:
+                self.statusbar.showMessage(
+                    "打开或写入" + self.export_key_button_file_name + "文件失败", 5000)
+            finally:
+                if f:
+                    f.close()
+
+    def import_4(self):
+        self.import_public_key_button_file_name, import_plaintext_button_file_type = QFileDialog. \
+            getOpenFileName(self, "请选择要导入的公钥", '', )
+        self.import_private_key_button_file_name, type = QFileDialog. \
+            getOpenFileName(self, "请选择要导入的私钥", '', )
+        if not self.import_public_key_button_file_name or not self.import_private_key_button_file_name:
+            return
+        else:
+            f = None
+            try:
+                f = open(self.import_private_key_button_file_name, "r")
+                self.show_keypair_text.setText(f.read())
+                self.show_keypair_text_2.setText(f.read())
+                self.rsa_public_key_file_name = self.import_public_key_button_file_name
+                self.ecc_public_key_file_name = self.import_public_key_button_file_name
+                self.statusbar.showMessage(
+                    "已成功导入公私钥文件，不配对的公私钥或错误格式的公钥会导致加密失败", 2000)
+            except (UnicodeDecodeError, IOError):
+                self.statusbar.showMessage(
+                    "打开文件" + self.import_private_key_button_file_name + "失败，可能不是文本文件或非“UTF-8”编码", 5000)
+            finally:
+                if f:
+                    f.close()
+
+    def export_4(self):
+        self.export_private_key_button_file_name, export_plaintext_button_file_type = QFileDialog. \
+            getOpenFileName(self, "导出私钥至", '', )
+        if not self.export_private_key_button_file_name:
+            return
+        else:
+            f = None
+            try:
+                f = open(self.export_private_key_button_file_name, "a")
+                if not self.show_keypair_text.toPlainText() or not self.show_keypair_text_2.toPlainText():
+                    self.statusbar.showMessage("没有私钥可以被写入", 5000)
+                else:
+                    # TODO 导入导出明文密文 解决非ascii字符问题
+                    f.write(self.show_keypair_text.toPlainText())
+                    self.statusbar.showMessage(
+                        "已成功将私钥写入" + self.export_private_key_button_file_name, 2000)
+            except Exception:
+                self.statusbar.showMessage(
+                    "打开或写入" + self.export_private_key_button_file_name + "文件失败", 5000)
+            finally:
+                if f:
+                    f.close()
+
     def caesar_encrypt_button_clicked(self):
         if not self.plain_text_edit.toPlainText():
             return
@@ -344,15 +517,19 @@ class Event(UiMainWindow, QObject):
             if not self.input_key.text():
                 self.statusbar.showMessage("请输入密钥", 5000)
             else:
-                index = 0
-                for i in self.input_key.text():
-                    if i == " ":
-                        index = self.input_key.text().index(i)
-                a = int(self.input_key.text()[:index])
-                b = int(self.input_key.text()[index+1:])
-                self.cipher_text_edit.setPlainText(
-                    affine_cipher.encrypt(self.plain_text_edit.toPlainText(), a, b))
-                self.statusbar.showMessage("加密成功", 2000)
+                key = self.input_key.text()
+                if key[0] == " " or key[-1] == " " or (" " not in key):
+                    self.statusbar.showMessage("密钥格式输入错误", 5000)
+                else:
+                    index = 0
+                    for i in key:
+                        if i == " ":
+                            index = key.index(i)
+                    a = int(key[:index])
+                    b = int(key[index+1:])
+                    self.cipher_text_edit.setPlainText(
+                        affine_cipher.encrypt(self.plain_text_edit.toPlainText(), a, b))
+                    self.statusbar.showMessage("加密成功", 2000)
 
     def multilateral_encrypt_button_clicked(self):
         if not self.plain_text_edit.toPlainText():
@@ -444,15 +621,19 @@ class Event(UiMainWindow, QObject):
             if not self.input_key.text():
                 self.statusbar.showMessage("请输入密钥", 5000)
             else:
-                index = 0
-                for i in self.input_key.text():
-                    if i == " ":
-                        index = self.input_key.text().index(i)
-                a = self.input_key.text()[:index]
-                b = self.input_key.text()[index+1:]
-                self.cipher_text_edit.setPlainText(
-                    double_transposition_cipher.encrypt(self.plain_text_edit.toPlainText(), a, b))
-                self.statusbar.showMessage("加密成功", 2000)
+                key = self.input_key.text()
+                if key[0] == " " or key[-1] == " " or (" " not in key):
+                    self.statusbar.showMessage("密钥格式输入错误", 5000)
+                else:
+                    index = 0
+                    for i in key:
+                        if i == " ":
+                            index = key.index(i)
+                    a = key[:index]
+                    b = key[index+1:]
+                    self.cipher_text_edit.setPlainText(
+                        double_transposition_cipher.encrypt(self.plain_text_edit.toPlainText(), a, b))
+                    self.statusbar.showMessage("加密成功", 2000)
 
     def caesar_decrypt_button_clicked(self):
         if not self.cipher_text_edit.toPlainText():
@@ -670,7 +851,7 @@ class Event(UiMainWindow, QObject):
             if not self.input_key_3.text():
                 self.statusbar.showMessage("请输入密钥", 5000)
             else:
-                if len(self.input_key_2.text()) != 8:
+                if len(self.input_key_3.text()) != 8:
                     self.statusbar.showMessage("请输入8位密钥", 5000)
                 else:
                     if not self.save_path_label.text():
@@ -933,6 +1114,7 @@ class Event(UiMainWindow, QObject):
                     except Exception:
                         self.statusbar.showMessage("解密失败")
 
+    # TODO 可能会崩溃
     def rsa_generate_keypair_button_clicked(self):
         # private key: d
         # public key: e n
@@ -1004,7 +1186,7 @@ class Event(UiMainWindow, QObject):
             return
         else:
             if not self.show_keypair_text_2.toPlainText():
-                self.statusbar.showMessage("请先生成密钥对", 5000)
+                self.statusbar.showMessage("请先生成或导入密钥对", 5000)
             else:
                 if not self.save_path_label_3.text():
                     try:
@@ -1055,7 +1237,7 @@ class Event(UiMainWindow, QObject):
             return
         else:
             if not self.show_keypair_text_2.toPlainText():
-                self.statusbar.showMessage("请先生成密钥对", 5000)
+                self.statusbar.showMessage("请先生成或导入密钥对", 5000)
             else:
                 if not self.lineEdit_8.text():
                     try:
@@ -1605,6 +1787,6 @@ class Event(UiMainWindow, QObject):
                 self.plain_text_edit.setPlainText("")
                 self.cipher_text_edit.setPlainText("")
                 self.label.setText("双重置换")
-                self.input_key.setPlaceholderText("请输入a和b(仅限大小写字母)，以一个" "(空格)分隔")
+                self.input_key.setPlaceholderText("请输入a和b(仅限大小写字母)，以一个空格分隔")
                 self.input_key.setMaxLength(65535)
                 self.input_key.setValidator(self.classical_validator_5)

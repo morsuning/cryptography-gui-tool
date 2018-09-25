@@ -166,7 +166,6 @@ def decrypt(d, n, ciphertext):
     #print('plaintext字符化：', plaintext)
     for i in plaintext:
         temp=temp+str(i)
-    temp=temp[1:]
     return temp
 
 def encode_file(e,n,file_name, encrypted_file_name):
@@ -184,7 +183,7 @@ def encode_file(e,n,file_name, encrypted_file_name):
             # print(int(x))
             message.append(int(x))
     for x in message:
-        print(x)
+        # print(x)
         ciphertext.append(pow(int(x), e, n))
     # 写入加密文件
     f = open(encrypted_file_name, 'w')
@@ -215,7 +214,7 @@ def main():
     # public key e,n
     # private key d
     # encode_file(e,n,file_name)
-    cipher_text = encrypt(e, n, "845532543254354")
+    cipher_text = encrypt(e, n, "1234567")
     print(cipher_text)
     print(decrypt(d, n, cipher_text))
     # decode_file(d,n,decode_file())
