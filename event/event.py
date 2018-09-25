@@ -23,7 +23,7 @@ class Event(UiMainWindow, QObject):
 
     def __init__(self, main_window):
         super().__init__(main_window)
-        self.about.setText("算法：\n陈星辰 郭明磊\n杨晨 杨雨铮\n薛晨阳\n界面：\n薛晨阳\n美化：\n杨晨")
+        self.about.setText("Author:\nErebos\n2018.09.25")
         self.md5_file_name = ""
         self.import_plaintext_button_file_name = ""
         self.export_ciphertext_button_file_name = ""
