@@ -18,8 +18,7 @@ class UiMainWindow(QtWidgets.QMainWindow):
 
     def __init__(self, main_window):
         super().__init__()
-        style_file = './assets/qss/darkstyle.qss'
-        self.qss_style = qss_reader.QssReader.read_qss(style_file)
+        self.qss_style = qss_reader.QssReader.read_qss('./assets/qss/darkstyle.qss')
         main_window.setStyleSheet(self.qss_style)
         self.setup_ui(main_window)
 
@@ -28,7 +27,7 @@ class UiMainWindow(QtWidgets.QMainWindow):
         main_window.resize(812, 600)
         main_window.setFixedSize(main_window.width(), main_window.height())
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("PentestBox.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("./assets/icons/PentestBox.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         main_window.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(main_window)
         self.centralwidget.setObjectName("centralwidget")

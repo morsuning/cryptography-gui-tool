@@ -232,7 +232,7 @@ class Event(UiMainWindow, QObject):
 
     def import_file_toolbox_clicked(self):
         self.md5_file_name, file_type = QFileDialog.\
-            getOpenFileName(self, '请选择要加密的文件', '',)
+            getOpenFileName(self, '请选择要导入的文件', '',)
         if not self.md5_file_name:
             return
         else:
