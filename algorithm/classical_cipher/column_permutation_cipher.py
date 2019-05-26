@@ -58,14 +58,7 @@ def decrypt(ciphertext, key):
             plaintext += Ciphertext[i+j*n]
     return plaintext
 
-#实验主流程
 def main():
-    print("-----------------------------------")
-    print("-----Column Permutation Cipher-----")
-    print("-------------软信1603--------------")
-    print("-------------20163754--------------")
-    print("--------------薛晨阳---------------")
-    print("-----------------------------------")
     plaintext = input("请输入要加密的密文：\n")
     key = input("请输入密钥：\n")
     ciphertext = encrypt(plaintext.replace(" ", ""), key)
