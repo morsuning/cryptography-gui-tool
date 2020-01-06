@@ -1,50 +1,83 @@
 # encrypt-decrypt-pyqt5
 
-可以使用常见加密算法对文件或字符串进行加密和解密，GUI使用PyQt5.11.2编写。
+## 项目简介
+一个带有 GUI 界面的密码学工具
 
-**使用Python版本：3.6.5**
+## 功能特性
+- 实现了 11 种古典密码、2 种流密码、2 种分组密码、2 种公钥密码、和 1 种哈希算法。可对字符串和文件进行加密和解密。
+- 附带 PyQt 实现的 GUI 界面
+- 密码库与 GUI 界面代码分离，可以当做单独的密码库使用
 
-运行start.py即可
+具体实现的密码如下
 
-## TODO 预计1个月内 ——2019.03.11
-1.重构前端代码，增强代码可阅读性，拓展性。整理出一套简单的中型PyQt代码开发结构。
-
-2.重构ECC算法，整理成规范的库格式，并实现选择曲线功能。
-
-3.按规范重写工程简介（中文/English）。
-
----
-## 实现以下古典密码对字符串的加密和解密：
+古典密码（可对字符串加解密）
 1. 单表替代密码：
-* Caesar cipher
-* Keyword cipher
-* Affine cipher
-* Multilateral cipher
+* Caesar Cipher
+* Keyword Cipher
+* Affine Cipher
+* Multilateral Cipher
 
 2. 多表替代密码：
-* Vigenere cipher
-* Autokey ciphertext
-* Autokey plaintext
+* Vigenere Cipher
+* Autokey Ciphertext
+* Autokey Plaintext
 
 3. 多图替代密码：
-* Playfair cipher
+* Playfair Cipher
 
 4. 置换密码：
-* Permutation cipher
-* Column permutation cipher
-* Double-Transposition cipher
----
-## 实现以下流密码对字符串和文件的加密和解密：
+* Permutation Cipher
+* Column Permutation Cipher
+* Double-Transposition Cipher
+
+流密码（可对字符串和文件加解密）
 * RC4
 * CA
----
-## 实现以下分组密码对字符串和文件的加密和解密：
-* DES
-* AES
----
-## 实现以下公钥密码密钥对的生成及对字符串和文件的加密和解密：
+
+分组密码（可对字符串和文件加解密）
+* DES-64
+* AES-64
+
+公钥密码（可生成密钥对，能对字符串和文件加解密）
 * RSA
 * ECC
----
-## 实现以下哈希算法，可以对字符串及文件操作：
+
+哈希算法（可用于字符串和文件）
 * MD5
+
+## 环境依赖
+见 requirement.txt , 由 pip freeze 释出
+
+## 部署步骤
+```bash
+pip install -r requirements.txt
+python start.py
+```
+
+## 目录结构描述
+.
+├── algorithm 密码算法实现
+│   ├── block_cipher
+│   │   └── aes
+│   ├── classical_cipher
+│   ├── hash_algorithm
+│   ├── public_cipher
+│   │   ├── ecc
+│   │   └── rsa
+│   └── stream_cipher
+│       └── ca
+├── assets QSS 配置
+│   ├── icons
+│   ├── python
+│   └── qss
+├── event GUI 事件绑定
+└── ui GUI 界面定义
+
+## 版本内容更新
+1.0 更新文档
+
+## 声明
+公开使用该代码请注明作者 Kaoso
+
+## 协议
+[Mozilla Public License 2.0](https://github.com/6nosis/cryptography-GUItool/blob/master/LICENSE)
