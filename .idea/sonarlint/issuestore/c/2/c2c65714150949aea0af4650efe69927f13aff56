@@ -1,85 +1,0 @@
-
-Jpython:S1481ñ
-"%Remove the unused local variable "y".(´¶×øÿÿÿÿÿ8¶êÑŒÙ.
-špython:S4144·"zUpdate this function so that its implementation is not identical to autokey_ciphertext_encrypt_button_clicked on line 556.(Ì€®”8¶êÑŒÙ.
-upython:S1192ö"VDefine a constant instead of duplicating this literal "è¯·å…ˆç”Ÿæˆå¯†é’¥å¯¹" 4 times.(Ø —b8¶êÑŒÙ.
-=python:S3626¥"Remove this redundant return.(ÙãŞŸ8¶êÑŒÙ.
-|python:S1192š"\Define a constant instead of duplicating this literal "è¯·é€‰æ‹©è¦å¯¼å…¥çš„æ–‡ä»¶" 8 times.(×ãøÕ8¶êÑŒÙ.
-=python:S3626¢"Remove this redundant return.(ÙãŞŸ8¶êÑŒÙ.
-™python:S1192Ÿ"yDefine a constant instead of duplicating this literal "å¤±è´¥ï¼Œå¯èƒ½ä¸æ˜¯æ–‡æœ¬æ–‡ä»¶æˆ–éâ€œUTF-8â€ç¼–ç " 5 times.(ëÈ¨8¶êÑŒÙ.
-Jpython:S1481¼
-"%Remove the unused local variable "y".(´¶×øÿÿÿÿÿ8¶êÑŒÙ.
-=python:S3626Ì
-"Remove this redundant return.(ÙãŞŸ8¶êÑŒÙ.
-Jpython:S1481”"%Remove the unused local variable "y".(´¶×øÿÿÿÿÿ8¶êÑŒÙ.
-‹python:S1192¯"kDefine a constant instead of duplicating this literal "è¯·è¾“å…¥å¯†é’¥ï¼Œåªèƒ½ä¸ºå¤§å°å†™å­—æ¯" 5 times.(éãîœ8¶êÑŒÙ.
-tpython:S3776¾"TRefactor this function to reduce its Cognitive Complexity from 26 to the 15 allowed.(øùÕæ8¶êÑŒÙ.
-tpython:S3776ö"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(æ¼ª8¶êÑŒÙ.
-Jpython:S1481«"%Remove the unused local variable "x".(÷šÙŞşÿÿÿÿ8¶êÑŒÙ.
-python:S1192Ø"\Define a constant instead of duplicating this literal "æ²¡æœ‰å¯†é’¥å¯ä»¥è¢«å†™å…¥" 3 times.(Å±×úÿÿÿÿ8¶êÑŒÙ.
-opython:S1192™	"PDefine a constant instead of duplicating this literal "è§£å¯†æ—¶å‡ºé”™" 6 times.(š²ÿ8¶êÑŒÙ.
-ppython:S1192…	"PDefine a constant instead of duplicating this literal "åŠ å¯†æ—¶å‡ºé”™" 6 times.(ßÆë¿8¶êÑŒÙ.
-=python:S3626ù"Remove this redundant return.(ÙãŞŸ8¶êÑŒÙ.
-ypython:S3776€"TRefactor this function to reduce its Cognitive Complexity from 19 to the 15 allowed.(Ï²Ë·úÿÿÿÿ8¶êÑŒÙ.
-tpython:S3776Ã"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(™ÔÎƒ8¶êÑŒÙ.
->python:S125í"Remove this commented out code.(ÖÜÚ8¶êÑŒÙ.
-vpython:S1192¶"QDefine a constant instead of duplicating this literal "æ‰“å¼€æˆ–å†™å…¥" 16 times.(¿Ï´ëúÿÿÿÿ8¶êÑŒÙ.
-python:S1192¶"_Define a constant instead of duplicating this literal "è¯·é€‰æ‹©è¦ä¿å­˜åˆ°çš„æ–‡ä»¶" 4 times.(ŠÒøÍ8¶êÑŒÙ.
-Jpython:S1481¬"%Remove the unused local variable "y".(´¶×øÿÿÿÿÿ8¶êÑŒÙ.
-ypython:S1192™"TDefine a constant instead of duplicating this literal "è¯·è¾“å…¥8ä½å¯†é’¥" 7 times.(Ü¥ƒŞûÿÿÿÿ8¶êÑŒÙ.
-ypython:S3776Ÿ"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(Ğ©èåøÿÿÿÿ8¶êÑŒÙ.
-Jpython:S1481õ	"%Remove the unused local variable "e".(”µ‘Ïşÿÿÿÿ8¶êÑŒÙ.
-ypython:S3776É
-"TRefactor this function to reduce its Cognitive Complexity from 43 to the 15 allowed.(„Ôšúÿÿÿÿ8¶êÑŒÙ.
-python:S1192¤"_Define a constant instead of duplicating this literal "è¯·é€‰æ‹©è¦åŠ å¯†çš„æ–‡ä»¶ï¼" 6 times.(”§şã8¶êÑŒÙ.
-Jpython:S1481£
-"%Remove the unused local variable "x".(÷šÙŞşÿÿÿÿ8¶êÑŒÙ.
-Jpython:S1481¦"%Remove the unused local variable "d".(Æúÿÿÿÿ8¶êÑŒÙ.
-=python:S3626÷"Remove this redundant return.(ÙãŞŸ8¶êÑŒÙ.
-Jpython:S1481"%Remove the unused local variable "d".(Æúÿÿÿÿ8¶êÑŒÙ.
-ypython:S3776Ñ	"TRefactor this function to reduce its Cognitive Complexity from 43 to the 15 allowed.(ğäÌĞøÿÿÿÿ8¶êÑŒÙ.
-spython:S3776©"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(“º±,8¶êÑŒÙ.
-ypython:S3776‚"TRefactor this function to reduce its Cognitive Complexity from 43 to the 15 allowed.(Û’ôÂùÿÿÿÿ8¶êÑŒÙ.
-vpython:S1192í"QDefine a constant instead of duplicating this literal "è¯·è¾“å…¥å¯†é’¥" 36 times.(Ãª«Ïÿÿÿÿÿ8¶êÑŒÙ.
-Bpython:S125G"Remove this commented out code.(‰¢û—øÿÿÿÿ8ÅËÒŒÙ.
-Jpython:S1481Ù
-"%Remove the unused local variable "x".(÷šÙŞşÿÿÿÿ8¶êÑŒÙ.
-gpython:S5799•"GMerge these implicitly concatenated strings; or did you forget a comma?(†¿š8¶êÑŒÙ.
-xpython:S1192İ"YDefine a constant instead of duplicating this literal "å·²æˆåŠŸå°†å¯†é’¥å†™å…¥" 3 times.(”Åğj8¶êÑŒÙ.
-=python:S3626¬"Remove this redundant return.(ÙãŞŸ8¶êÑŒÙ.
-tpython:S3776ô"TRefactor this function to reduce its Cognitive Complexity from 24 to the 15 allowed.(˜Ù‘8¶êÑŒÙ.
-rpython:S1192¡"SDefine a constant instead of duplicating this literal "æ–‡ä»¶å¯¼å…¥å¤±è´¥" 4 times.(É¾Œ8¶êÑŒÙ.
-‡python:S1192"bDefine a constant instead of duplicating this literal "è§£å¯†æˆåŠŸï¼Œæ–‡ä»¶å·²ä¿å­˜è‡³" 6 times.(€¹¼Öıÿÿÿÿ8¶êÑŒÙ.
-Špython:S1192‡"eDefine a constant instead of duplicating this literal "è§£å¯†æˆåŠŸï¼Œæ–‡ä»¶é»˜è®¤ä¿å­˜è‡³" 6 times.(¯¡Äãÿÿÿÿÿ8¶êÑŒÙ.
-Špython:S1192´"eDefine a constant instead of duplicating this literal "åŠ å¯†æˆåŠŸï¼Œæ–‡ä»¶é»˜è®¤ä¿å­˜è‡³" 6 times.(ïÛØ£şÿÿÿÿ8¶êÑŒÙ.
-=python:S3626”"Remove this redundant return.(ÙãŞŸ8¶êÑŒÙ.
-tpython:S3776‘"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(ÑÀŒÍ8¶êÑŒÙ.
-Jpython:S1481‘	"%Remove the unused local variable "e".(”µ‘Ïşÿÿÿÿ8¶êÑŒÙ.
-Jpython:S1481¤
-"%Remove the unused local variable "y".(´¶×øÿÿÿÿÿ8¶êÑŒÙ.
-Tpython:S1481½
-"/Remove the unused local variable "private_key".(¹ÃÕ³ùÿÿÿÿ8¶êÑŒÙ.
-‡python:S1192º"bDefine a constant instead of duplicating this literal "åŠ å¯†æˆåŠŸï¼Œæ–‡ä»¶å·²ä¿å­˜è‡³" 6 times.(ò“âÇıÿÿÿÿ8¶êÑŒÙ.
-tpython:S3776Í"TRefactor this function to reduce its Cognitive Complexity from 24 to the 15 allowed.(ô­Ÿ˜8¶êÑŒÙ.
-kpython:S1192±"KDefine a constant instead of duplicating this literal ".encrypted" 6 times.(øÌ×‰8¶êÑŒÙ.
-=python:S3626Æ"Remove this redundant return.(ÙãŞŸ8¶êÑŒÙ.
-kpython:S1192„"KDefine a constant instead of duplicating this literal ".decrypted" 6 times.(Á¹«ù8¶êÑŒÙ.
-python:S1192ö"_Define a constant instead of duplicating this literal "è¯·é€‰æ‹©è¦è§£å¯†çš„æ–‡ä»¶ï¼" 6 times.(ìÊËî8¶êÑŒÙ.
-tpython:S3776è"TRefactor this function to reduce its Cognitive Complexity from 19 to the 15 allowed.(†¥·Â8¶êÑŒÙ.
-Jpython:S1481ğ
-"%Remove the unused local variable "x".(÷šÙŞşÿÿÿÿ8¶êÑŒÙ.
-=python:S3626…"Remove this redundant return.(ÙãŞŸ8¶êÑŒÙ.
-ypython:S3776¢"TRefactor this function to reduce its Cognitive Complexity from 24 to the 15 allowed.(ˆÌ×øùÿÿÿÿ8¶êÑŒÙ.
-Jpython:S1481“"%Remove the unused local variable "x".(÷šÙŞşÿÿÿÿ8¶êÑŒÙ.
-=python:S3626Ô	"Remove this redundant return.(ÙãŞŸ8¶êÑŒÙ.
-=python:S3626¡	"Remove this redundant return.(ÙãŞŸ8¶êÑŒÙ.
-špython:S1192Ç"uDefine a constant instead of duplicating this literal "8ä¸ªå­—ç¬¦ï¼Œä»…é™å¤§å°å†™å­—æ¯ã€æ•°å­—çš„ç»„åˆ" 4 times.(«°í‡ûÿÿÿÿ8¶êÑŒÙ.
-Ppython:S5806¼"+Rename this variable; it shadows a builtin.(šçÅºøÿÿÿÿ8¶êÑŒÙ.
-Jpython:S1481»
-"%Remove the unused local variable "x".(÷šÙŞşÿÿÿÿ8¶êÑŒÙ.
-=python:S3626Ğ"Remove this redundant return.(ÙãŞŸ8¶êÑŒÙ.
-Jpython:S1481á	"%Remove the unused local variable "e".(”µ‘Ïşÿÿÿÿ8¶êÑŒÙ.
-Jpython:S1481Ú
-"%Remove the unused local variable "y".(´¶×øÿÿÿÿÿ8¶êÑŒÙ.
-~python:S1186’"YAdd a nested comment explaining why this method is empty, or complete the implementation.(‚ãµ¹ÿÿÿÿÿ8¶êÑŒÙ.
-tpython:S3776	"TRefactor this function to reduce its Cognitive Complexity from 43 to the 15 allowed.(‰æıŒ8¶êÑŒÙ.
