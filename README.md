@@ -104,3 +104,5 @@ python3 start.py
 ## 协议
 
 [Mozilla Public License 2.0](https://github.com/6nosis/cryptography-GUItool/blob/master/LICENSE)
+
+[![Stargazers over time](https://starchart.cc/morsuning/cryptography-GUItool.svg)](https://starchart.cc/morsuning/cryptography-GUItool)
