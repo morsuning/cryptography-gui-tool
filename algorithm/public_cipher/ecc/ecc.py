@@ -1,7 +1,7 @@
-
 # from Crypto.PublicKey import ECC
 import collections
 import random
+
 from algorithm.public_cipher.ecc import func
 from algorithm.public_cipher.ecc import sm3
 
@@ -46,13 +46,13 @@ curve = EllipticCurve(
 default_ecc_table = {
     'n': 'FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFF7203DF6B21C6052B53BBF40939D54123',
     'p': 'FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFF',
-    'g': '32c4ae2c1f1981195f9904466a39c9948fe30bbff2660be1715a4589334c74c7'\
+    'g': '32c4ae2c1f1981195f9904466a39c9948fe30bbff2660be1715a4589334c74c7'
          'bc3736a2f4f6779c59bdcee36b692153d0a9877cc62a474002df32e52139f0a0',
     'a': 'FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFC',
     'b': '28E9FA9E9D9F5E344D5A9E4BCF6509A7F39789F515AB8F92DDBCBD414D940E93',
 }
 standard_public_key = 'B9C9A6E04E9C91F7BA880429273747D7EF5DDEB0BB2FF6317EB00BEF331A83081A6994B8993F3F5D6EADDDB818' \
-                           '72266C87C018FB4162F5AF347B483E24620207'
+                      '72266C87C018FB4162F5AF347B483E24620207'
 standard_private_key = '00B9AB0B828FF68872F21A837FC303668428DEA11DCD1B24429D0C99E24EED83D5'
 
 
@@ -64,7 +64,7 @@ class EccCipher:
         self.para_len = len(ecc_table['n'])
         self.ecc_table = ecc_table
         self.ecc_a3 = (
-            int(ecc_table['a'], base=16) + 3) % int(ecc_table['p'], base=16)
+                              int(ecc_table['a'], base=16) + 3) % int(ecc_table['p'], base=16)
 
     def inverse_mod(self, k, p):
         """

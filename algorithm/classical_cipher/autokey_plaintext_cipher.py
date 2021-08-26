@@ -1,5 +1,3 @@
-
-
 def encrypt(plainText, key):
     alphabet = [chr(65 + x) for x in range(26)]
     cipherTable = []
@@ -71,9 +69,10 @@ def decrypt(cipherText, key):
 def main():
     plaintext = "hello"
     key = "eii"
-    ciphertext = encrypt(plaintext,key)
+    ciphertext = encrypt(plaintext, key)
     print(ciphertext)
-    print(decrypt(ciphertext,key))
+    print(decrypt(ciphertext, key))
+
 
 if __name__ == "__main__":
     main()

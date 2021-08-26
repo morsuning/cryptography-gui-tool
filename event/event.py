@@ -4,18 +4,18 @@ import os
 from PyQt5 import QtCore
 from PyQt5.QtCore import QSignalMapper, QObject, Qt
 from PyQt5.QtWidgets import QFileDialog, QLineEdit
-from algorithm.hash_algorithm import md5_file, md5_string
+
+from algorithm.block_cipher import des_cipher
+from algorithm.block_cipher.aes import aes_string, aes_file
 from algorithm.classical_cipher import caesar_cipher, keyword_cipher, \
     affine_cipher, multilateral_cipher, vigenere_cipher, permutation_cipher, \
     column_permutation_cipher, autokey_plaintext_cipher, autokey_ciphertext_cipher, \
     double_transposition_cipher, playfair_cipher
-from algorithm.block_cipher import des_cipher
-from algorithm.block_cipher.aes import aes_string, aes_file
+from algorithm.hash_algorithm import md5_file, md5_string
+from algorithm.public_cipher.ecc import ecc
+from algorithm.public_cipher.rsa import rsa
 from algorithm.stream_cipher import rc4_cipher
 from algorithm.stream_cipher.ca import ca_string, ca_file
-from algorithm.public_cipher.rsa import rsa
-from algorithm.public_cipher.ecc import ecc
-
 from ui.demo import UiMainWindow
 
 
@@ -41,7 +41,6 @@ class Event(UiMainWindow, QObject):
         self.show_base_frame = True
         self.is_show_widgets = True
         self.default_page_set()
-        self.setup_mapper()
         self.setup_mapper()
         self.setup_connect()
 
@@ -69,12 +68,12 @@ class Event(UiMainWindow, QObject):
 
         self.button_mapper.setMapping(self.MD5, 17)
 
+    # 连接的另一种写法
+    # self.connect(self.button_mapper, self.SIGNAL("mapped(int)"), self.show_widgets)
+    # self.connect(self.kaisa, self.SIGNAL("clicked()"), self.button_mapper, self.SLOT("map()"))
     def setup_connect(self):
-        # 连接的另一种写法
-        # self.connect(self.button_mapper, self.SIGNAL("mapped(int)"), self.show_widgets)
-        # self.connect(self.kaisa, self.SIGNAL("clicked()"), self.button_mapper, self.SLOT("map()"))
-        self.button_mapper.mapped.connect(self.show_widgets)
 
+        self.button_mapper.mapped.connect(self.show_widgets)
         self.kaisa.toggled['bool'].connect(self.button_mapper.map)
         self.guanjianzi.toggled['bool'].connect(self.button_mapper.map)
         self.fangshe.toggled['bool'].connect(self.button_mapper.map)
@@ -231,8 +230,8 @@ class Event(UiMainWindow, QObject):
         self.statusbar.showMessage("解密后的文件将保存为" + self.decrypted_file_to_save_name, 5000)
 
     def import_file_toolbox_clicked(self):
-        self.md5_file_name, file_type = QFileDialog.\
-            getOpenFileName(self, '请选择要导入的文件', '',)
+        self.md5_file_name, file_type = QFileDialog. \
+            getOpenFileName(self, '请选择要导入的文件', '', )
         if not self.md5_file_name:
             return
         else:
@@ -272,7 +271,7 @@ class Event(UiMainWindow, QObject):
             self.input_key_3.setEchoMode(QLineEdit.Password)
 
     def import_plaintext_button_clicked(self):
-        self.import_plaintext_button_file_name, import_plaintext_button_file_type = QFileDialog.\
+        self.import_plaintext_button_file_name, import_plaintext_button_file_type = QFileDialog. \
             getOpenFileName(self, "请选择要导入的文件", '', )
         if not self.import_plaintext_button_file_name:
             return
@@ -506,7 +505,8 @@ class Event(UiMainWindow, QObject):
             if not self.input_key.text():
                 self.statusbar.showMessage("请输入密钥", 5000)
             else:
-                keyword_cipher_text, key = keyword_cipher.encrypt(self.plain_text_edit.toPlainText(), self.input_key.text())
+                keyword_cipher_text, key = keyword_cipher.encrypt(self.plain_text_edit.toPlainText(),
+                                                                  self.input_key.text())
                 self.cipher_text_edit.setPlainText(keyword_cipher_text)
                 self.statusbar.showMessage("加密成功", 2000)
 
@@ -526,7 +526,7 @@ class Event(UiMainWindow, QObject):
                         if i == " ":
                             index = key.index(i)
                     a = int(key[:index])
-                    b = int(key[index+1:])
+                    b = int(key[index + 1:])
                     self.cipher_text_edit.setPlainText(
                         affine_cipher.encrypt(self.plain_text_edit.toPlainText(), a, b))
                     self.statusbar.showMessage("加密成功", 2000)
@@ -595,10 +595,10 @@ class Event(UiMainWindow, QObject):
             if not self.input_key.text():
                 self.statusbar.showMessage("请输入密钥", 5000)
             else:
-                cipher = permutation_cipher.PermutationCipher()
+                cipher = permutation_cipher
                 self.cipher_text_edit.setPlainText(
                     cipher.encrypt(self.plain_text_edit.toPlainText(), self.input_key.text())
-                    )
+                )
                 self.statusbar.showMessage("加密成功", 2000)
 
     def column_permutation_encrypt_button_clicked(self):
@@ -611,7 +611,7 @@ class Event(UiMainWindow, QObject):
                 self.cipher_text_edit.setPlainText(
                     column_permutation_cipher.encrypt(self.plain_text_edit.toPlainText().replace(" ", ""),
                                                       self.input_key.text())
-                    )
+                )
                 self.statusbar.showMessage("加密成功", 2000)
 
     def double_transposition_encrypt_button_clicked(self):
@@ -630,7 +630,7 @@ class Event(UiMainWindow, QObject):
                         if i == " ":
                             index = key.index(i)
                     a = key[:index]
-                    b = key[index+1:]
+                    b = key[index + 1:]
                     self.cipher_text_edit.setPlainText(
                         double_transposition_cipher.encrypt(self.plain_text_edit.toPlainText(), a, b))
                     self.statusbar.showMessage("加密成功", 2000)
@@ -657,7 +657,7 @@ class Event(UiMainWindow, QObject):
             else:
                 self.plain_text_edit.setPlainText(
                     keyword_cipher.decrypt(self.cipher_text_edit.toPlainText(),
-                                            self.input_key.text()))
+                                           self.input_key.text()))
                 self.statusbar.showMessage("解密成功", 2000)
 
     def affine_decrypt_button_clicked(self):
@@ -672,7 +672,7 @@ class Event(UiMainWindow, QObject):
                     if i == " ":
                         index = self.input_key.text().index(i)
                 a = int(self.input_key.text()[:index])
-                b = int(self.input_key.text()[index+1:])
+                b = int(self.input_key.text()[index + 1:])
                 # TODO affine cipher 密码内部缺陷，a,b不能为模26余0的数 及偶数？
                 self.plain_text_edit.setPlainText(
                     affine_cipher.decrypt(self.cipher_text_edit.toPlainText(), a, b))
@@ -748,7 +748,7 @@ class Event(UiMainWindow, QObject):
             if not self.input_key.text():
                 self.statusbar.showMessage("请输入密钥", 5000)
             else:
-                cipher = permutation_cipher.PermutationCipher()
+                cipher = permutation_cipher
                 self.plain_text_edit.setPlainText(
                     cipher.decrypt(self.cipher_text_edit.toPlainText(), self.input_key.text())
                 )
@@ -778,7 +778,7 @@ class Event(UiMainWindow, QObject):
                     if i == " ":
                         index = self.input_key.text().index(i)
                 a = self.input_key.text()[:index]
-                b = self.input_key.text()[index+1:]
+                b = self.input_key.text()[index + 1:]
                 self.plain_text_edit.setPlainText(
                     double_transposition_cipher.decrypt(self.cipher_text_edit.toPlainText(), b, a))
                 self.statusbar.showMessage("解密成功", 2000)
@@ -797,7 +797,7 @@ class Event(UiMainWindow, QObject):
                     cipher.new(self.input_key_2.text())
                     self.cipher_text_edit_2.setPlainText(
                         cipher.encrypt_string(self.plain_text_edit_2.toPlainText())
-                        )
+                    )
                     self.statusbar.showMessage("加密成功", 2000)
 
     def des_encrypt_file_button_clicked(self):
@@ -840,7 +840,7 @@ class Event(UiMainWindow, QObject):
                 else:
                     self.cipher_text_edit_2.setPlainText(
                         aes_string.encrypt(self.plain_text_edit_2.toPlainText(), self.input_key_2.text())
-                        )
+                    )
                     self.statusbar.showMessage("加密成功", 2000)
 
     def aes_encrypt_file_button_clicked(self):
@@ -881,7 +881,7 @@ class Event(UiMainWindow, QObject):
                 cipher = rc4_cipher.RC4()
                 self.cipher_text_edit_2.setPlainText(
                     cipher.encrypt(self.input_key_2.text(), self.plain_text_edit_2.toPlainText())
-                    )
+                )
                 self.statusbar.showMessage("加密成功", 2000)
 
     def rc4_encrypt_file_button_clicked(self):
@@ -922,7 +922,7 @@ class Event(UiMainWindow, QObject):
                 else:
                     self.cipher_text_edit_2.setPlainText(
                         ca_string.encrypt(self.plain_text_edit_2.toPlainText(), int(self.input_key_2.text()))
-                        )
+                    )
                     self.statusbar.showMessage("加密成功", 2000)
 
     def ca_encrypt_file_button_clicked(self):
@@ -964,7 +964,7 @@ class Event(UiMainWindow, QObject):
                     cipher.new(self.input_key_2.text())
                     self.plain_text_edit_2.setPlainText(
                         cipher.decrypt_string(self.cipher_text_edit_2.toPlainText())
-                        )
+                    )
                     self.statusbar.showMessage("解密成功", 2000)
 
     def aes_decrypt_string_button_clicked(self):
@@ -979,7 +979,7 @@ class Event(UiMainWindow, QObject):
                 else:
                     self.plain_text_edit_2.setPlainText(
                         aes_string.decrypt(self.cipher_text_edit_2.toPlainText(), self.input_key_2.text())
-                        )
+                    )
                     self.statusbar.showMessage("解密成功", 2000)
 
     def rc4_decrypt_string_button_clicked(self):
@@ -992,7 +992,7 @@ class Event(UiMainWindow, QObject):
                 cipher = rc4_cipher.RC4()
                 self.plain_text_edit_2.setPlainText(
                     cipher.decrypt(self.input_key_2.text(), self.cipher_text_edit_2.toPlainText())
-                    )
+                )
                 self.statusbar.showMessage("解密成功", 2000)
 
     def ca_decrypt_string_button_clicked(self):
@@ -1007,7 +1007,7 @@ class Event(UiMainWindow, QObject):
                 else:
                     self.plain_text_edit_2.setPlainText(
                         ca_string.decrypt(self.cipher_text_edit_2.toPlainText(), int(self.input_key_2.text()))
-                        )
+                    )
                     self.statusbar.showMessage("解密成功", 2000)
 
     def des_decrypt_file_button_clicked(self):
@@ -1125,7 +1125,7 @@ class Event(UiMainWindow, QObject):
         f = None
         try:
             f = open(self.rsa_public_key_file_name, 'w')
-            f.writelines([str(e)+'\n', str(n)+'\n'])
+            f.writelines([str(e) + '\n', str(n) + '\n'])
             self.statusbar.showMessage(
                 "成功生成RSA公钥和私钥，公钥已保存至" + self.rsa_public_key_file_name, 5000)
         except Exception:
@@ -1327,7 +1327,7 @@ class Event(UiMainWindow, QObject):
                             "打开文件" + self.ecc_public_key_file_name + "失败", 5000)
                     self.statusbar.showMessage("加密时出错", 5000)
                 finally:
-                    if f :
+                    if f:
                         f.close()
 
     def ecc_decrypt_string_button_clicked(self):

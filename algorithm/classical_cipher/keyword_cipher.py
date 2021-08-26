@@ -5,7 +5,7 @@ def encrypt(plaintext, ci_key):
     plaintext = list(plaintext.lower())
     ciphertext = list(string.ascii_lowercase)
     ci_key = list(ci_key.lower())
-    key=[]
+    key = []
 
     for i in ci_key:
         if i not in key:
@@ -21,13 +21,13 @@ def encrypt(plaintext, ci_key):
         for j in range(26):
             if i == all_letter[j]:
                 ciphertext.append(key[j])
-    return "".join(list(ciphertext)),"".join(list(key))
+    return "".join(list(ciphertext)), "".join(list(key))
 
 
 def decrypt(ciphertext, ci_key):
     str_ciphertext = list(string.ascii_lowercase)
     ci_key = list(ci_key.lower())
-    key=[]
+    key = []
 
     for i in ci_key:
         if i not in key:
@@ -37,14 +37,14 @@ def decrypt(ciphertext, ci_key):
         if i not in key:
             key.append(i)
 
-    all_letter=string.ascii_lowercase
+    all_letter = string.ascii_lowercase
     plaintext = []
-    ciphertext=list(ciphertext)
+    ciphertext = list(ciphertext)
     for i in ciphertext:
         for j in range(26):
             if i == key[j]:
                 plaintext.append(all_letter[j])
-    return ("".join(list(plaintext)))
+    return "".join(list(plaintext))
 
 
 def main():

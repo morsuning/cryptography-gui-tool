@@ -18,7 +18,7 @@ def encrypt(pla, key):
                 if k == table[i][j] and k != 'j':
                     cip.append(table[i][0])
                     cip.append(table[0][j])
-    cipertext=''.join(cip)
+    cipertext = ''.join(cip)
     return cipertext
 
 
@@ -61,13 +61,13 @@ def decrypt(cip, key):
     j = 0
 
     for i in range(0, len(pla), len(cip_res)):
-        #f.write("秘钥：" + key_res[j] + " ")
-        #print(key_res[j])
-        flag=''.join(pla[i:i + len(cip_res)])
-        #f.write("明文：" + ''.join(pla[i:i + len(cip_res)]))
+        # f.write("秘钥：" + key_res[j] + " ")
+        # print(key_res[j])
+        flag = ''.join(pla[i:i + len(cip_res)])
+        # f.write("明文：" + ''.join(pla[i:i + len(cip_res)]))
         if temp == key_res[j]:
             break
-        #f.write('\n')
+        # f.write('\n')
         j = j + 1
 
     return flag

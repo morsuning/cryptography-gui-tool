@@ -1,8 +1,6 @@
-
-
-def zhihuan(plaintttext,kkkkey):#此为一次置换，不是两次
-    plaintext=plaintttext
-    key=kkkkey
+def zhihuan(plaintttext, kkkkey):  # 此为一次置换，不是两次
+    plaintext = plaintttext
+    key = kkkkey
     lienum = len(key)
     sortmrx = [0 for i in range(lienum)]
     plainnum = len(plaintext)
@@ -32,21 +30,22 @@ def zhihuan(plaintttext,kkkkey):#此为一次置换，不是两次
                 continue
             if (ord(key[x]) == ord(key[y])) & (x > y):
                 sortmrx[x] = sortmrx[x] + 1
-    keymrx = [0 for i in range((hangnum) * lienum)]  # 声明存储加密字符串的数组
+    keymrx = [0 for i in range(hangnum * lienum)]  # 声明存储加密字符串的数组
     t = 0
     for i in range(lienum):
         for j in range(hangnum):
             keymrx[t] = matrix[j][sortmrx[i] - 1]
             t = t + 1
     t = hangnum * lienum
-    xxxxxxxxxx=''
+    xxxxxxxxxx = ''
     for i in range(len(keymrx)):  # 打印输出加密
-        xxxxxxxxxx=xxxxxxxxxx+str(keymrx[i])
+        xxxxxxxxxx = xxxxxxxxxx + str(keymrx[i])
 
     return xxxxxxxxxx
 
-def jiemi(keytext,key):#此为一次解密，不是两次
-    plaintext=keytext
+
+def jiemi(keytext, key):  # 此为一次解密，不是两次
+    plaintext = keytext
     lienum = len(key)
     sortmrx = [0 for i in range(lienum)]
     plainnum = len(plaintext)
@@ -68,7 +67,7 @@ def jiemi(keytext,key):#此为一次解密，不是两次
                 sortmrx[x] = sortmrx[x] + 1
     keymrx = [0 for i in range((hangnum) * lienum)]
     for i in range(len(keytext)):
-        keymrx[i]=plaintext[i]
+        keymrx[i] = plaintext[i]
     # 解密过程
     nnnrix = [([0] * lienum) for i in range(hangnum)]
     t = 0
@@ -78,35 +77,35 @@ def jiemi(keytext,key):#此为一次解密，不是两次
             t = t + 1
     # print('')
     # print("解密结果为：")
-    tttttt=''
+    tttttt = ''
     for i in range(hangnum):  # 打印输出解密结果
         for j in range(lienum):
-            tttttt=tttttt+str(nnnrix[i][j])
+            tttttt = tttttt + str(nnnrix[i][j])
             # print(nnnrix[i][j], end='')
             # if j == lienum - 1:
             #     print('')
 
-    return(tttttt)
+    return tttttt
 
 
 def encrypt(mingwen, key1, key2):
-    xxx=zhihuan(mingwen,key1)
-    yyy=zhihuan(xxx,key2)
+    xxx = zhihuan(mingwen, key1)
+    yyy = zhihuan(xxx, key2)
     return yyy
 
 
 def decrypt(miwem, key2, key1):
-    xxx=jiemi(miwem,key2)
-    t=0
-    lens=len(xxx)
+    xxx = jiemi(miwem, key2)
+    t = 0
+    lens = len(xxx)
     for i in range(lens):
-        if xxx[lens-1-i]=='0':
-            t=t+1
+        if xxx[lens - 1 - i] == '0':
+            t = t + 1
         else:
             break
-    xxxx=xxx[0:lens-t]
-    yyy=jiemi(xxxx,key1)
-    return yyy.replace('0','')
+    xxxx = xxx[0:lens - t]
+    yyy = jiemi(xxxx, key1)
+    return yyy.replace('0', '')
 
 
 def main():

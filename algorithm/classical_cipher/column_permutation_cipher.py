@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # -*- coding:UTF-8 -*-
 
-#获得读取顺序，返回一个读取列号的列表
+# 获得读取顺序，返回一个读取列号的列表
 def getOrder(key):
     result = []
     tmp = []
@@ -14,22 +14,25 @@ def getOrder(key):
         if order.count(i) == 1:
             result.append(tmp.index(i))
         else:
-            uniqueindex = unique_index(tmp,i)
+            uniqueindex = unique_index(tmp, i)
             for j in uniqueindex:
                 result.append(j)
     return result
 
-#输入列表和元素，返回列表中和该元素相等的元素的序号的列表
-def unique_index(L,e):
-    return [i for (i,j) in enumerate(L) if j == e]
 
-#向明文尾部填充字符e
-def padding(plaintext,m):
+# 输入列表和元素，返回列表中和该元素相等的元素的序号的列表
+def unique_index(L, e):
+    return [i for (i, j) in enumerate(L) if j == e]
+
+
+# 向明文尾部填充字符e
+def padding(plaintext, m):
     while len(plaintext) % m != 0:
         plaintext += "e"
     return plaintext
 
-#加密
+
+# 加密
 def encrypt(plaintext, key):
     ciphertext = ""
     m = len(key)
@@ -39,15 +42,16 @@ def encrypt(plaintext, key):
     for i in order:
         excursion = 0
         for j in range(n):
-            ciphertext += Plaintext[i+excursion]
+            ciphertext += Plaintext[i + excursion]
             excursion += m
     return ciphertext
 
-#解密
+
+# 解密
 def decrypt(ciphertext, key):
     plaintext = ""
     m = len(key)
-    Ciphertext = padding(ciphertext,m)
+    Ciphertext = padding(ciphertext, m)
     n = len(ciphertext) // m
     order = getOrder(key)
     readorder = []
@@ -55,8 +59,9 @@ def decrypt(ciphertext, key):
         readorder.append(order.index(i))
     for i in range(n):
         for j in readorder:
-            plaintext += Ciphertext[i+j*n]
+            plaintext += Ciphertext[i + j * n]
     return plaintext
+
 
 def main():
     plaintext = input("请输入要加密的密文：\n")
@@ -67,10 +72,11 @@ def main():
     if choice == 'd':
         key = input("请输入密钥(如果密钥错误将解出错误的结果)：\n")
         plain = decrypt(ciphertext, key)
-        print("原文是(省略所有空格)：\n%s" %plain)
+        print("原文是(省略所有空格)：\n%s" % plain)
     else:
         print("已退出")
     print("实验结束")
+
 
 if __name__ == "__main__":
     main()

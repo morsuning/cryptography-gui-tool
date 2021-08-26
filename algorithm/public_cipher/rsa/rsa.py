@@ -1,7 +1,9 @@
-from os import urandom  # 系统随机的字符
 import binascii  # 二进制和ASCII之间转换
+from os import urandom  # 系统随机的字符
 
 flag = False
+
+
 # ===========================================
 def Mod_1(x, n):
     '''取模负1的算法:计算x2= x^-1 (mod n)的值，
@@ -23,6 +25,7 @@ r = gcd(a, b) = ia + jb, x与n是互素数'''
         y2 += x0
     return x2
 
+
 # ===========================================
 def Fast_Mod(a, p, m):
     '''快速取模指数算法:计算 (a ^ p) % m 的值，可用pow()代替'''
@@ -38,6 +41,7 @@ def Fast_Mod(a, p, m):
         p >>= 1
     return (r * k) % m
 
+
 # ===========================================
 def randint(n):
     '''random是伪随机数，需要更高安全的随机数产生，
@@ -45,6 +49,7 @@ def randint(n):
 生成n字节的随机数（8位/字节）,返回16进制转为10进制整数返回'''
     randomdata = urandom(n)
     return int(binascii.hexlify(randomdata), 16)
+
 
 # ===========================================
 def primality_testing_1(n):
@@ -56,6 +61,7 @@ def primality_testing_1(n):
         if n % y == 0:
             return False
     return True
+
 
 # ===========================================
 def primality_testing_2(n, k):
@@ -82,6 +88,7 @@ def primality_testing_2(n, k):
         return False
     return True
 
+
 # ===========================================
 def getprime(byte):
     while True:
@@ -95,6 +102,7 @@ def getprime(byte):
             continue
         return n
 
+
 # ===========================================
 def RSA():
     global flag
@@ -102,9 +110,9 @@ def RSA():
     ciphertext = []
     plaintext = []
     while not flag:
-        message=[]
-        ciphertext=[]
-        plaintext=[]
+        message = []
+        ciphertext = []
+        plaintext = []
         p = getprime(32)  # 1024bit的大整数
         q = getprime(32)
         while p == q:  # 避免p/q值相同
@@ -128,49 +136,52 @@ def RSA():
         for x in message:
             plaintext.append(pow(x, d, n))
         # print('plaintext解密：', plaintext)
-        if int(plaintext[0])<=256:
-            flag=True
+        if int(plaintext[0]) <= 256:
+            flag = True
 
-    #print('公钥为（{0},{1}）;\n私钥为（{2},{3}）'.format(n, e, n, d))
-    #print("p:"+str(p))
-    #print("q:"+str(q))
-    return e,n,d
+    # print('公钥为（{0},{1}）;\n私钥为（{2},{3}）'.format(n, e, n, d))
+    # print("p:"+str(p))
+    # print("q:"+str(q))
+    return e, n, d
+
 
 # ===================================================
 def encrypt(e, n, message):
-    temp=''
-    #message = input("输入需要加密的密文")
+    temp = ''
+    # message = input("输入需要加密的密文")
     # 从标准输入输出流接收数据，数字化再加解密
     message = list(map(ord, message))
-    #print('ciphertext数字化:', message)
+    # print('ciphertext数字化:', message)
     ciphertext = []
     for x in message:
         ciphertext.append(pow(x, e, n))
     for x in ciphertext:
-        temp=temp+','+str(x)
+        temp = temp + ',' + str(x)
 
-    temp=temp[1:]
-    #print(temp)
+    temp = temp[1:]
+    # print(temp)
     return temp
+
 
 def decrypt(d, n, ciphertext):
     message = []
     plaintext = []
-    temp=''
+    temp = ''
 
     message = ciphertext.split(',')
     for x in message:
         plaintext.append(pow(int(x), d, n))
-    #print('plaintext解密：', plaintext)
+    # print('plaintext解密：', plaintext)
     plaintext = list(map(chr, plaintext))
-    #print('plaintext字符化：', plaintext)
+    # print('plaintext字符化：', plaintext)
     for i in plaintext:
-        temp=temp+str(i)
+        temp = temp + str(i)
     return temp
 
-def encode_file(e,n,file_name, encrypted_file_name):
+
+def encode_file(e, n, file_name, encrypted_file_name):
     encrpt_file = 'encrpt'
-    #file_name = input("输入当前路径的文件")
+    # file_name = input("输入当前路径的文件")
     # 文件后缀名检测
     decrpt_file_name = file_name.split('.')[1]
     #
@@ -190,11 +201,11 @@ def encode_file(e,n,file_name, encrypted_file_name):
     for x in ciphertext:
         f.write(str(x) + '\r')
     f.close()
-    return encrpt_file+'.'+file_name.split('.')[1]
+    return encrpt_file + '.' + file_name.split('.')[1]
 
 
 def decode_file(d, n, encode_file, decrypt_file_name=''):
-    plaintext=[]
+    plaintext = []
     decrpt_file = 'decrpt'
     # 文件后缀名检测
     decrpt_file_name = encode_file.split('.')[1]

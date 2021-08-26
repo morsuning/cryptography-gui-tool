@@ -5,12 +5,10 @@ import hashlib
 
 
 class VerificationFailed(Exception):
-
     pass
 
 
 EllipticCurve = collections.namedtuple('EllipticCurve', 'seed p a b')
-
 
 # 除了最后一条曲线外，下面所有的曲线都来自于OpenSSL
 # 源代码(crypto/ec/ec_curv .c)。最后四个是假曲线

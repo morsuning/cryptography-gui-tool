@@ -3,9 +3,10 @@
 import string
 
 
-def playfair(key,remaining,encrypting=True):
-    key=key.lower()
-    remaining=remaining.lower()
+def playfair(key, remaining, encrypting=True):
+    key = key.lower()
+    remaining = remaining.lower()
+
     def pos(row, col):  # given a row/column, get the position in the table string
         return row * 5 + col
 
@@ -13,7 +14,6 @@ def playfair(key,remaining,encrypting=True):
         row = int(position / 5)
         col = position % 5
         return row, col
-
 
     table = ""
 
@@ -61,19 +61,18 @@ def playfair(key,remaining,encrypting=True):
         else:
             cipher = cipher + table[pos(c1[0], c2[1])] + table[pos(c2[0], c1[1])]
 
-
     return cipher
 
 
 def main():
     # Encrypt foo.txt -> cipher.txt
-    key=input("请输入key")
-    plaintext=input("输入明文")
-    print(playfair(key,plaintext, True).upper())
+    key = input("请输入key")
+    plaintext = input("输入明文")
+    print(playfair(key, plaintext, True).upper())
 
     key = input("请输入密钥")
-    ciphertext=input("请输入密文")
-    print(playfair(key,ciphertext, False).upper())
+    ciphertext = input("请输入密文")
+    print(playfair(key, ciphertext, False).upper())
 
 
 if __name__ == '__main__':

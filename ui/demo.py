@@ -756,7 +756,6 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.block_validator_4 = QRegExpValidator(self.regx_2, self.input_key_3)
         # 公钥密码部件设置
 
-
         self.retranslateUi(main_window)
         QtCore.QMetaObject.connectSlotsByName(main_window)
 
@@ -767,30 +766,40 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.guanjianzi.setText(_translate("MainWindow", "关键字密码"))
         self.fangshe.setText(_translate("MainWindow", "仿射密码"))
         self.duobian.setText(_translate("MainWindow", "多边密码"))
-        self.classical_cipher_switch.setItemText(self.classical_cipher_switch.indexOf(self.danbiaotidai), _translate("MainWindow", "单表替代密码"))
+        self.classical_cipher_switch.setItemText(self.classical_cipher_switch.indexOf(self.danbiaotidai),
+                                                 _translate("MainWindow", "单表替代密码"))
         self.weijiniya.setText(_translate("MainWindow", "维吉尼亚密码"))
         self.autokeymi.setText(_translate("MainWindow", "Autokey密文"))
         self.autokeyming.setText(_translate("MainWindow", "Autokey明文"))
-        self.classical_cipher_switch.setItemText(self.classical_cipher_switch.indexOf(self.duobiaotidai), _translate("MainWindow", "多表替代密码"))
+        self.classical_cipher_switch.setItemText(self.classical_cipher_switch.indexOf(self.duobiaotidai),
+                                                 _translate("MainWindow", "多表替代密码"))
         self.boleifei.setText(_translate("MainWindow", "波雷费密码"))
-        self.classical_cipher_switch.setItemText(self.classical_cipher_switch.indexOf(self.duotutidai), _translate("MainWindow", "多图替代密码"))
+        self.classical_cipher_switch.setItemText(self.classical_cipher_switch.indexOf(self.duotutidai),
+                                                 _translate("MainWindow", "多图替代密码"))
         self.zhihuan.setText(_translate("MainWindow", "置换密码"))
         self.liezhihuan.setText(_translate("MainWindow", "列置换密码"))
         self.shuangchongzhihuan.setText(_translate("MainWindow", "双重置换密码"))
-        self.classical_cipher_switch.setItemText(self.classical_cipher_switch.indexOf(self.zhihuan_2), _translate("MainWindow", "置换密码"))
-        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.gudianmima), _translate("MainWindow", "古典密码"))
+        self.classical_cipher_switch.setItemText(self.classical_cipher_switch.indexOf(self.zhihuan_2),
+                                                 _translate("MainWindow", "置换密码"))
+        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.gudianmima),
+                                               _translate("MainWindow", "古典密码"))
         self.RC4.setText(_translate("MainWindow", "RC4"))
         self.CA.setText(_translate("MainWindow", "CA"))
-        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.liumima), _translate("MainWindow", "流密码"))
+        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.liumima),
+                                               _translate("MainWindow", "流密码"))
         self.DES.setText(_translate("MainWindow", "DES"))
         self.AES.setText(_translate("MainWindow", "AES"))
-        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.fenzumima), _translate("MainWindow", "分组密码"))
+        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.fenzumima),
+                                               _translate("MainWindow", "分组密码"))
         self.RSA.setText(_translate("MainWindow", "RSA"))
         self.ECC.setText(_translate("MainWindow", "ECC"))
-        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.gongyaomima), _translate("MainWindow", "公钥密码"))
+        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.gongyaomima),
+                                               _translate("MainWindow", "公钥密码"))
         self.MD5.setText(_translate("MainWindow", "MD5"))
-        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.danxiangsanlie), _translate("MainWindow", "单向散列函数"))
-        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.guanyu), _translate("MainWindow", "关于"))
+        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.danxiangsanlie),
+                                               _translate("MainWindow", "单向散列函数"))
+        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.guanyu),
+                                               _translate("MainWindow", "关于"))
         self.input_label.setText(_translate("MainWindow", "请输入密钥："))
         self.ie_key_tool_button.setText(_translate("MainWindow", "..."))
         self.plaintext_label.setText(_translate("MainWindow", "明文："))
@@ -815,7 +824,8 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.encrypt_button_2.setText(_translate("MainWindow", "加密"))
         self.arrow_right_2.setText(_translate("MainWindow", "-------->>"))
         self.current_cipher_label.setText(_translate("MainWindow", "DES"))
-        self.switch_mode_with_key_tabwidget.setTabText(self.switch_mode_with_key_tabwidget.indexOf(self.str_tab), _translate("MainWindow", "字符串加解密"))
+        self.switch_mode_with_key_tabwidget.setTabText(self.switch_mode_with_key_tabwidget.indexOf(self.str_tab),
+                                                       _translate("MainWindow", "字符串加解密"))
         self.check_key_3.setText(_translate("MainWindow", "显示密钥"))
         self.ie_key_tool_button_3.setText(_translate("MainWindow", "..."))
         self.input_label_3.setText(_translate("MainWindow", "请输入密钥："))
@@ -830,7 +840,8 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.import_file_button.setText(_translate("MainWindow", "..."))
         self.save_to_label.setText(_translate("MainWindow", "保存至："))
         self.path_button.setText(_translate("MainWindow", "..."))
-        self.switch_mode_with_key_tabwidget.setTabText(self.switch_mode_with_key_tabwidget.indexOf(self.file_tab), _translate("MainWindow", "文件加解密"))
+        self.switch_mode_with_key_tabwidget.setTabText(self.switch_mode_with_key_tabwidget.indexOf(self.file_tab),
+                                                       _translate("MainWindow", "文件加解密"))
         self.plaintext_label_4.setText(_translate("MainWindow", "明文："))
         self.import_plaintext_button_4.setText(_translate("MainWindow", "导入"))
         self.decrypt_button_6.setText(_translate("MainWindow", "解密"))
@@ -842,7 +853,8 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.current_cipher_label_3.setText(_translate("MainWindow", "RSA"))
         self.generate_keypair_button.setText(_translate("MainWindow", "生成密钥对"))
         self.export_keypair_toolButton.setText(_translate("MainWindow", "..."))
-        self.switch_mode_without_key_tabwidget.setTabText(self.switch_mode_without_key_tabwidget.indexOf(self.str_tab_3), _translate("MainWindow", "字符串加解密"))
+        self.switch_mode_without_key_tabwidget.setTabText(
+            self.switch_mode_without_key_tabwidget.indexOf(self.str_tab_3), _translate("MainWindow", "字符串加解密"))
         self.encrypt_button_7.setText(_translate("MainWindow", "加密"))
         self.input_filename_label_5.setText(_translate("MainWindow", "导入文件："))
         self.import_file_button_3.setText(_translate("MainWindow", "..."))
@@ -856,7 +868,8 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.what_algorithm_2.setText(_translate("MainWindow", "RC4"))
         self.generate_keypair_button_2.setText(_translate("MainWindow", "生成密钥对"))
         self.export_keypair_toolButton_2.setText(_translate("MainWindow", "..."))
-        self.switch_mode_without_key_tabwidget.setTabText(self.switch_mode_without_key_tabwidget.indexOf(self.file_tab_3), _translate("MainWindow", "文件加解密"))
+        self.switch_mode_without_key_tabwidget.setTabText(
+            self.switch_mode_without_key_tabwidget.indexOf(self.file_tab_3), _translate("MainWindow", "文件加解密"))
         self.daoruwenjian_label.setText(_translate("MainWindow", "导入文件："))
         self.import_file_toolbox.setText(_translate("MainWindow", "..."))
         self.md5_label.setText(_translate("MainWindow", "MD5："))
