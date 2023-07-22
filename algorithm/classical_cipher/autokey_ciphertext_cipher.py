@@ -51,7 +51,6 @@ def weiji(plain, kkkkey):
             keytext = keytext + chr(ord(matrix[t][x]))
     return keytext
 
-
 def weijijiemi(miwen, kkkkey):
     len1 = len(miwen)
     len2 = len(kkkkey)
@@ -95,14 +94,12 @@ def weijijiemi(miwen, kkkkey):
                     break
     return pptext
 
-
 def encrypt(ppplain, kkkey):
     len1 = len(ppplain)
     len2 = len(kkkey)
     key = kkkey + ppplain[0:len1 - len2]
     miwen = weiji(ppplain, key)
     return miwen
-
 
 def decrypt(ppplain, kkkey):
     len1 = len(ppplain)
@@ -119,12 +116,10 @@ def decrypt(ppplain, kkkey):
     plaintext = plaintext + mmm
     return plaintext
 
-
 def main():
     # 示例：
     print(encrypt("anautokeycipherprovidedesalongkeyword", "cap"))
     print(decrypt("cnpugoexmmmnjmgwvfkzrzlhwdpgnryregspz", "cap"))
-
 
 if __name__ == "__main__":
     main()

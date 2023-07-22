@@ -73,22 +73,22 @@ python3 start.py
 
 ## 目录结构描述
 
-.\
-├── algorithm 密码算法实现\
-│ ├── block_cipher\
-│ │ └── aes\
-│ ├── classical_cipher\
-│ ├── hash_algorithm\
-│ ├── public_cipher\
-│ │ ├── ecc\
-│ │ └── rsa\
-│ └── stream_cipher\
-│ └── ca\
-├── assets QSS 配置\
-│ ├── icons\
-│ ├── python\
-│ └── qss\
-├── event GUI 事件绑定\
+.
+├── algorithm 密码算法实现
+│ ├── block_cipher
+│ │ └── aes
+│ ├── classical_cipher
+│ ├── hash_algorithm
+│ ├── public_cipher
+│ │ ├── ecc
+│ │ └── rsa
+│ └── stream_cipher
+│ └── ca
+├── assets QSS 配置
+│ ├── icons
+│ ├── python
+│ └── qss
+├── event GUI 事件绑定
 └── ui GUI 界面定义
 
 ## 版本内容更新
@@ -99,7 +99,7 @@ python3 start.py
 
 ## 声明
 
-公开使用该代码请注明作者 Kaoso
+公开使用该代码请注明作者 morsuning
 
 ## 协议
 

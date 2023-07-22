@@ -1,6 +1,5 @@
 #! /usr/bin/env python
 # -*- coding:UTF-8 -*-
-
 # 将字母A-Z转化成0-26的数
 def str2ascii2mirr26(str):
     if len(str) == 1:
@@ -11,7 +10,6 @@ def str2ascii2mirr26(str):
             tmpstr.append(ord(str[i]) - 65)
         return tmpstr
 
-
 # 将0-26的数转化为字母A-Z
 def mirr262str(str):
     tmpstr = ""
@@ -19,13 +17,11 @@ def mirr262str(str):
         tmpstr += chr(i + 65)
     return tmpstr
 
-
 # 转化为大写
 def strupper(str):
     s = ""
     s += str
     return s.upper()
-
 
 # 使得密钥长度和明文一致
 def expendkey(key, length):
@@ -41,7 +37,6 @@ def expendkey(key, length):
         else:
             return key
 
-
 # 加密
 def encrypt(plaintext, key):
     plaintext = strupper(plaintext)
@@ -52,7 +47,6 @@ def encrypt(plaintext, key):
         tmpciphertext.append(((str2ascii2mirr26(Key[index]) + str2ascii2mirr26(item)) % 26))
     return mirr262str(tmpciphertext)
 
-
 # 解密
 def decrypt(ciphertext, key):
     tmpkey = strupper(key)
@@ -61,7 +55,6 @@ def decrypt(ciphertext, key):
     for index, item in enumerate(ciphertext):
         tmpplaintext.append(((str2ascii2mirr26(item) - str2ascii2mirr26(Key[index])) % 26))
     return mirr262str(tmpplaintext)
-
 
 # 实验主流程
 def main():
@@ -80,7 +73,6 @@ def main():
     else:
         print("已退出")
     print("实验结束")
-
 
 if __name__ == "__main__":
     main()

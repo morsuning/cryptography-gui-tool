@@ -1,6 +1,5 @@
 import collections
 
-
 def encrypt(pla, key):
     pla = pla.lower()
     key = key.lower()
@@ -59,7 +58,6 @@ def decrypt(cip, key):
             s = table[a][b]
             pla.append(s)
     j = 0
-
     for i in range(0, len(pla), len(cip_res)):
         # f.write("秘钥：" + key_res[j] + " ")
         # print(key_res[j])
@@ -69,9 +67,7 @@ def decrypt(cip, key):
             break
         # f.write('\n')
         j = j + 1
-
     return flag
-
 
 def main():
     # 只能有英文
@@ -81,7 +77,6 @@ def main():
     print(encrypt(pla, key))
     cip = input("请输入需要解密的密文：")
     print(decrypt(cip, key))
-
 
 if __name__ == '__main__':
     main()

@@ -8,14 +8,12 @@ def msgToChunks(msg, key):
         chunks.append(msg[i:i + len(key)])
     return chunks
 
-
 def transpose(chunks, order):
     result = ''
     for x in chunks:
         for pos in order:
             result += x[pos]
     return result.replace(' ', '')
-
 
 def keyToEncrptyOrder(key):
     order = [0] * len(key)
@@ -25,7 +23,6 @@ def keyToEncrptyOrder(key):
     # print(order)
     return order
 
-
 def keyToDecrptyOrder(key):
     order = [0] * len(key)
     sorted_key = ''.join(sorted(key))
@@ -34,20 +31,17 @@ def keyToDecrptyOrder(key):
     # print(order)
     return order
 
-
 def encrypt(msg, key):
     msg = msg.replace(' ', '')
     chunks = msgToChunks(msg, key)
     order = keyToEncrptyOrder(key)
     return transpose(chunks, order)
 
-
 def decrypt(msg, key):
     msg = msg.replace(' ', '')
     chunks = msgToChunks(msg, key)
     order = keyToDecrptyOrder(key)
     return transpose(chunks, order)
-
 
 def test():
     print(encrypt('get the ball', '34152'))

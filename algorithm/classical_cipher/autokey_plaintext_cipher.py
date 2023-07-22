@@ -33,7 +33,6 @@ def encrypt(plainText, key):
         cipherText += x
     return cipherText
 
-
 def decrypt(cipherText, key):
     alphabet = [chr(65 + x) for x in range(26)]
     cipherTable = []
@@ -42,7 +41,6 @@ def decrypt(cipherText, key):
         row = alphabet[count1:] + alphabet[:count1]
         cipherTable.append(row)
         count1 += 1
-
     keyList = [x.upper() for x in key]
     cipherTextList = [x.upper() for x in cipherText]
     cipherTextList.reverse()
@@ -65,14 +63,12 @@ def decrypt(cipherText, key):
         plainText += x
     return plainText
 
-
 def main():
     plaintext = "hello"
     key = "eii"
     ciphertext = encrypt(plaintext, key)
     print(ciphertext)
     print(decrypt(ciphertext, key))
-
 
 if __name__ == "__main__":
     main()

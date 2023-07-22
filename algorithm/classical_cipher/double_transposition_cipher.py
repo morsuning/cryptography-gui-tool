@@ -1,4 +1,4 @@
-def zhihuan(plaintttext, kkkkey):  # 此为一次置换，不是两次
+def double_transposition(plaintttext, kkkkey):  # 此为一次置换，不是两次
     plaintext = plaintttext
     key = kkkkey
     lienum = len(key)
@@ -40,9 +40,7 @@ def zhihuan(plaintttext, kkkkey):  # 此为一次置换，不是两次
     xxxxxxxxxx = ''
     for i in range(len(keymrx)):  # 打印输出加密
         xxxxxxxxxx = xxxxxxxxxx + str(keymrx[i])
-
     return xxxxxxxxxx
-
 
 def jiemi(keytext, key):  # 此为一次解密，不是两次
     plaintext = keytext
@@ -87,12 +85,10 @@ def jiemi(keytext, key):  # 此为一次解密，不是两次
 
     return tttttt
 
-
 def encrypt(mingwen, key1, key2):
-    xxx = zhihuan(mingwen, key1)
-    yyy = zhihuan(xxx, key2)
+    xxx = double_transposition(mingwen, key1)
+    yyy = double_transposition(xxx, key2)
     return yyy
-
 
 def decrypt(miwem, key2, key1):
     xxx = jiemi(miwem, key2)
@@ -107,14 +103,11 @@ def decrypt(miwem, key2, key1):
     yyy = jiemi(xxxx, key1)
     return yyy.replace('0', '')
 
-
 def main():
-    # 示例演示的时候，要先加密再加密。不然对应关系不对
     plaintext = "encryptionalgorithms"
     key = 'dbac'
     print(encrypt("encryptionalgorithms", "dbaasdfc", "abcd"))
     print(decrypt("yatio0gmni0r0en0tlcohprs", "abcd", "dbaasdfc"))
-
 
 if __name__ == "__main__":
     main()
