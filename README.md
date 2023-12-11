@@ -2,7 +2,9 @@
 
 ## 项目简介
 
-一个带有 GUI 界面的密码学工具
+一个带有 GUI 界面的密码学工具，可使用密钥对字符串和文件进行加密
+
+未做任何性能优化，加密大于1MB文件会造成界面长时间卡顿
 
 ## 功能特性
 
@@ -58,17 +60,35 @@
 
 ## 环境依赖
 
-见 requirement.txt , 由 pip freeze 释出
+仅有PyQt5，见 requirement.txt , 由 pip freeze 释出
 
 ## 部署步骤
 
-使用 virtualenv 创建 Python 环境
+建议使用 venv 创建 Python 环境，在项目目录下，依次执行
+
+```shell
+# 1. 创建虚拟环境
+python -m venv .env
+
+# 2. 激活虚拟环境
+# cmd
+./.env/Scripts/activate.bat
+
+# powshell
+./.env/Scripts/Activate.ps1
+
+# linux or MacOS
+source ./.env/Scripts/activate
+```
 
 在创建好的 Python 环境中，依次运行
 
 ```bash
+# 1. 安装依赖
 pip install -r requirements.txt
-python3 start.py
+
+# 2. 启动程序
+python3 main.py
 ```
 
 ## 目录结构描述
@@ -96,6 +116,8 @@ python3 start.py
 1.0 更新文档
 
 1.1 更新代码规范
+
+1.2 更新PyQt5版本；去除QSS
 
 ## 声明
 

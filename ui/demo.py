@@ -18,8 +18,8 @@ class UiMainWindow(QtWidgets.QMainWindow):
 
     def __init__(self, main_window):
         super().__init__()
-        self.qss_style = qss_reader.QssReader.read_qss('./assets/qss/darkstyle.qss')
-        main_window.setStyleSheet(self.qss_style)
+        # self.qss_style = qss_reader.QssReader.read_qss('./assets/qss/darkstyle.qss')
+        # main_window.setStyleSheet(self.qss_style)
         self.setup_ui(main_window)
 
     def setup_ui(self, main_window):
