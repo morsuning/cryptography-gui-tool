@@ -93,6 +93,7 @@ python3 main.py
 
 ## 目录结构描述
 
+```
 .
 ├── algorithm 密码算法实现
 │ ├── block_cipher
@@ -110,6 +111,7 @@ python3 main.py
 │ └── qss
 ├── event GUI 事件绑定
 └── ui GUI 界面定义
+```
 
 ## 版本内容更新
 
