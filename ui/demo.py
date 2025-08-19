@@ -11,7 +11,6 @@ from PyQt5.QtCore import QRegExp
 from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtWidgets import QLineEdit, QMenu
 
-from assets.python import qss_reader
 
 
 class UiMainWindow(QtWidgets.QMainWindow):
@@ -27,7 +26,11 @@ class UiMainWindow(QtWidgets.QMainWindow):
         main_window.resize(812, 600)
         main_window.setFixedSize(main_window.width(), main_window.height())
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("./assets/icons/PentestBox.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(
+            QtGui.QPixmap("./assets/icons/PentestBox.ico"),
+            QtGui.QIcon.Normal,
+            QtGui.QIcon.Off,
+        )
         main_window.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(main_window)
         self.centralwidget.setObjectName("centralwidget")
@@ -57,97 +60,100 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.danbiaotidai.setObjectName("danbiaotidai")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.danbiaotidai)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.kaisa = QtWidgets.QPushButton(self.danbiaotidai)
-        self.kaisa.setCheckable(True)
-        self.kaisa.setChecked(False)
-        self.kaisa.setDefault(True)
-        self.kaisa.setFlat(True)
-        self.kaisa.setObjectName("kaisa")
+        # NOTE: The following object names have been changed from Pinyin to English
+        # This file is auto-generated, and these changes would ideally be made in the .ui file
+        # and then regenerated. This direct edit is a workaround for environment limitations.
+        self.caesar_button = QtWidgets.QPushButton(self.danbiaotidai)
+        self.caesar_button.setCheckable(True)
+        self.caesar_button.setChecked(False)
+        self.caesar_button.setDefault(True)
+        self.caesar_button.setFlat(True)
+        self.caesar_button.setObjectName("caesar_button")
         self.button_group = QtWidgets.QButtonGroup(main_window)
         self.button_group.setObjectName("button_group")
-        self.button_group.addButton(self.kaisa)
-        self.verticalLayout_4.addWidget(self.kaisa)
-        self.guanjianzi = QtWidgets.QPushButton(self.danbiaotidai)
-        self.guanjianzi.setCheckable(True)
-        self.guanjianzi.setFlat(True)
-        self.guanjianzi.setObjectName("guanjianzi")
-        self.button_group.addButton(self.guanjianzi)
-        self.verticalLayout_4.addWidget(self.guanjianzi)
-        self.fangshe = QtWidgets.QPushButton(self.danbiaotidai)
-        self.fangshe.setCheckable(True)
-        self.fangshe.setFlat(True)
-        self.fangshe.setObjectName("fangshe")
-        self.button_group.addButton(self.fangshe)
-        self.verticalLayout_4.addWidget(self.fangshe)
-        self.duobian = QtWidgets.QPushButton(self.danbiaotidai)
-        self.duobian.setCheckable(True)
-        self.duobian.setFlat(True)
-        self.duobian.setObjectName("duobian")
-        self.button_group.addButton(self.duobian)
-        self.verticalLayout_4.addWidget(self.duobian)
+        self.button_group.addButton(self.caesar_button)
+        self.verticalLayout_4.addWidget(self.caesar_button)
+        self.keyword_button = QtWidgets.QPushButton(self.danbiaotidai)
+        self.keyword_button.setCheckable(True)
+        self.keyword_button.setFlat(True)
+        self.keyword_button.setObjectName("keyword_button")
+        self.button_group.addButton(self.keyword_button)
+        self.verticalLayout_4.addWidget(self.keyword_button)
+        self.affine_button = QtWidgets.QPushButton(self.danbiaotidai)
+        self.affine_button.setCheckable(True)
+        self.affine_button.setFlat(True)
+        self.affine_button.setObjectName("affine_button")
+        self.button_group.addButton(self.affine_button)
+        self.verticalLayout_4.addWidget(self.affine_button)
+        self.multilateral_button = QtWidgets.QPushButton(self.danbiaotidai)
+        self.multilateral_button.setCheckable(True)
+        self.multilateral_button.setFlat(True)
+        self.multilateral_button.setObjectName("multilateral_button")
+        self.button_group.addButton(self.multilateral_button)
+        self.verticalLayout_4.addWidget(self.multilateral_button)
         self.classical_cipher_switch.addItem(self.danbiaotidai, "")
         self.duobiaotidai = QtWidgets.QWidget()
         self.duobiaotidai.setGeometry(QtCore.QRect(0, 0, 125, 215))
         self.duobiaotidai.setObjectName("duobiaotidai")
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.duobiaotidai)
         self.verticalLayout_5.setObjectName("verticalLayout_5")
-        self.weijiniya = QtWidgets.QPushButton(self.duobiaotidai)
-        self.weijiniya.setCheckable(True)
-        self.weijiniya.setDefault(True)
-        self.weijiniya.setFlat(True)
-        self.weijiniya.setObjectName("weijiniya")
-        self.button_group.addButton(self.weijiniya)
-        self.verticalLayout_5.addWidget(self.weijiniya)
-        self.autokeymi = QtWidgets.QPushButton(self.duobiaotidai)
-        self.autokeymi.setCheckable(True)
-        self.autokeymi.setFlat(True)
-        self.autokeymi.setObjectName("autokeymi")
-        self.button_group.addButton(self.autokeymi)
-        self.verticalLayout_5.addWidget(self.autokeymi)
-        self.autokeyming = QtWidgets.QPushButton(self.duobiaotidai)
-        self.autokeyming.setCheckable(True)
-        self.autokeyming.setFlat(True)
-        self.autokeyming.setObjectName("autokeyming")
-        self.button_group.addButton(self.autokeyming)
-        self.verticalLayout_5.addWidget(self.autokeyming)
+        self.vigenere_button = QtWidgets.QPushButton(self.duobiaotidai)
+        self.vigenere_button.setCheckable(True)
+        self.vigenere_button.setDefault(True)
+        self.vigenere_button.setFlat(True)
+        self.vigenere_button.setObjectName("vigenere_button")
+        self.button_group.addButton(self.vigenere_button)
+        self.verticalLayout_5.addWidget(self.vigenere_button)
+        self.autokey_ciphertext_button = QtWidgets.QPushButton(self.duobiaotidai)
+        self.autokey_ciphertext_button.setCheckable(True)
+        self.autokey_ciphertext_button.setFlat(True)
+        self.autokey_ciphertext_button.setObjectName("autokey_ciphertext_button")
+        self.button_group.addButton(self.autokey_ciphertext_button)
+        self.verticalLayout_5.addWidget(self.autokey_ciphertext_button)
+        self.autokey_plaintext_button = QtWidgets.QPushButton(self.duobiaotidai)
+        self.autokey_plaintext_button.setCheckable(True)
+        self.autokey_plaintext_button.setFlat(True)
+        self.autokey_plaintext_button.setObjectName("autokey_plaintext_button")
+        self.button_group.addButton(self.autokey_plaintext_button)
+        self.verticalLayout_5.addWidget(self.autokey_plaintext_button)
         self.classical_cipher_switch.addItem(self.duobiaotidai, "")
         self.duotutidai = QtWidgets.QWidget()
         self.duotutidai.setGeometry(QtCore.QRect(0, 0, 125, 215))
         self.duotutidai.setObjectName("duotutidai")
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.duotutidai)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
-        self.boleifei = QtWidgets.QPushButton(self.duotutidai)
-        self.boleifei.setCheckable(True)
-        self.boleifei.setDefault(True)
-        self.boleifei.setFlat(True)
-        self.boleifei.setObjectName("boleifei")
-        self.button_group.addButton(self.boleifei)
-        self.verticalLayout_6.addWidget(self.boleifei)
+        self.playfair_button = QtWidgets.QPushButton(self.duotutidai)
+        self.playfair_button.setCheckable(True)
+        self.playfair_button.setDefault(True)
+        self.playfair_button.setFlat(True)
+        self.playfair_button.setObjectName("playfair_button")
+        self.button_group.addButton(self.playfair_button)
+        self.verticalLayout_6.addWidget(self.playfair_button)
         self.classical_cipher_switch.addItem(self.duotutidai, "")
         self.zhihuan_2 = QtWidgets.QWidget()
         self.zhihuan_2.setGeometry(QtCore.QRect(0, 0, 125, 215))
         self.zhihuan_2.setObjectName("zhihuan_2")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.zhihuan_2)
         self.verticalLayout_7.setObjectName("verticalLayout_7")
-        self.zhihuan = QtWidgets.QPushButton(self.zhihuan_2)
-        self.zhihuan.setCheckable(True)
-        self.zhihuan.setDefault(True)
-        self.zhihuan.setFlat(True)
-        self.zhihuan.setObjectName("zhihuan")
-        self.button_group.addButton(self.zhihuan)
-        self.verticalLayout_7.addWidget(self.zhihuan)
-        self.liezhihuan = QtWidgets.QPushButton(self.zhihuan_2)
-        self.liezhihuan.setCheckable(True)
-        self.liezhihuan.setFlat(True)
-        self.liezhihuan.setObjectName("liezhihuan")
-        self.button_group.addButton(self.liezhihuan)
-        self.verticalLayout_7.addWidget(self.liezhihuan)
-        self.shuangchongzhihuan = QtWidgets.QPushButton(self.zhihuan_2)
-        self.shuangchongzhihuan.setCheckable(True)
-        self.shuangchongzhihuan.setFlat(True)
-        self.shuangchongzhihuan.setObjectName("shuangchongzhihuan")
-        self.button_group.addButton(self.shuangchongzhihuan)
-        self.verticalLayout_7.addWidget(self.shuangchongzhihuan)
+        self.permutation_button = QtWidgets.QPushButton(self.zhihuan_2)
+        self.permutation_button.setCheckable(True)
+        self.permutation_button.setDefault(True)
+        self.permutation_button.setFlat(True)
+        self.permutation_button.setObjectName("permutation_button")
+        self.button_group.addButton(self.permutation_button)
+        self.verticalLayout_7.addWidget(self.permutation_button)
+        self.column_permutation_button = QtWidgets.QPushButton(self.zhihuan_2)
+        self.column_permutation_button.setCheckable(True)
+        self.column_permutation_button.setFlat(True)
+        self.column_permutation_button.setObjectName("column_permutation_button")
+        self.button_group.addButton(self.column_permutation_button)
+        self.verticalLayout_7.addWidget(self.column_permutation_button)
+        self.double_transposition_button = QtWidgets.QPushButton(self.zhihuan_2)
+        self.double_transposition_button.setCheckable(True)
+        self.double_transposition_button.setFlat(True)
+        self.double_transposition_button.setObjectName("double_transposition_button")
+        self.button_group.addButton(self.double_transposition_button)
+        self.verticalLayout_7.addWidget(self.double_transposition_button)
         self.classical_cipher_switch.addItem(self.zhihuan_2, "")
         self.verticalLayout.addWidget(self.classical_cipher_switch)
         self.cipher_switch_toolbox.addItem(self.gudianmima, "")
@@ -271,7 +277,9 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.plain_text_edit.setFrameShape(QtWidgets.QFrame.Box)
         self.plain_text_edit.setFrameShadow(QtWidgets.QFrame.Raised)
         self.plain_text_edit.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.plain_text_edit.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.plain_text_edit.setSizeAdjustPolicy(
+            QtWidgets.QAbstractScrollArea.AdjustToContents
+        )
         self.plain_text_edit.setLineWrapMode(QtWidgets.QPlainTextEdit.WidgetWidth)
         self.plain_text_edit.setObjectName("plain_text_edit")
         self.plaintext_label = QtWidgets.QLabel(self.cipher_with_key_frame)
@@ -280,7 +288,9 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.import_plaintext_button = QtWidgets.QPushButton(self.cipher_with_key_frame)
         self.import_plaintext_button.setGeometry(QtCore.QRect(190, 60, 61, 31))
         self.import_plaintext_button.setObjectName("import_plaintext_button")
-        self.export_ciphertext_button = QtWidgets.QPushButton(self.cipher_with_key_frame)
+        self.export_ciphertext_button = QtWidgets.QPushButton(
+            self.cipher_with_key_frame
+        )
         self.export_ciphertext_button.setGeometry(QtCore.QRect(510, 60, 61, 31))
         self.export_ciphertext_button.setObjectName("export_ciphertext_button")
         self.ciphertext_label = QtWidgets.QLabel(self.cipher_with_key_frame)
@@ -310,11 +320,15 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.switch_mode_with_key_tabwidget = QtWidgets.QTabWidget(self.single)
         self.switch_mode_with_key_tabwidget.setEnabled(True)
         self.switch_mode_with_key_tabwidget.setGeometry(QtCore.QRect(170, 10, 591, 541))
-        self.switch_mode_with_key_tabwidget.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+        self.switch_mode_with_key_tabwidget.setContextMenuPolicy(
+            QtCore.Qt.DefaultContextMenu
+        )
         self.switch_mode_with_key_tabwidget.setAcceptDrops(False)
         self.switch_mode_with_key_tabwidget.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.switch_mode_with_key_tabwidget.setTabShape(QtWidgets.QTabWidget.Triangular)
-        self.switch_mode_with_key_tabwidget.setObjectName("switch_mode_with_key_tabwidget")
+        self.switch_mode_with_key_tabwidget.setObjectName(
+            "switch_mode_with_key_tabwidget"
+        )
         self.str_tab = QtWidgets.QWidget()
         self.str_tab.setObjectName("str_tab")
         self.ie_key_tool_button_2 = QtWidgets.QToolButton(self.str_tab)
@@ -358,8 +372,12 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.plain_text_edit_2.setGeometry(QtCore.QRect(19, 90, 231, 381))
         self.plain_text_edit_2.setFrameShape(QtWidgets.QFrame.Box)
         self.plain_text_edit_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.plain_text_edit_2.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.plain_text_edit_2.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.plain_text_edit_2.setHorizontalScrollBarPolicy(
+            QtCore.Qt.ScrollBarAlwaysOff
+        )
+        self.plain_text_edit_2.setSizeAdjustPolicy(
+            QtWidgets.QAbstractScrollArea.AdjustToContents
+        )
         self.plain_text_edit_2.setLineWrapMode(QtWidgets.QPlainTextEdit.WidgetWidth)
         self.plain_text_edit_2.setObjectName("plain_text_edit_2")
         self.ciphertext_label_2 = QtWidgets.QLabel(self.str_tab)
@@ -485,12 +503,20 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.switch_mode_with_key_tabwidget.addTab(self.file_tab, "")
         self.switch_mode_without_key_tabwidget = QtWidgets.QTabWidget(self.single)
         self.switch_mode_without_key_tabwidget.setEnabled(True)
-        self.switch_mode_without_key_tabwidget.setGeometry(QtCore.QRect(170, 9, 591, 541))
-        self.switch_mode_without_key_tabwidget.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+        self.switch_mode_without_key_tabwidget.setGeometry(
+            QtCore.QRect(170, 9, 591, 541)
+        )
+        self.switch_mode_without_key_tabwidget.setContextMenuPolicy(
+            QtCore.Qt.DefaultContextMenu
+        )
         self.switch_mode_without_key_tabwidget.setAcceptDrops(False)
         self.switch_mode_without_key_tabwidget.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.switch_mode_without_key_tabwidget.setTabShape(QtWidgets.QTabWidget.Triangular)
-        self.switch_mode_without_key_tabwidget.setObjectName("switch_mode_without_key_tabwidget")
+        self.switch_mode_without_key_tabwidget.setTabShape(
+            QtWidgets.QTabWidget.Triangular
+        )
+        self.switch_mode_without_key_tabwidget.setObjectName(
+            "switch_mode_without_key_tabwidget"
+        )
         self.str_tab_3 = QtWidgets.QWidget()
         self.str_tab_3.setObjectName("str_tab_3")
         self.plaintext_label_4 = QtWidgets.QLabel(self.str_tab_3)
@@ -515,8 +541,12 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.plain_text_edit_4.setGeometry(QtCore.QRect(19, 90, 231, 381))
         self.plain_text_edit_4.setFrameShape(QtWidgets.QFrame.Box)
         self.plain_text_edit_4.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.plain_text_edit_4.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.plain_text_edit_4.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.plain_text_edit_4.setHorizontalScrollBarPolicy(
+            QtCore.Qt.ScrollBarAlwaysOff
+        )
+        self.plain_text_edit_4.setSizeAdjustPolicy(
+            QtWidgets.QAbstractScrollArea.AdjustToContents
+        )
         self.plain_text_edit_4.setLineWrapMode(QtWidgets.QPlainTextEdit.WidgetWidth)
         self.plain_text_edit_4.setObjectName("plain_text_edit_4")
         self.ciphertext_label_4 = QtWidgets.QLabel(self.str_tab_3)
@@ -720,17 +750,17 @@ class UiMainWindow(QtWidgets.QMainWindow):
 
         # QToolbox下拉菜单
         self.ie_menu_1 = QMenu()
-        self.ie_menu_1.addAction("导入", self.import_1)
-        self.ie_menu_1.addAction("导出", self.export_1)
+        self.ie_menu_1.addAction("导入", lambda: self.import_key_from_file(self.input_key))
+        self.ie_menu_1.addAction("导出", lambda: self.export_key_to_file(self.input_key))
         self.ie_menu_2 = QMenu()
-        self.ie_menu_2.addAction("导入", self.import_2)
-        self.ie_menu_2.addAction("导出", self.export_2)
+        self.ie_menu_2.addAction("导入", lambda: self.import_key_from_file(self.input_key_2))
+        self.ie_menu_2.addAction("导出", lambda: self.export_key_to_file(self.input_key_2))
         self.ie_menu_3 = QMenu()
-        self.ie_menu_3.addAction("导入", self.import_3)
-        self.ie_menu_3.addAction("导出", self.export_3)
+        self.ie_menu_3.addAction("导入", lambda: self.import_key_from_file(self.input_key_3))
+        self.ie_menu_3.addAction("导出", lambda: self.export_key_to_file(self.input_key_3))
         self.ie_menu_4 = QMenu()
-        self.ie_menu_4.addAction("导入公私钥", self.import_4)
-        self.ie_menu_4.addAction("导出私钥", self.export_4)
+        self.ie_menu_4.addAction("导入公私钥", self.import_key_pair)
+        self.ie_menu_4.addAction("导出私钥", self.export_key_pair)
 
         self.ie_key_tool_button.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
         self.ie_key_tool_button.setMenu(self.ie_menu_1)
@@ -741,10 +771,14 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.ie_key_tool_button_3.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
         self.ie_key_tool_button_3.setMenu(self.ie_menu_3)
 
-        self.export_keypair_toolButton.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
+        self.export_keypair_toolButton.setPopupMode(
+            QtWidgets.QToolButton.MenuButtonPopup
+        )
         self.export_keypair_toolButton.setMenu(self.ie_menu_4)
 
-        self.export_keypair_toolButton_2.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
+        self.export_keypair_toolButton_2.setPopupMode(
+            QtWidgets.QToolButton.MenuButtonPopup
+        )
         self.export_keypair_toolButton_2.setMenu(self.ie_menu_4)
 
         # 流密码+分组密码部件设置
@@ -766,40 +800,60 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.guanjianzi.setText(_translate("MainWindow", "关键字密码"))
         self.fangshe.setText(_translate("MainWindow", "仿射密码"))
         self.duobian.setText(_translate("MainWindow", "多边密码"))
-        self.classical_cipher_switch.setItemText(self.classical_cipher_switch.indexOf(self.danbiaotidai),
-                                                 _translate("MainWindow", "单表替代密码"))
+        self.classical_cipher_switch.setItemText(
+            self.classical_cipher_switch.indexOf(self.danbiaotidai),
+            _translate("MainWindow", "单表替代密码"),
+        )
         self.weijiniya.setText(_translate("MainWindow", "维吉尼亚密码"))
         self.autokeymi.setText(_translate("MainWindow", "Autokey密文"))
         self.autokeyming.setText(_translate("MainWindow", "Autokey明文"))
-        self.classical_cipher_switch.setItemText(self.classical_cipher_switch.indexOf(self.duobiaotidai),
-                                                 _translate("MainWindow", "多表替代密码"))
+        self.classical_cipher_switch.setItemText(
+            self.classical_cipher_switch.indexOf(self.duobiaotidai),
+            _translate("MainWindow", "多表替代密码"),
+        )
         self.boleifei.setText(_translate("MainWindow", "波雷费密码"))
-        self.classical_cipher_switch.setItemText(self.classical_cipher_switch.indexOf(self.duotutidai),
-                                                 _translate("MainWindow", "多图替代密码"))
+        self.classical_cipher_switch.setItemText(
+            self.classical_cipher_switch.indexOf(self.duotutidai),
+            _translate("MainWindow", "多图替代密码"),
+        )
         self.zhihuan.setText(_translate("MainWindow", "置换密码"))
         self.liezhihuan.setText(_translate("MainWindow", "列置换密码"))
         self.shuangchongzhihuan.setText(_translate("MainWindow", "双重置换密码"))
-        self.classical_cipher_switch.setItemText(self.classical_cipher_switch.indexOf(self.zhihuan_2),
-                                                 _translate("MainWindow", "置换密码"))
-        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.gudianmima),
-                                               _translate("MainWindow", "古典密码"))
+        self.classical_cipher_switch.setItemText(
+            self.classical_cipher_switch.indexOf(self.zhihuan_2),
+            _translate("MainWindow", "置换密码"),
+        )
+        self.cipher_switch_toolbox.setItemText(
+            self.cipher_switch_toolbox.indexOf(self.gudianmima),
+            _translate("MainWindow", "古典密码"),
+        )
         self.RC4.setText(_translate("MainWindow", "RC4"))
         self.CA.setText(_translate("MainWindow", "CA"))
-        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.liumima),
-                                               _translate("MainWindow", "流密码"))
+        self.cipher_switch_toolbox.setItemText(
+            self.cipher_switch_toolbox.indexOf(self.liumima),
+            _translate("MainWindow", "流密码"),
+        )
         self.DES.setText(_translate("MainWindow", "DES"))
         self.AES.setText(_translate("MainWindow", "AES"))
-        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.fenzumima),
-                                               _translate("MainWindow", "分组密码"))
+        self.cipher_switch_toolbox.setItemText(
+            self.cipher_switch_toolbox.indexOf(self.fenzumima),
+            _translate("MainWindow", "分组密码"),
+        )
         self.RSA.setText(_translate("MainWindow", "RSA"))
         self.ECC.setText(_translate("MainWindow", "ECC"))
-        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.gongyaomima),
-                                               _translate("MainWindow", "公钥密码"))
+        self.cipher_switch_toolbox.setItemText(
+            self.cipher_switch_toolbox.indexOf(self.gongyaomima),
+            _translate("MainWindow", "公钥密码"),
+        )
         self.MD5.setText(_translate("MainWindow", "MD5"))
-        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.danxiangsanlie),
-                                               _translate("MainWindow", "单向散列函数"))
-        self.cipher_switch_toolbox.setItemText(self.cipher_switch_toolbox.indexOf(self.guanyu),
-                                               _translate("MainWindow", "关于"))
+        self.cipher_switch_toolbox.setItemText(
+            self.cipher_switch_toolbox.indexOf(self.danxiangsanlie),
+            _translate("MainWindow", "单向散列函数"),
+        )
+        self.cipher_switch_toolbox.setItemText(
+            self.cipher_switch_toolbox.indexOf(self.guanyu),
+            _translate("MainWindow", "关于"),
+        )
         self.input_label.setText(_translate("MainWindow", "请输入密钥："))
         self.ie_key_tool_button.setText(_translate("MainWindow", "..."))
         self.plaintext_label.setText(_translate("MainWindow", "明文："))
@@ -824,8 +878,10 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.encrypt_button_2.setText(_translate("MainWindow", "加密"))
         self.arrow_right_2.setText(_translate("MainWindow", "-------->>"))
         self.current_cipher_label.setText(_translate("MainWindow", "DES"))
-        self.switch_mode_with_key_tabwidget.setTabText(self.switch_mode_with_key_tabwidget.indexOf(self.str_tab),
-                                                       _translate("MainWindow", "字符串加解密"))
+        self.switch_mode_with_key_tabwidget.setTabText(
+            self.switch_mode_with_key_tabwidget.indexOf(self.str_tab),
+            _translate("MainWindow", "字符串加解密"),
+        )
         self.check_key_3.setText(_translate("MainWindow", "显示密钥"))
         self.ie_key_tool_button_3.setText(_translate("MainWindow", "..."))
         self.input_label_3.setText(_translate("MainWindow", "请输入密钥："))
@@ -840,8 +896,10 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.import_file_button.setText(_translate("MainWindow", "..."))
         self.save_to_label.setText(_translate("MainWindow", "保存至："))
         self.path_button.setText(_translate("MainWindow", "..."))
-        self.switch_mode_with_key_tabwidget.setTabText(self.switch_mode_with_key_tabwidget.indexOf(self.file_tab),
-                                                       _translate("MainWindow", "文件加解密"))
+        self.switch_mode_with_key_tabwidget.setTabText(
+            self.switch_mode_with_key_tabwidget.indexOf(self.file_tab),
+            _translate("MainWindow", "文件加解密"),
+        )
         self.plaintext_label_4.setText(_translate("MainWindow", "明文："))
         self.import_plaintext_button_4.setText(_translate("MainWindow", "导入"))
         self.decrypt_button_6.setText(_translate("MainWindow", "解密"))
@@ -854,7 +912,9 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.generate_keypair_button.setText(_translate("MainWindow", "生成密钥对"))
         self.export_keypair_toolButton.setText(_translate("MainWindow", "..."))
         self.switch_mode_without_key_tabwidget.setTabText(
-            self.switch_mode_without_key_tabwidget.indexOf(self.str_tab_3), _translate("MainWindow", "字符串加解密"))
+            self.switch_mode_without_key_tabwidget.indexOf(self.str_tab_3),
+            _translate("MainWindow", "字符串加解密"),
+        )
         self.encrypt_button_7.setText(_translate("MainWindow", "加密"))
         self.input_filename_label_5.setText(_translate("MainWindow", "导入文件："))
         self.import_file_button_3.setText(_translate("MainWindow", "..."))
@@ -869,7 +929,9 @@ class UiMainWindow(QtWidgets.QMainWindow):
         self.generate_keypair_button_2.setText(_translate("MainWindow", "生成密钥对"))
         self.export_keypair_toolButton_2.setText(_translate("MainWindow", "..."))
         self.switch_mode_without_key_tabwidget.setTabText(
-            self.switch_mode_without_key_tabwidget.indexOf(self.file_tab_3), _translate("MainWindow", "文件加解密"))
+            self.switch_mode_without_key_tabwidget.indexOf(self.file_tab_3),
+            _translate("MainWindow", "文件加解密"),
+        )
         self.daoruwenjian_label.setText(_translate("MainWindow", "导入文件："))
         self.import_file_toolbox.setText(_translate("MainWindow", "..."))
         self.md5_label.setText(_translate("MainWindow", "MD5："))

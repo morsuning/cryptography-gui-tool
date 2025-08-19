@@ -4,5 +4,5 @@ class QssReader:
 
     # @staticmethod
     def read_qss(style):
-        with open(style, 'r') as f:
+        with open(style, "r") as f:
             return f.read()

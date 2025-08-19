@@ -8,7 +8,7 @@ from algorithm.public_cipher.ecc import sm3
 # TODO 支持多种曲线
 # TODO 可以以PEM格式导入和导出密钥
 
-EllipticCurve = collections.namedtuple('EllipticCurve', 'name p a b g n h')
+EllipticCurve = collections.namedtuple("EllipticCurve", "name p a b g n h")
 # T=(p,a,b,g,n,h)。
 # （p为模 用来将曲线离散化如y^2=x^3+ax+b(mod p)此时称曲线在模p后的取值Fp为有限域
 # Fp中只有p（p为素数）个元素0,1,2 …… p-2,p-1；
@@ -37,41 +37,51 @@ curve = EllipticCurve(
     p=0xFFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFF,
     a=0xFFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFC,
     b=0x28E9FA9E9D9F5E344D5A9E4BCF6509A7F39789F515AB8F92DDBCBD414D940E93,
-    g=(0x32c4ae2c1f1981195f9904466a39c9948fe30bbff2660be1715a4589334c74c7,
-       0xbc3736a2f4f6779c59bdcee36b692153d0a9877cc62a474002df32e52139f0a0),
+    g=(
+        0x32C4AE2C1F1981195F9904466A39C9948FE30BBFF2660BE1715A4589334C74C7,
+        0xBC3736A2F4F6779C59BDCEE36B692153D0A9877CC62A474002DF32E52139F0A0,
+    ),
     n=0xFFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFF7203DF6B21C6052B53BBF40939D54123,
     h=1,
 )
 
 default_ecc_table = {
-    'n': 'FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFF7203DF6B21C6052B53BBF40939D54123',
-    'p': 'FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFF',
-    'g': '32c4ae2c1f1981195f9904466a39c9948fe30bbff2660be1715a4589334c74c7'
-         'bc3736a2f4f6779c59bdcee36b692153d0a9877cc62a474002df32e52139f0a0',
-    'a': 'FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFC',
-    'b': '28E9FA9E9D9F5E344D5A9E4BCF6509A7F39789F515AB8F92DDBCBD414D940E93',
+    "n": "FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFF7203DF6B21C6052B53BBF40939D54123",
+    "p": "FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFF",
+    "g": "32c4ae2c1f1981195f9904466a39c9948fe30bbff2660be1715a4589334c74c7"
+    "bc3736a2f4f6779c59bdcee36b692153d0a9877cc62a474002df32e52139f0a0",
+    "a": "FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFC",
+    "b": "28E9FA9E9D9F5E344D5A9E4BCF6509A7F39789F515AB8F92DDBCBD414D940E93",
 }
-standard_public_key = 'B9C9A6E04E9C91F7BA880429273747D7EF5DDEB0BB2FF6317EB00BEF331A83081A6994B8993F3F5D6EADDDB818' \
-                      '72266C87C018FB4162F5AF347B483E24620207'
-standard_private_key = '00B9AB0B828FF68872F21A837FC303668428DEA11DCD1B24429D0C99E24EED83D5'
+standard_public_key = (
+    "B9C9A6E04E9C91F7BA880429273747D7EF5DDEB0BB2FF6317EB00BEF331A83081A6994B8993F3F5D6EADDDB818"
+    "72266C87C018FB4162F5AF347B483E24620207"
+)
+standard_private_key = (
+    "00B9AB0B828FF68872F21A837FC303668428DEA11DCD1B24429D0C99E24EED83D5"
+)
 
 
 class EccCipher:
 
-    def __init__(self, private_key=standard_private_key, public_key=standard_public_key, ecc_table=default_ecc_table):
+    def __init__(
+        self,
+        private_key=standard_private_key,
+        public_key=standard_public_key,
+        ecc_table=default_ecc_table,
+    ):
         self.private_key = private_key
         self.public_key = public_key
-        self.para_len = len(ecc_table['n'])
+        self.para_len = len(ecc_table["n"])
         self.ecc_table = ecc_table
-        self.ecc_a3 = (
-                              int(ecc_table['a'], base=16) + 3) % int(ecc_table['p'], base=16)
+        self.ecc_a3 = (int(ecc_table["a"], base=16) + 3) % int(ecc_table["p"], base=16)
 
     def inverse_mod(self, k, p):
         """
         求k模p的逆元x(x满足(x * k) % p == 1)k必须非零，p必须是素数
         """
         if k == 0:
-            raise ZeroDivisionError('division by zero')
+            raise ZeroDivisionError("division by zero")
 
         if k < 0:
             # k ** -1 = p - (-k) ** -1  (mod p)
@@ -143,8 +153,7 @@ class EccCipher:
 
         x3 = m * m - x1 - x2
         y3 = y1 + m * (x3 - x1)
-        result = (x3 % curve.p,
-                  -y3 % curve.p)
+        result = (x3 % curve.p, -y3 % curve.p)
 
         assert self.is_on_curve(result)
         return result
@@ -195,39 +204,41 @@ class EccCipher:
         if l < self.para_len * 2:
             return None
         else:
-            x1 = int(point[0:self.para_len], 16)
-            y1 = int(point[self.para_len:len_2], 16)
+            x1 = int(point[0 : self.para_len], 16)
+            y1 = int(point[self.para_len : len_2], 16)
             if l == len_2:
                 z1 = 1
             else:
                 z1 = int(point[len_2:], 16)
 
-            T6 = (z1 * z1) % int(self.ecc_table['p'], base=16)
-            T2 = (y1 * y1) % int(self.ecc_table['p'], base=16)
-            T3 = (x1 + T6) % int(self.ecc_table['p'], base=16)
-            T4 = (x1 - T6) % int(self.ecc_table['p'], base=16)
-            T1 = (T3 * T4) % int(self.ecc_table['p'], base=16)
-            T3 = (y1 * z1) % int(self.ecc_table['p'], base=16)
-            T4 = (T2 * 8) % int(self.ecc_table['p'], base=16)
-            T5 = (x1 * T4) % int(self.ecc_table['p'], base=16)
-            T1 = (T1 * 3) % int(self.ecc_table['p'], base=16)
-            T6 = (T6 * T6) % int(self.ecc_table['p'], base=16)
-            T6 = (self.ecc_a3 * T6) % int(self.ecc_table['p'], base=16)
-            T1 = (T1 + T6) % int(self.ecc_table['p'], base=16)
-            z3 = (T3 + T3) % int(self.ecc_table['p'], base=16)
-            T3 = (T1 * T1) % int(self.ecc_table['p'], base=16)
-            T2 = (T2 * T4) % int(self.ecc_table['p'], base=16)
-            x3 = (T3 - T5) % int(self.ecc_table['p'], base=16)
+            T6 = (z1 * z1) % int(self.ecc_table["p"], base=16)
+            T2 = (y1 * y1) % int(self.ecc_table["p"], base=16)
+            T3 = (x1 + T6) % int(self.ecc_table["p"], base=16)
+            T4 = (x1 - T6) % int(self.ecc_table["p"], base=16)
+            T1 = (T3 * T4) % int(self.ecc_table["p"], base=16)
+            T3 = (y1 * z1) % int(self.ecc_table["p"], base=16)
+            T4 = (T2 * 8) % int(self.ecc_table["p"], base=16)
+            T5 = (x1 * T4) % int(self.ecc_table["p"], base=16)
+            T1 = (T1 * 3) % int(self.ecc_table["p"], base=16)
+            T6 = (T6 * T6) % int(self.ecc_table["p"], base=16)
+            T6 = (self.ecc_a3 * T6) % int(self.ecc_table["p"], base=16)
+            T1 = (T1 + T6) % int(self.ecc_table["p"], base=16)
+            z3 = (T3 + T3) % int(self.ecc_table["p"], base=16)
+            T3 = (T1 * T1) % int(self.ecc_table["p"], base=16)
+            T2 = (T2 * T4) % int(self.ecc_table["p"], base=16)
+            x3 = (T3 - T5) % int(self.ecc_table["p"], base=16)
 
             if (T5 % 2) == 1:
-                T4 = (T5 + ((T5 + int(self.ecc_table['p'], base=16)) >> 1) - T3) % int(self.ecc_table['p'], base=16)
+                T4 = (T5 + ((T5 + int(self.ecc_table["p"], base=16)) >> 1) - T3) % int(
+                    self.ecc_table["p"], base=16
+                )
             else:
-                T4 = (T5 + (T5 >> 1) - T3) % int(self.ecc_table['p'], base=16)
+                T4 = (T5 + (T5 >> 1) - T3) % int(self.ecc_table["p"], base=16)
 
-            T1 = (T1 * T4) % int(self.ecc_table['p'], base=16)
-            y3 = (T1 - T2) % int(self.ecc_table['p'], base=16)
+            T1 = (T1 * T4) % int(self.ecc_table["p"], base=16)
+            y3 = (T1 - T2) % int(self.ecc_table["p"], base=16)
 
-            form = '%%0%dx' % self.para_len
+            form = "%%0%dx" % self.para_len
             form = form * 3
             return form % (x3, y3, z3)
 
@@ -239,51 +250,53 @@ class EccCipher:
         if (l1 < len_2) or (l2 < len_2):
             return None
         else:
-            X1 = int(P1[0:self.para_len], 16)
-            Y1 = int(P1[self.para_len:len_2], 16)
+            X1 = int(P1[0 : self.para_len], 16)
+            Y1 = int(P1[self.para_len : len_2], 16)
             if l1 == len_2:
                 Z1 = 1
             else:
                 Z1 = int(P1[len_2:], 16)
-            x2 = int(P2[0:self.para_len], 16)
-            y2 = int(P2[self.para_len:len_2], 16)
+            x2 = int(P2[0 : self.para_len], 16)
+            y2 = int(P2[self.para_len : len_2], 16)
 
-            T1 = (Z1 * Z1) % int(self.ecc_table['p'], base=16)
-            T2 = (y2 * Z1) % int(self.ecc_table['p'], base=16)
-            T3 = (x2 * T1) % int(self.ecc_table['p'], base=16)
-            T1 = (T1 * T2) % int(self.ecc_table['p'], base=16)
-            T2 = (T3 - X1) % int(self.ecc_table['p'], base=16)
-            T3 = (T3 + X1) % int(self.ecc_table['p'], base=16)
-            T4 = (T2 * T2) % int(self.ecc_table['p'], base=16)
-            T1 = (T1 - Y1) % int(self.ecc_table['p'], base=16)
-            Z3 = (Z1 * T2) % int(self.ecc_table['p'], base=16)
-            T2 = (T2 * T4) % int(self.ecc_table['p'], base=16)
-            T3 = (T3 * T4) % int(self.ecc_table['p'], base=16)
-            T5 = (T1 * T1) % int(self.ecc_table['p'], base=16)
-            T4 = (X1 * T4) % int(self.ecc_table['p'], base=16)
-            X3 = (T5 - T3) % int(self.ecc_table['p'], base=16)
-            T2 = (Y1 * T2) % int(self.ecc_table['p'], base=16)
-            T3 = (T4 - X3) % int(self.ecc_table['p'], base=16)
-            T1 = (T1 * T3) % int(self.ecc_table['p'], base=16)
-            Y3 = (T1 - T2) % int(self.ecc_table['p'], base=16)
-            form = '%%0%dx' % self.para_len
+            T1 = (Z1 * Z1) % int(self.ecc_table["p"], base=16)
+            T2 = (y2 * Z1) % int(self.ecc_table["p"], base=16)
+            T3 = (x2 * T1) % int(self.ecc_table["p"], base=16)
+            T1 = (T1 * T2) % int(self.ecc_table["p"], base=16)
+            T2 = (T3 - X1) % int(self.ecc_table["p"], base=16)
+            T3 = (T3 + X1) % int(self.ecc_table["p"], base=16)
+            T4 = (T2 * T2) % int(self.ecc_table["p"], base=16)
+            T1 = (T1 - Y1) % int(self.ecc_table["p"], base=16)
+            Z3 = (Z1 * T2) % int(self.ecc_table["p"], base=16)
+            T2 = (T2 * T4) % int(self.ecc_table["p"], base=16)
+            T3 = (T3 * T4) % int(self.ecc_table["p"], base=16)
+            T5 = (T1 * T1) % int(self.ecc_table["p"], base=16)
+            T4 = (X1 * T4) % int(self.ecc_table["p"], base=16)
+            X3 = (T5 - T3) % int(self.ecc_table["p"], base=16)
+            T2 = (Y1 * T2) % int(self.ecc_table["p"], base=16)
+            T3 = (T4 - X3) % int(self.ecc_table["p"], base=16)
+            T1 = (T1 * T3) % int(self.ecc_table["p"], base=16)
+            Y3 = (T1 - T2) % int(self.ecc_table["p"], base=16)
+            form = "%%0%dx" % self.para_len
             form = form * 3
             return form % (X3, Y3, Z3)
 
     def _convert_jacb_to_nor(self, point):
         """Jacobian加重射影坐标转换成仿射坐标"""
         len_2 = 2 * self.para_len
-        x = int(point[0:self.para_len], 16)
-        y = int(point[self.para_len:len_2], 16)
+        x = int(point[0 : self.para_len], 16)
+        y = int(point[self.para_len : len_2], 16)
         z = int(point[len_2:], 16)
-        z_inv = pow(z, int(self.ecc_table['p'], base=16) - 2, int(self.ecc_table['p'], base=16))
-        z_invSquar = (z_inv * z_inv) % int(self.ecc_table['p'], base=16)
-        z_invQube = (z_invSquar * z_inv) % int(self.ecc_table['p'], base=16)
-        x_new = (x * z_invSquar) % int(self.ecc_table['p'], base=16)
-        y_new = (y * z_invQube) % int(self.ecc_table['p'], base=16)
-        z_new = (z * z_inv) % int(self.ecc_table['p'], base=16)
+        z_inv = pow(
+            z, int(self.ecc_table["p"], base=16) - 2, int(self.ecc_table["p"], base=16)
+        )
+        z_invSquar = (z_inv * z_inv) % int(self.ecc_table["p"], base=16)
+        z_invQube = (z_invSquar * z_inv) % int(self.ecc_table["p"], base=16)
+        x_new = (x * z_invSquar) % int(self.ecc_table["p"], base=16)
+        y_new = (y * z_invQube) % int(self.ecc_table["p"], base=16)
+        z_new = (z * z_inv) % int(self.ecc_table["p"], base=16)
         if z_new == 1:
-            form = '%%0%dx' % self.para_len
+            form = "%%0%dx" % self.para_len
             form = form * 2
             return form % (x_new, y_new)
         else:
@@ -291,10 +304,10 @@ class EccCipher:
 
     def _kg(self, k, point):  # kP运算
         # 末尾加字符1,表示映射到z轴
-        point = '%s%s' % (point, '1')
-        mask_str = '8'
+        point = "%s%s" % (point, "1")
+        mask_str = "8"
         for i in range(self.para_len - 1):
-            mask_str += '0'
+            mask_str += "0"
         mask = int(mask_str, 16)
         temp = point
         flag = False
@@ -314,21 +327,19 @@ class EccCipher:
         # 加密函数，data消息(bytes)
         msg = data.hex()  # 消息转化为16进制字符串
         k = func.random_hex(self.para_len)
-        c1 = self._kg(int(k, 16), self.ecc_table['g'])
+        c1 = self._kg(int(k, 16), self.ecc_table["g"])
         xy = self._kg(int(k, 16), self.public_key)
-        x2 = xy[0:self.para_len]
-        y2 = xy[self.para_len:2 * self.para_len]
+        x2 = xy[0 : self.para_len]
+        y2 = xy[self.para_len : 2 * self.para_len]
         ml = len(msg)
-        t = sm3.sm3_kdf(xy.encode('utf8'), ml / 2)
+        t = sm3.sm3_kdf(xy.encode("utf8"), ml / 2)
         if int(t, 16) == 0:
             return None
         else:
-            form = '%%0%dx' % ml
+            form = "%%0%dx" % ml
             c2 = form % (int(msg, 16) ^ int(t, 16))
-            c3 = sm3.sm3_hash([
-                i for i in bytes.fromhex('%s%s%s' % (x2, msg, y2))
-            ])
-            return bytes.fromhex('%s%s%s' % (c1, c3, c2))
+            c3 = sm3.sm3_hash([i for i in bytes.fromhex("%s%s%s" % (x2, msg, y2))])
+            return bytes.fromhex("%s%s%s" % (c1, c3, c2))
 
     def decrypt(self, data):
         # 解密函数，data密文（bytes）
@@ -339,23 +350,21 @@ class EccCipher:
         c3 = data[len_2:len_3]
         c2 = data[len_3:]
         xy = self._kg(int(self.private_key, 16), c1)
-        x2 = xy[0:self.para_len]
-        y2 = xy[self.para_len:len_2]
+        x2 = xy[0 : self.para_len]
+        y2 = xy[self.para_len : len_2]
         cl = len(c2)
-        t = sm3.sm3_kdf(xy.encode('utf8'), cl / 2)
+        t = sm3.sm3_kdf(xy.encode("utf8"), cl / 2)
         if int(t, 16) == 0:
             return None
         else:
-            form = '%%0%dx' % cl
+            form = "%%0%dx" % cl
             M = form % (int(c2, 16) ^ int(t, 16))
-            u = sm3.sm3_hash([
-                i for i in bytes.fromhex('%s%s%s' % (x2, M, y2))
-            ])
+            u = sm3.sm3_hash([i for i in bytes.fromhex("%s%s%s" % (x2, M, y2))])
             return bytes.fromhex(M)
 
 
 def main():
-    print('Curve:', curve.name)
+    print("Curve:", curve.name)
     c = EccCipher()
     private_key, public_key = c.make_key_pair()
 
@@ -365,12 +374,12 @@ def main():
 
     print("加密字符串测试:")
     plain_text = input("请输入要加密的字符串(utf-8字符均可):\n")
-    cipher_text = c.encrypt(plain_text.encode('utf-8'))
+    cipher_text = c.encrypt(plain_text.encode("utf-8"))
     print("加密后的密文是:", cipher_text)
     print("解密后的结果是:\n", c.decrypt(cipher_text).decode("utf-8"))
 
     print("加密文件测试:")
-    with open("test.rar", 'rb') as f:
+    with open("test.rar", "rb") as f:
         cc = c.encrypt(f.read())
         print("加密后的文件:\n", cc)
     print("解密后的文件:(应为rar格式)")
@@ -389,9 +398,9 @@ def main():
     s2 = c.scalar_multiply(bob_private_key, alice_public_key)
     assert s1 == s2
 
-    print('Shared secret in Alice: (0x{:x}, 0x{:x})'.format(*s1))
-    print('Shared secret in Bob: (0x{:x}, 0x{:x})'.format(*s2))
+    print("Shared secret in Alice: (0x{:x}, 0x{:x})".format(*s1))
+    print("Shared secret in Bob: (0x{:x}, 0x{:x})".format(*s2))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

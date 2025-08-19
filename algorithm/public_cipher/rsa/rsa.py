@@ -6,8 +6,8 @@ flag = False
 
 # ===========================================
 def Mod_1(x, n):
-    '''取模负1的算法:计算x2= x^-1 (mod n)的值，
-r = gcd(a, b) = ia + jb, x与n是互素数'''
+    """取模负1的算法:计算x2= x^-1 (mod n)的值，
+    r = gcd(a, b) = ia + jb, x与n是互素数"""
     x0 = x
     y0 = n
     x1 = 0
@@ -28,14 +28,14 @@ r = gcd(a, b) = ia + jb, x与n是互素数'''
 
 # ===========================================
 def Fast_Mod(a, p, m):
-    '''快速取模指数算法:计算 (a ^ p) % m 的值，可用pow()代替'''
+    """快速取模指数算法:计算 (a ^ p) % m 的值，可用pow()代替"""
     a, p, m = int(a), int(p), int(m)
-    if (p == 0):
+    if p == 0:
         return 1
     r = a % m
     k = 1
-    while (p > 1):
-        if ((p & 1) != 0):
+    while p > 1:
+        if (p & 1) != 0:
             k = (k * r) % m
         r = (r * r) % m
         p >>= 1
@@ -44,19 +44,44 @@ def Fast_Mod(a, p, m):
 
 # ===========================================
 def randint(n):
-    '''random是伪随机数，需要更高安全的随机数产生，
-所以使用os.urandom()或者SystmeRandom模块，
-生成n字节的随机数（8位/字节）,返回16进制转为10进制整数返回'''
+    """random是伪随机数，需要更高安全的随机数产生，
+    所以使用os.urandom()或者SystmeRandom模块，
+    生成n字节的随机数（8位/字节）,返回16进制转为10进制整数返回"""
     randomdata = urandom(n)
     return int(binascii.hexlify(randomdata), 16)
 
 
 # ===========================================
 def primality_testing_1(n):
-    '''测试一，小素数测试，用100以内的小素数检测随机数x，
-可以很大概率排除不是素数,#创建有25个素数的元组'''
-    Sushubiao = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41
-                 , 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97)
+    """测试一，小素数测试，用100以内的小素数检测随机数x，
+    可以很大概率排除不是素数,#创建有25个素数的元组"""
+    Sushubiao = (
+        2,
+        3,
+        5,
+        7,
+        11,
+        13,
+        17,
+        19,
+        23,
+        29,
+        31,
+        37,
+        41,
+        43,
+        47,
+        53,
+        59,
+        61,
+        67,
+        71,
+        73,
+        79,
+        83,
+        89,
+        97,
+    )
     for y in Sushubiao:
         if n % y == 0:
             return False
@@ -65,7 +90,7 @@ def primality_testing_1(n):
 
 # ===========================================
 def primality_testing_2(n, k):
-    '''测试二,用miller_rabin算法对n进行k次检测'''
+    """测试二,用miller_rabin算法对n进行k次检测"""
     if n < 2:
         return False
     d = n - 1
@@ -120,10 +145,10 @@ def RSA():
         n = p * q  # n值公开
         OrLa = (p - 1) * (q - 1)  # 欧拉函数
         e = 524289
-        '''e取e=524289时，其二进制为10000000000000000001'''
+        """e取e=524289时，其二进制为10000000000000000001"""
         d = Mod_1(e, OrLa)
         # print('公钥为（{0},{1}）;\n私钥为（{2},{3}）'.format(n, e, n, d))
-        message = 'theKingOfNight'
+        message = "theKingOfNight"
         # 从标准输入输出流接收数据，数字化再加解密
         message = list(map(ord, message))
         # print('ciphertext数字化:', message)
@@ -147,7 +172,7 @@ def RSA():
 
 # ===================================================
 def encrypt(e, n, message):
-    temp = ''
+    temp = ""
     # message = input("输入需要加密的密文")
     # 从标准输入输出流接收数据，数字化再加解密
     message = list(map(ord, message))
@@ -156,7 +181,7 @@ def encrypt(e, n, message):
     for x in message:
         ciphertext.append(pow(x, e, n))
     for x in ciphertext:
-        temp = temp + ',' + str(x)
+        temp = temp + "," + str(x)
 
     temp = temp[1:]
     # print(temp)
@@ -166,9 +191,9 @@ def encrypt(e, n, message):
 def decrypt(d, n, ciphertext):
     message = []
     plaintext = []
-    temp = ''
+    temp = ""
 
-    message = ciphertext.split(',')
+    message = ciphertext.split(",")
     for x in message:
         plaintext.append(pow(int(x), d, n))
     # print('plaintext解密：', plaintext)
@@ -180,15 +205,15 @@ def decrypt(d, n, ciphertext):
 
 
 def encode_file(e, n, file_name, encrypted_file_name):
-    encrpt_file = 'encrpt'
+    encrpt_file = "encrpt"
     # file_name = input("输入当前路径的文件")
     # 文件后缀名检测
-    decrpt_file_name = file_name.split('.')[1]
+    decrpt_file_name = file_name.split(".")[1]
     #
     message = []
     plaintext = []
     ciphertext = []
-    with open(file_name, 'rb') as origin_file:
+    with open(file_name, "rb") as origin_file:
         # TODO Wrong Here
         for x in origin_file.read():
             # print(int(x))
@@ -197,22 +222,22 @@ def encode_file(e, n, file_name, encrypted_file_name):
         # print(x)
         ciphertext.append(pow(int(x), e, n))
     # 写入加密文件
-    f = open(encrypted_file_name, 'w')
+    f = open(encrypted_file_name, "w")
     for x in ciphertext:
-        f.write(str(x) + '\r')
+        f.write(str(x) + "\r")
     f.close()
-    return encrpt_file + '.' + file_name.split('.')[1]
+    return encrpt_file + "." + file_name.split(".")[1]
 
 
-def decode_file(d, n, encode_file, decrypt_file_name=''):
+def decode_file(d, n, encode_file, decrypt_file_name=""):
     plaintext = []
-    decrpt_file = 'decrpt'
+    decrpt_file = "decrpt"
     # 文件后缀名检测
-    decrpt_file_name = encode_file.split('.')[1]
+    decrpt_file_name = encode_file.split(".")[1]
     with open(encode_file) as f:
         for x in f.readlines():
             plaintext.append(pow(int(x), d, n))
-    f = open(decrypt_file_name, 'wb')
+    f = open(decrypt_file_name, "wb")
     f.write(bytes(plaintext))
     f.close()
 
@@ -231,5 +256,5 @@ def main():
     # decode_file(d,n,decode_file())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

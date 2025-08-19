@@ -1,50 +1,96 @@
-'''
-Date: 2023-02-22 19:36:18
-LastEditors: morsuning@gmail.com
-LastEditTime: 2023-07-23 00:56:05
-'''
-dic = {1: 1, 3: 9, 5: 21, 7: 15, 9: 3, 11: 19, 15: 7, 17: 23, 19: 11, 21: 5, 23: 17, 25: 25}  # 模逆
-table_encrypt = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5,
-                 'g': 6, 'h': 7, 'i': 8, 'j': 9, 'k': 10, 'l': 11, 'm': 12,
-                 'n': 13, 'o': 14, 'p': 15, 'q': 16, 'r': 17, 's': 18, 't': 19,
-                 'u': 20, 'v': 21, 'w': 22, 'x': 23, 'y': 24, 'z': 25}
-table_decrypt = {0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e', 5: 'f', 6: 'g',
-                 7: 'h', 8: 'i', 9: 'j', 10: 'k', 11: 'l', 12: 'm', 13: 'n', 14: 'o', 15: 'p', 16: 'q', 17: 'r',
-                 18: 's', 19: 't', 20: 'u', 21: 'v', 22: 'w', 23: 'x', 24: 'y', 25: 'z'}
+"""
+Implementation of the Affine cipher.
 
-# 加密
-def encrypt(clear_content, key_a, key_b):
-    key_a = key_a % 26
-    key_b = key_b % 26
-    result = ""
-    for i in clear_content:
-        result += table_decrypt.get((key_a * (table_encrypt.get(i)) + key_b) % 26)
-    return result
+The Affine cipher is a monoalphabetic substitution cipher where each letter in
+an alphabet is mapped to its numeric equivalent, encrypted using a simple
+mathematical function, and converted back to a letter.
+"""
+import math
 
-# 解密
-def decrypt(cipher, key_a, key_b):
-    key_a = key_a % 26
-    key_b = key_b % 26
-    result = ""
-    for i in cipher:
-        result += table_decrypt.get((dic.get(key_a) * table_encrypt.get(i) - (dic.get(key_a) * key_b) % 26) % 26)
-    return result
 
-def filter_clear(clear):
-    result = ""
-    clear = clear.lower()
-    for i in clear:
-        if 97 <= ord(i) <= 122:
-            result += i
-    return result
+def egcd(a, b):
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, y, x = egcd(b % a, a)
+        return (g, x - (b // a) * y, y)
+
+def modInverse(a, m):
+    g, x, y = egcd(a, m)
+    if g != 1:
+        raise Exception('modular inverse does not exist')
+    else:
+        return x % m
+
+def encrypt(plaintext: str, key_a: int, key_b: int) -> str:
+    """
+    Encrypts a string using the Affine cipher.
+    E(x) = (ax + b) mod 26
+    """
+    if math.gcd(key_a, 26) != 1:
+        raise ValueError("key_a must be coprime with 26.")
+
+    result = []
+    for char in plaintext:
+        if "a" <= char <= "z":
+            offset = ord("a")
+            x = ord(char) - offset
+            encrypted_char_code = (key_a * x + key_b) % 26
+            result.append(chr(encrypted_char_code + offset))
+        elif "A" <= char <= "Z":
+            offset = ord("A")
+            x = ord(char) - offset
+            encrypted_char_code = (key_a * x + key_b) % 26
+            result.append(chr(encrypted_char_code + offset))
+        else:
+            result.append(char)
+    return "".join(result)
+
+
+def decrypt(ciphertext: str, key_a: int, key_b: int) -> str:
+    """
+    Decrypts a string using the Affine cipher.
+    D(y) = a^-1 * (y - b) mod 26
+    """
+    if math.gcd(key_a, 26) != 1:
+        raise ValueError("key_a must be coprime with 26.")
+
+    mod_inv_a = modInverse(key_a, 26)
+    result = []
+    for char in ciphertext:
+        if "a" <= char <= "z":
+            offset = ord("a")
+            y = ord(char) - offset
+            decrypted_char_code = (mod_inv_a * (y - key_b)) % 26
+            result.append(chr(decrypted_char_code + offset))
+        elif "A" <= char <= "Z":
+            offset = ord("A")
+            y = ord(char) - offset
+            decrypted_char_code = (mod_inv_a * (y - key_b)) % 26
+            result.append(chr(decrypted_char_code + offset))
+        else:
+            result.append(char)
+    return "".join(result)
+
 
 def main():
-    a = 25
-    b = 13
-    plaintext = "heljfowejklfg"
-    ciphertext = encrypt(plaintext, a, b)
-    print(ciphertext)
-    print(decrypt(ciphertext, a, b))
+    """Demonstrates the Affine cipher functions."""
+    a = 5
+    b = 8
+    plaintext = "Affine Cipher Test! 123."
 
-if __name__ == '__main__':
+    print(f"Plaintext: {plaintext}")
+
+    try:
+        ciphertext = encrypt(plaintext, a, b)
+        print(f"Ciphertext: {ciphertext}")
+
+        decrypted_text = decrypt(ciphertext, a, b)
+        print(f"Decrypted:  {decrypted_text}")
+
+        assert decrypted_text == plaintext
+    except ValueError as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
     main()

@@ -18,7 +18,7 @@ def double_transposition(plaintttext, kkkkey):  # 此为一次置换，不是两
                 matrix[x][y] = plaintext[t]
                 t = t + 1
             if t > plainnum:
-                matrix[x][y] = '+'
+                matrix[x][y] = "+"
     for x in range(lienum):  # 对密钥的字母大小进行排序
         for y in range(lienum):
             if x == y:
@@ -37,10 +37,11 @@ def double_transposition(plaintttext, kkkkey):  # 此为一次置换，不是两
             keymrx[t] = matrix[j][sortmrx[i] - 1]
             t = t + 1
     t = hangnum * lienum
-    xxxxxxxxxx = ''
+    xxxxxxxxxx = ""
     for i in range(len(keymrx)):  # 打印输出加密
         xxxxxxxxxx = xxxxxxxxxx + str(keymrx[i])
     return xxxxxxxxxx
+
 
 def jiemi(keytext, key):  # 此为一次解密，不是两次
     plaintext = keytext
@@ -75,7 +76,7 @@ def jiemi(keytext, key):  # 此为一次解密，不是两次
             t = t + 1
     # print('')
     # print("解密结果为：")
-    tttttt = ''
+    tttttt = ""
     for i in range(hangnum):  # 打印输出解密结果
         for j in range(lienum):
             tttttt = tttttt + str(nnnrix[i][j])
@@ -85,29 +86,33 @@ def jiemi(keytext, key):  # 此为一次解密，不是两次
 
     return tttttt
 
+
 def encrypt(mingwen, key1, key2):
     xxx = double_transposition(mingwen, key1)
     yyy = double_transposition(xxx, key2)
     return yyy
+
 
 def decrypt(miwem, key2, key1):
     xxx = jiemi(miwem, key2)
     t = 0
     lens = len(xxx)
     for i in range(lens):
-        if xxx[lens - 1 - i] == '0':
+        if xxx[lens - 1 - i] == "0":
             t = t + 1
         else:
             break
-    xxxx = xxx[0:lens - t]
+    xxxx = xxx[0 : lens - t]
     yyy = jiemi(xxxx, key1)
-    return yyy.replace('0', '')
+    return yyy.replace("0", "")
+
 
 def main():
     plaintext = "encryptionalgorithms"
-    key = 'dbac'
+    key = "dbac"
     print(encrypt("encryptionalgorithms", "dbaasdfc", "abcd"))
     print(decrypt("yatio0gmni0r0en0tlcohprs", "abcd", "dbaasdfc"))
+
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,6 @@
 import string
 
+
 def encrypt(plaintext, ci_key):
     plaintext = list(plaintext.lower())
     ciphertext = list(string.ascii_lowercase)
@@ -18,6 +19,7 @@ def encrypt(plaintext, ci_key):
             if i == all_letter[j]:
                 ciphertext.append(key[j])
     return "".join(list(ciphertext)), "".join(list(key))
+
 
 def decrypt(ciphertext, ci_key):
     str_ciphertext = list(string.ascii_lowercase)
@@ -38,6 +40,7 @@ def decrypt(ciphertext, ci_key):
                 plaintext.append(all_letter[j])
     return "".join(list(plaintext))
 
+
 def main():
     plaintext = input("请输入明文")
     ci_key = input("请输入密匙")
@@ -45,5 +48,6 @@ def main():
     plaintext = decrypt(ciphertext, ci_key)
     print("解密结果" + plaintext)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

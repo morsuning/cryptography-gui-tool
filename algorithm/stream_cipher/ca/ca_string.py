@@ -4,7 +4,7 @@ cell = "00010100"
 def encrypt(Plaintext, rule):
     if rule < 0 or rule > 255:
         return "rule超过范围"
-    Plaintext = Plaintext.encode('utf-8')
+    Plaintext = Plaintext.encode("utf-8")
     rule = bin(rule)[2:].zfill(8)
     key = [int(cell, 2)]
     for i in range(len(Plaintext)):
@@ -37,7 +37,7 @@ def decrypt(ciphertext, rule):
     blk = []
     i = 0
     while i + 2 <= len(ciphertext):
-        blk.append(int(ciphertext[i:i + 2], 16))
+        blk.append(int(ciphertext[i : i + 2], 16))
         i = i + 2
     ciphertext = blk
     key = [int(cell, 2)]

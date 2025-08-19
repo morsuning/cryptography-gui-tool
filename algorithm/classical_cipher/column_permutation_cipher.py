@@ -1,10 +1,12 @@
-'''
+"""
 Date: 2023-02-22 19:36:18
 LastEditors: morsuning@gmail.com
 LastEditTime: 2023-07-23 00:57:30
-'''
+"""
+
 #! /usr/bin/env python
 # -*- coding:UTF-8 -*-
+
 
 # 获得读取顺序，返回一个读取列号的列表
 def getOrder(key):
@@ -24,15 +26,18 @@ def getOrder(key):
                 result.append(j)
     return result
 
+
 # 输入列表和元素，返回列表中和该元素相等的元素的序号的列表
 def unique_index(L, e):
     return [i for (i, j) in enumerate(L) if j == e]
+
 
 # 向明文尾部填充字符e
 def padding(plaintext, m):
     while len(plaintext) % m != 0:
         plaintext += "e"
     return plaintext
+
 
 # 加密
 def encrypt(plaintext, key):
@@ -47,6 +52,7 @@ def encrypt(plaintext, key):
             ciphertext += Plaintext[i + excursion]
             excursion += m
     return ciphertext
+
 
 # 解密
 def decrypt(ciphertext, key):
@@ -63,19 +69,21 @@ def decrypt(ciphertext, key):
             plaintext += Ciphertext[i + j * n]
     return plaintext
 
+
 def main():
     plaintext = input("请输入要加密的密文：\n")
     key = input("请输入密钥：\n")
     ciphertext = encrypt(plaintext.replace(" ", ""), key)
     print("加密后的结果是(明文长模密钥长不为零则用e补充)：\n%s" % ciphertext)
     choice = input("请输入d解密：\n")
-    if choice == 'd':
+    if choice == "d":
         key = input("请输入密钥(如果密钥错误将解出错误的结果)：\n")
         plain = decrypt(ciphertext, key)
         print("原文是(省略所有空格)：\n%s" % plain)
     else:
         print("已退出")
     print("实验结束")
+
 
 if __name__ == "__main__":
     main()
