@@ -1,5 +1,3 @@
-#! /usr/bin/env python
-# -*- coding:UTF-8 -*-
 # 将字母A-Z转化成0-26的数
 def str2ascii2mirr26(str):
     if len(str) == 1:
@@ -72,7 +70,6 @@ def main():
         print("原文是(全部以小写形式给出)：\n%s" % (plain.lower()))
     else:
         print("已退出")
-    print("实验结束")
 
 if __name__ == "__main__":
     main()

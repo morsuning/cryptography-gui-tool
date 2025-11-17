@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 def md5(string):
     def encode(s):
         return ''.join([bin(ord(c)).replace('0b', '').zfill(8) for c in s])
@@ -18,8 +16,8 @@ def md5(string):
     # print(encrypt(plaintext).__len__())
     t = bintext.__len__() % 512
     # print(t)
-    houzhui = bin(bintext.__len__())[2:].zfill(64)
-    # print(houzhui)
+    suffix_bits = bin(bintext.__len__())[2:].zfill(64)
+    # 最终长度后缀（比特长度，64位）
     if t < 448:  # 补齐
         bintext = bintext + '1'
         for i in range(447 - t):
@@ -29,7 +27,7 @@ def md5(string):
         for i in range(959 - t):
             bintext = bintext + '0'
 
-    sectext = bintext + houzhui  # 最终的明文
+    sectext = bintext + suffix_bits  # 最终的明文（附加长度后缀）
     # print(sectext)
     # print(sectext.__len__())
     x = sectext.__len__() / 512
@@ -57,7 +55,7 @@ def md5(string):
     def I(x, y, z):
         return y ^ (x | (~z))
 
-    def yiwei(x, z):
+    def rotate_left(x, z):
         x = x & 0xffffffff
         y = bin(x).replace('0b', '')
         # print(y)
@@ -75,19 +73,19 @@ def md5(string):
             return int(t, 2)
 
     def FF(a, b, c, d, M, s, t):
-        a = b + yiwei((a + F(b, c, d) + M + t), s)
+        a = b + rotate_left((a + F(b, c, d) + M + t), s)
         return a & 0xffffffff
 
     def GG(a, b, c, d, M, s, t):
-        a = b + yiwei((a + G(b, c, d) + M + t), s)
+        a = b + rotate_left((a + G(b, c, d) + M + t), s)
         return a & 0xffffffff
 
     def HH(a, b, c, d, M, s, t):
-        a = b + yiwei((a + H(b, c, d) + M + t), s)
+        a = b + rotate_left((a + H(b, c, d) + M + t), s)
         return a & 0xffffffff
 
     def II(a, b, c, d, M, s, t):
-        a = b + yiwei((a + I(b, c, d) + M + t), s)
+        a = b + rotate_left((a + I(b, c, d) + M + t), s)
         return a & 0xffffffff
 
     for i in range(int(sectext.__len__() / 512)):
@@ -177,5 +175,5 @@ def md5(string):
 
 
 if __name__ == '__main__':
-    xxxx = md5('128778877')
-    print(xxxx)
+    digest = md5('128778877')
+    print(digest)

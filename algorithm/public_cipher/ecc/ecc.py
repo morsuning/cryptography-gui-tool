@@ -5,8 +5,8 @@ import random
 from algorithm.public_cipher.ecc import func
 from algorithm.public_cipher.ecc import sm3
 
-# TODO 支持多种曲线
-# TODO 可以以PEM格式导入和导出密钥
+# 待办：支持多种曲线
+# 待办：支持以PEM格式导入和导出密钥
 
 EllipticCurve = collections.namedtuple('EllipticCurve', 'name p a b g n h')
 # T=(p,a,b,g,n,h)。

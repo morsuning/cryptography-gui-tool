@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 def msgToChunks(msg, key):
     msg = msg.replace(' ', '')
     while len(msg) % len(key) != 0:

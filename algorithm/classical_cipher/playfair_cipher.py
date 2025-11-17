@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 import string
 
 def playfair(key, remaining, encrypting=True):

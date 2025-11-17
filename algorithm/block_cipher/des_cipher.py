@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 '''
 常量部分：
 IP置换表 逆IP置换表
@@ -357,7 +355,7 @@ class DESCipher:
             return tmp
 
     def new(self, key):
-        if self.inputhandle(key) == True:
+        if self.inputhandle(key):
             self.Key = key
         else:
             raise ValueError("密钥输入不符合规范,必须为8位,且为A-Za-z0-9及键盘符号的组合请重新输入")
@@ -396,7 +394,6 @@ class DESCipher:
             w.write(decry.strip("b'"))
         return self.decrypt_file_name
 
-
 def main():
     """Example"""
     des = DESCipher()
@@ -405,7 +402,6 @@ def main():
     print(encrypt_result)
     decrypt_result = des.decrypt_string(encrypt_result)
     print(decrypt_result)
-
 
 if __name__ == '__main__':
     main()

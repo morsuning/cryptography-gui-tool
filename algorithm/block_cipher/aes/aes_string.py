@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
 import string
-
 
 class AESE():
     def __init__(self, blk, key, Nr):
@@ -137,7 +135,6 @@ class AESE():
             else:
                 cText += xxl[2:]
         return cText
-
 
 class AESD():
     def __init__(self, blk, key, Nr):
@@ -280,18 +277,16 @@ class AESD():
 
 def StringToListN(string):
     s = [0 for x in range(16)]
-    l = len(string)
-    for x in range(l):
+    strLen = len(string)
+    for x in range(strLen):
         s[x] = int(ord(string[x]))
     return s
-
 
 def HexToInt(string):
     s = [0 for x in range(16)]
     for i in range(16):
         s[i] = int(string[2 * i:2 * i + 2], 16)
     return s
-
 
 def encrypt(plainText, skey):
     cText = ""
@@ -304,7 +299,6 @@ def encrypt(plainText, skey):
         a = AESE(blk, key, 10)
         cText = cText + a.AesEncrypt()
     return cText
-
 
 def decrypt(cText, skey):
     mText = ""

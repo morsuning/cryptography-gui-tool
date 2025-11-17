@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 class MD5:
 
     def __init__(self):
@@ -20,7 +17,7 @@ class MD5:
         D = 0x10325476
         bintext = plaintext
         t = bintext.__len__() % 512
-        houzhui = bin(bintext.__len__())[2:].zfill(64)
+        suffix_bits = bin(bintext.__len__())[2:].zfill(64)
         if t < 448:
             bintext = bintext + '1'
             for i in range(447 - t):
@@ -30,7 +27,7 @@ class MD5:
             for i in range(959 - t):
                 bintext = bintext + '0'
 
-        sectext = bintext + houzhui
+        sectext = bintext + suffix_bits
         x = sectext.__len__() / 512
         M = [[[0] * 1 for _ in range(16)] for _ in range(int(x))]
         M[0][0][0] = 1
@@ -54,7 +51,7 @@ class MD5:
         def I(x, y, z):
             return y ^ (x | (~z))
 
-        def yiwei(x, z):
+        def rotate_left(x, z):
             x = x & 0xffffffff
             y = bin(x).replace('0b', '')
             tt = y.__len__()
@@ -68,19 +65,19 @@ class MD5:
                 return int(t, 2)
 
         def FF(a, b, c, d, M, s, t):
-            a = b + yiwei((a + F(b, c, d) + M + t), s)
+            a = b + rotate_left((a + F(b, c, d) + M + t), s)
             return a & 0xffffffff
 
         def GG(a, b, c, d, M, s, t):
-            a = b + yiwei((a + G(b, c, d) + M + t), s)
+            a = b + rotate_left((a + G(b, c, d) + M + t), s)
             return a & 0xffffffff
 
         def HH(a, b, c, d, M, s, t):
-            a = b + yiwei((a + H(b, c, d) + M + t), s)
+            a = b + rotate_left((a + H(b, c, d) + M + t), s)
             return a & 0xffffffff
 
         def II(a, b, c, d, M, s, t):
-            a = b + yiwei((a + I(b, c, d) + M + t), s)
+            a = b + rotate_left((a + I(b, c, d) + M + t), s)
             return a & 0xffffffff
 
         for i in range(int(sectext.__len__() / 512)):
@@ -183,8 +180,8 @@ class MD5:
         # print(encrypt(plaintext).__len__())
         t = bintext.__len__() % 512
         # print(t)
-        houzhui = bin(bintext.__len__())[2:].zfill(64)
-        # print(houzhui)
+        suffix_bits = bin(bintext.__len__())[2:].zfill(64)
+        # 最终长度后缀（比特长度，64位）
         if t < 448:  # 补齐
             bintext = bintext + '1'
             for i in range(447 - t):
@@ -194,7 +191,7 @@ class MD5:
             for i in range(959 - t):
                 bintext = bintext + '0'
 
-        sectext = bintext + houzhui  # 最终的明文
+        sectext = bintext + suffix_bits  # 最终的明文
         x = sectext.__len__() / 512
         M = [[[0] * 1 for _ in range(16)] for _ in range(int(x))]
         M[0][0][0] = 1
@@ -218,7 +215,7 @@ class MD5:
         def I(x, y, z):
             return y ^ (x | (~z))
 
-        def yiwei(x, z):
+        def rotate_left(x, z):
             x = x & 0xffffffff
             y = bin(x).replace('0b', '')
             tt = y.__len__()
@@ -232,19 +229,19 @@ class MD5:
                 return int(t, 2)
 
         def FF(a, b, c, d, M, s, t):
-            a = b + yiwei((a + F(b, c, d) + M + t), s)
+            a = b + rotate_left((a + F(b, c, d) + M + t), s)
             return a & 0xffffffff
 
         def GG(a, b, c, d, M, s, t):
-            a = b + yiwei((a + G(b, c, d) + M + t), s)
+            a = b + rotate_left((a + G(b, c, d) + M + t), s)
             return a & 0xffffffff
 
         def HH(a, b, c, d, M, s, t):
-            a = b + yiwei((a + H(b, c, d) + M + t), s)
+            a = b + rotate_left((a + H(b, c, d) + M + t), s)
             return a & 0xffffffff
 
         def II(a, b, c, d, M, s, t):
-            a = b + yiwei((a + I(b, c, d) + M + t), s)
+            a = b + rotate_left((a + I(b, c, d) + M + t), s)
             return a & 0xffffffff
 
         for i in range(int(sectext.__len__() / 512)):

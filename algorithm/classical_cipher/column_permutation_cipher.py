@@ -1,11 +1,3 @@
-'''
-Date: 2023-02-22 19:36:18
-LastEditors: morsuning@gmail.com
-LastEditTime: 2023-07-23 00:57:30
-'''
-#! /usr/bin/env python
-# -*- coding:UTF-8 -*-
-
 # 获得读取顺序，返回一个读取列号的列表
 def getOrder(key):
     result = []
@@ -75,7 +67,6 @@ def main():
         print("原文是(省略所有空格)：\n%s" % plain)
     else:
         print("已退出")
-    print("实验结束")
 
 if __name__ == "__main__":
     main()
