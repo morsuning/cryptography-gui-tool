@@ -1,159 +1,212 @@
-# 密码学图形界面工具
+# 密码学图形界面工具（cryptography-gui-tool）
 
-## 概述
+英文版：[English README](README.md)
 
-一个带有图形界面的密码学工具，可以使用密钥对字符串和文件进行加密。
+> 没有进行性能优化，加密大于1MB的文件可能会导致界面长时间冻结。
 
-没有进行性能优化，加密大于1MB的文件可能会导致界面长时间冻结。
+## 简介
+
+- 一个基于 PyQt5 的图形化密码学工具，支持字符串与文件的加密、解密，以及 MD5 摘要。
+- 算法库与 GUI 解耦，`algorithm` 目录下的实现可单独作为库使用。
+- 当前版本未做性能优化，处理大文件时界面可能卡顿；建议用于演示与教学或小型数据。
 
 ## 功能特性
 
-- 实现了11种经典密码、2种流密码、2种分组密码、2种公钥密码和1种哈希算法。可以对字符串和文件进行加密和解密。
-- 包含使用PyQt实现的图形界面。
-- 密码学库与GUI代码分离，可以单独作为密码学库使用。
+- 覆盖 11 种经典密码、2 种流密码、2 种分组密码、2 种公钥密码、1 种哈希算法。
+- 同时支持“字符串模式”和“文件模式”的加/解密。
+- 提供密钥导入/导出、明文导入、密文导出、密钥显示切换、默认输出路径等实用功能。
 
-具体实现的密码如下：
+### 支持的算法与密钥要求
 
-### 经典密码（用于字符串加密和解密）
+经典密码（字符串）：
 
-1. **单字母替换密码：**
-   * 凯撒密码
-   * 关键词密码
-   * 仿射密码
-   * 多表密码
+- 凯撒（Caesar）：密钥为整数偏移量。
+- 关键词（Keyword）：密钥为字符串关键词。
+- 仿射（Affine）：密钥为两个整数 `a b`（用空格分隔），且 `a` 与 26 互素（不可为偶数或 13 的倍数）。
+- 多表（Multilateral）：密钥为字符串。
+- 维吉尼亚（Vigenere）：密钥为字符串。
+- 自动密钥·密文（Autokey Ciphertext）：密钥为字符串；推荐密钥长度大于明文长度。
+- 自动密钥·明文（Autokey Plaintext）：密钥为字符串。
+- 普莱菲尔（Playfair）：密钥为字符串。
+- 置换（Permutation）：密钥为字符串。
+- 列置换（Column Permutation）：密钥为字符串；加密前会去除明文中的空格。
+- 双重置换（Double-Transposition）：密钥为两个字符串，用一个空格分隔。
 
-2. **多字母替换密码：**
-   * 维吉尼亚密码
-   * 自动密钥密文
-   * 自动密钥明文
+流密码（字符串与文件）：
 
-3. **多字母组密码：**
-   * 普莱菲尔密码
+- RC4：密钥为字符串。
+- CA：密钥为整数，范围 `0-255`。
 
-4. **置换密码：**
-   * 置换密码
-   * 列置换密码
-   * 双重置换密码
+分组密码（字符串与文件）：
 
-### 流密码（用于字符串和文件的加密和解密）
+- DES-64：密钥长度需为 8 个字符。
+- AES-64：密钥长度需为 8 个字符（当前实现如此要求）。
 
-* RC4
-* CA
+公钥密码（字符串与文件）：
 
-### 分组密码（用于字符串和文件的加密和解密）
+- RSA：支持生成密钥对；公钥文件保存为 `rsa_public_key_<随机>.txt`（两行：`e` 与 `n`），私钥（`d`）显示在界面并可导出。
+- ECC：支持生成密钥对；公钥文件保存为 `ecc_public_key_<随机>.txt`（两行：椭圆曲线点 `x`、`y`），私钥显示在界面并可导出。
 
-* DES-64
-* AES-64
+哈希算法：
 
-### 公钥密码（可生成密钥对，对字符串和文件进行加密和解密）
+- MD5：支持对字符串或文件生成 MD5；同一时刻仅能选择其一。
 
-* RSA
-* ECC
+## 运行环境
 
-### 哈希算法（用于字符串和文件）
+- Python 3.x
+- 依赖见 `requirements.txt`：`pyqt5`、`pyqt5-qt5`、`pyqt5-sip`
 
-* MD5
+## 安装与启动
 
-## 环境依赖
-
-项目依赖列在 `requirements.txt` 中（PyQt5及相关包）。
-
-## 部署步骤
-
-建议使用 `venv` 创建Python环境。在项目目录中执行以下命令：
-
-```shell
-# 1. 创建虚拟环境
-python -m venv .env
-
-# 2. 激活虚拟环境
-# Windows (cmd)
-.\\.env\\Scripts\\activate.bat
-
-# Windows (PowerShell)
-.\\.env\\Scripts\\Activate.ps1
-
-# Linux 或 macOS
-source ./.env/bin/activate
-```
-
-在创建的Python环境中运行以下命令：
+推荐使用虚拟环境：
 
 ```bash
-# 1. 安装依赖
-pip install -r requirements.txt
+# 1) 创建虚拟环境
+python -m venv .env
 
-# 2. 启动程序
+# 2) 激活虚拟环境
+# Windows (cmd)
+.\.env\Scripts\activate.bat
+# Windows (PowerShell)
+.\.env\Scripts\Activate.ps1
+# Linux / macOS
+source ./.env/bin/activate
+
+# 3) 安装依赖并启动
+pip install -r requirements.txt
 python3 main.py
 ```
 
-## 使用 uv 安装依赖并运行（推荐）
-
-`uv` 是一个快速的Python包管理与执行工具。你可以选择使用 `uv` 管理虚拟环境与安装依赖，并运行本项目。
-
-### 安装 uv
+使用 `uv`（推荐）：
 
 ```bash
-# macOS（推荐）
+# 安装（macOS 推荐）
 brew install uv
-
-# 或通用安装脚本
+# 或通用脚本
 curl -LsSf https://astral.sh/uv/install.sh | sh
-```
 
-### 使用 uv 创建虚拟环境并安装依赖
-
-```bash
-# 在项目根目录创建并启用虚拟环境
+# 创建虚拟环境并安装依赖
 uv venv
 source .venv/bin/activate
-
-# 安装依赖（读取 requirements.txt）
 uv pip install -r requirements.txt
-```
 
-### 使用 uv 运行项目
-
-```bash
-# 直接运行 GUI 程序
+# 运行 GUI 程序（可不激活环境直接运行）
 uv run python main.py
 ```
 
-> 说明：若已通过 `uv pip install -r requirements.txt` 安装依赖，`uv run` 将复用当前虚拟环境；亦可在未激活环境的情况下使用 `uv run` 自动解析并运行。
+## 图形界面使用指南
 
-## 目录结构说明
+界面布局：
+
+- 左侧为算法分类切换（经典密码、流密码、分组密码、公钥密码、哈希、关于）。
+- 右侧包含“有密钥/字符串/文件”等页签和输入框、按钮、状态栏提示。
+
+通用操作：
+
+- 密钥显示：勾选“显示密钥”复选框可切换密钥明文显示与隐藏。
+- 明文导入：点击“导入明文”选择 UTF-8 文本文件，内容将填入对应文本框。
+- 密文导出：点击“导出密文”选择目标文件，密文将追加写入。
+- 文件输入：点击“导入文件”选择待处理文件。
+- 输出路径：点击“保存至”选择输出文件；未设置时，程序将自动在输入文件路径后追加后缀并保存：加密为 `.encrypted`，解密为 `.decrypted`。
+- 状态信息：操作完成或失败时，底部状态栏会显示提示信息。
+
+示例流程：
+
+- 字符串加密/解密（以 RC4 为例）
+  1. 左侧选择“流密码”→“RC4”。
+  2. 在密钥输入框填入字符串密钥。
+  3. 在明文框输入内容，点击“加密”；密文将显示在右侧框。
+  4. 将密文粘贴至密文框，填入相同密钥，点击“解密”可还原明文。
+- 文件加密/解密（以 DES 为例）
+  1. 左侧选择“分组密码”→“DES”。
+  2. 填入 8 位密钥。
+  3. 点击“导入文件”选择输入文件；可选“保存至”指定输出。
+  4. 点击“加密”或“解密”；未设置输出时将自动以 `.encrypted` 或 `.decrypted` 后缀保存。
+- 公钥密码（以 RSA 为例）
+  1. 左侧选择“公钥密码”→“RSA”。
+  2. 点击“生成密钥对”；公钥写入 `rsa_public_key_<随机>.txt`，私钥显示在界面。
+  3. 字符串模式：在明文框输入内容，点击“加密”；解密时在密文框粘贴密文，保持私钥文本框有值即可。
+  4. 文件模式：同理选择输入/输出路径后执行加/解密。
+- MD5
+  1. 在“哈希”页签下，输入字符串或选择文件（同一时刻仅能选其一）。
+  2. 点击“生成 MD5”，结果显示在界面。
+
+注意事项：
+
+- 大文件性能：加密/解密 >1MB 的文件可能导致界面长时间冻结。
+- 文本编码：明文文件需为 UTF-8 文本；导入非文本或其他编码将提示失败。
+- 密钥规范：
+  - DES/AES：8 位密钥。
+  - CA：整数 0-255。
+  - 仿射：`a b` 且 `a` 与 26 互素。
+  - 双重置换：两个密钥以空格分隔。
+
+## 目录结构
 
 ```
 .
-├── algorithm  密码算法实现
-│ ├── block_cipher
-│ │ └── aes
-│ ├── classical_cipher
-│ ├── hash_algorithm
-│ ├── public_cipher
-│ │ ├── ecc
-│ │ └── rsa
-│ └── stream_cipher
-│ └── ca
-├── assets QSS 配置
-│ ├── icons
-│ ├── python
-│ └── qss
-├── event  GUI 事件绑定
-└── ui  GUI 界面定义
+├── algorithm            # 密码算法实现（可单独作为库使用）
+│   ├── block_cipher
+│   │   └── aes
+│   ├── classical_cipher
+│   ├── hash_algorithm
+│   ├── public_cipher
+│   │   ├── ecc
+│   │   └── rsa
+│   └── stream_cipher
+│       └── ca
+├── assets               # 图标与（可选）QSS 样式
+│   ├── icons
+│   ├── python
+│   └── qss
+├── event                # GUI 事件绑定与操作流程
+├── ui                   # GUI 界面定义
+├── test_file            # 示例/测试文件
+├── main.py              # 程序入口
+├── requirements.txt     # 依赖清单
+└── pyproject.toml       # 项目配置（可选）
 ```
 
-## 版本更新
+## 开发者用法（不依赖 GUI）
 
-1.0 文档更新
+你可以直接调用 `algorithm` 目录下的实现：
 
-1.1 代码标准更新
+```python
+# RC4 字符串加/解密
+from algorithm.stream_cipher.rc4_cipher import RC4
+cipher = RC4()
+c = cipher.encrypt('key', 'plaintext')
+p = cipher.decrypt('key', c)
 
-1.2 PyQt5版本更新；移除QSS；测试文件移至单独文件夹
+# DES 文件加/解密
+from algorithm.block_cipher import des_cipher
+desc = des_cipher.DESCipher()
+desc.new('12345678')
+desc.encrypt_file('input.txt', 'output.encrypted')
+desc.decrypt_file('output.encrypted', 'output.decrypted')
 
-## 免责声明
+# AES 字符串加/解密
+from algorithm.block_cipher.aes import aes_string
+c = aes_string.encrypt('hello world', '12345678')
+p = aes_string.decrypt(c, '12345678')
 
-如果你公开使用此代码，请注明作者 morsuning。
+# MD5
+from algorithm.hash_algorithm import md5_string, md5_file
+md5_s = md5_string.md5('hello')
+md5_f = md5_file.md5('path/to/file')
+```
+
+## 常见问题（FAQ）
+
+- 加密/解密无响应：确认已选择算法分类，并正确填写密钥与输入内容/文件路径。
+- 密钥长度错误：分组密码（DES/AES）需 8 位密钥，否则状态栏会提示错误。
+- CA 密钥范围：必须是整数且在 0-255 之间。
+- 文本导入失败：确保导入的是 UTF-8 文本文件；二进制文件请使用“文件模式”。
+
+## 版本与致谢
+
+- 版本记录：见提交历史与仓库说明。
+- 若公开使用此项目，请注明作者：morsuning。
 
 ## 许可证
 
